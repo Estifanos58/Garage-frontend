@@ -1,35 +1,41 @@
 import React from 'react'
 import classes from "./footer.module.css"
+import { CiLocationOn } from "react-icons/ci";
+import { TfiEmail } from "react-icons/tfi";
+import { IoCallOutline } from "react-icons/io5";
+
 function Footer() {
   return (
     <div className={classes.container}>
         <div className={classes.content}>
-            <div className={classes.upper}>
-                <div className={classes.location}>
-                    <div className={classes.icon}>
-
+            <div className={classes.wrapper}>
+                <div className={classes.upper}>
+                    <div className={classes.contain}>
+                        <div className={classes.icon}>
+                            < CiLocationOn />
+                        </div>
+                        <div className={classes.text}>
+                            <p>54B Tailstoi Towen 5238 MIT,</p>
+                            <p>La city, LA 9223384</p>
+                        </div>
                     </div>
-                    <div className={classes.text}>
-                        <p>54B Tailstoi Towen 5238 MIT,</p>
-                        <p>La city, LA 9223384</p>
+                    <div className={classes.contain}>
+                        <div className={classes.icon}>
+                            <TfiEmail />
+                        </div>
+                        <div className={classes.text}>
+                            <p>Email us:</p>
+                            <p>contact@gmail.com</p>
+                        </div>
                     </div>
-                </div>
-                <div className={classes.email}>
-                    <div className={classes.icon}>
-
-                    </div>
-                    <div className={classes.text}>
-                        <p>Email us:</p>
-                        <p>contact@gmail.com</p>
-                    </div>
-                </div>
-                <div className={classes.call}>
-                    <div className={classes.icon}>
-
-                    </div>
-                    <div className={classes.text}>
-                        <p>Call us on:</p>
-                        <p>+1800 456 7890</p>
+                    <div className={classes.contain}>
+                        <div className={classes.icon}>
+                            <IoCallOutline />
+                        </div>
+                        <div className={classes.text}>
+                            <p>Call us on:</p>
+                            <p>+1800 456 7890</p>
+                        </div>
                     </div>
                 </div>
             </div>
