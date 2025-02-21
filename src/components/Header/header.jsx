@@ -47,8 +47,8 @@ function Header() {
                 Enjoy the Beso while we fix your car
             </div>
             <div className={classes.middle}>
-                <p>Monday &middot; Saturday 7:00AM &middot; 6:00PM</p>
-                <p>Welcome Admin</p>
+                <p className={classes.schedule}>Monday &middot; Saturday 7:00AM &middot; 6:00PM</p>
+                <p className={classes.name}>Welcome Admin</p>
             </div>
         </div>
         <div className={classes.lower}>
