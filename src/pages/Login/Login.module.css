@@ -50,3 +50,18 @@
     color: #fff;
     background-color: rgba(227, 14, 14, 0.902);
 }
+
+@media (max-width: 760px) {
+    .control {
+        width: 100%;
+    }
+    .control input {
+        width: 100%;
+    }
+    .password {
+        width: 100%;
+    }
+    .btn button {
+        width: 100%;
+    }
+}
