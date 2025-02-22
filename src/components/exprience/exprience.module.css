@@ -72,3 +72,52 @@
     color: #fff;
     border: none;
 }
+@media (max-width:1024px) {
+    .exprience {
+        width: 80%;
+        height: 70vh;
+        gap: 40px;
+    }
+    .left img {
+        width: 150px;
+        height: 300px;
+    }
+    .right h2 {
+        font-size: 1.5rem;
+    }
+    .right p {
+        font-size: 12px;
+        line-height: 15px;
+    }
+    .right button {
+        width: 130px;
+        height: 35px;
+    }
+}
+
+@media (max-width:768px) {
+    .exprience {
+        width: 90%;
+        height: 70vh;
+        gap: 40px;
+    }
+    .left img {
+        width: 120px;
+        /* height: 240px; */
+    }
+    .line {
+        width: 60px;
+        margin-bottom: 8px;
+    }
+    .right h2 {
+        font-size: 1rem;
+    }
+    .right p {
+        font-size: 10px;
+        line-height: 13px;
+    }
+    .right button {
+        width: 120px;
+        height: 30px;
+    }
+}
