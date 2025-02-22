@@ -61,3 +61,28 @@
     font-size: .5rem;
     font-weight: lighter;
 }
+
+@media (max-width: 768px) {
+    .container {
+        background-size: 100vw 230px;
+        height: 40vh;
+    }
+    .content h3 {
+        font-size: 1.5rem;
+        width: 60%;
+    }
+    .content p {
+        font-size: .7rem;
+    }
+    .video {
+        width: 30%;
+    }
+    .video p {
+        width: 30px;
+        height: 25px;
+        font-size: 16px;
+    }
+    .video h5 {
+        font-size: .4rem;
+    }
+}
