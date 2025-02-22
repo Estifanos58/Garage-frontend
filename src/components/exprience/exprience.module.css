@@ -12,6 +12,7 @@
     display: flex;
     gap: 7px;
     position: relative;
+    z-index: -10;
 }
 .left img {
     width: 170px;

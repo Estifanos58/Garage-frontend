@@ -3,6 +3,7 @@ import Banner from '../../components/Banner/Banner'
 import banner_1 from"../../assets/banner_1.png"
 import Exprience from '../../components/exprience/exprience';
 import Service from '../../components/Our_service/Service';
+import Quality from '../../components/Quality/Quality';
 
 function Home() { 
     const header_1 = "Tuneup Your Car to Next Level";
@@ -13,6 +14,7 @@ function Home() {
         <Banner  banner={banner_1} header={header_1}/>
         <Exprience />
         <Service />
+        <Quality />
     </div>
   )
 }
