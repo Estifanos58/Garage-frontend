@@ -59,7 +59,7 @@ function Header() {
             <div className={classes.right}>
                     <ul>
                         <li><Link to={"/"}>Home</Link></li>
-                        <li><Link to={"/about_us"}>About Us</Link></li>
+                        <li><Link to={"/about"}>About Us</Link></li>
                         <li><Link to={"/services"}>Services</Link></li>
                         <li><Link to={"/contact"}>Contact Us</Link></li>
                         <li><Link to={"/admin"}>ADMIN</Link></li>
@@ -84,7 +84,7 @@ function Header() {
                             </div>
                         </div>
                     <li> <Link to={"/"}>Home</Link></li>
-                    <li><Link to={"/about_us"}>About Us</Link></li>
+                    <li><Link to={"/about"}>About Us</Link></li>
                     <li><Link to={"/services"}>Services</Link></li>
                     <li><Link to={"/contact"}>Contact Us</Link></li>
                     <li><Link to={"/admin"}>ADMIN</Link></li>
