@@ -3,6 +3,7 @@ import classes from "./header.module.css"
 import logo from "../../assets/abeGarageLogo.png"
 import { IoReorderThreeOutline } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
+import { Link } from 'react-router-dom';
 
 function Header() {
     const [width, setWidth] = useState(window.innerWidth);
@@ -57,11 +58,11 @@ function Header() {
             </div>
             <div className={classes.right}>
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Services</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">ADMIN</a></li>
+                        <li><Link to={"/"}>Home</Link></li>
+                        <li><Link to={"/about_us"}>About Us</Link></li>
+                        <li><Link to={"/services"}>Services</Link></li>
+                        <li><Link to={"/contact"}>Contact Us</Link></li>
+                        <li><Link to={"/admin"}>ADMIN</Link></li>
                         <li><p className={classes.line}></p></li>
                     </ul>
                     <button>LOG OUT</button>
@@ -82,11 +83,11 @@ function Header() {
                                 
                             </div>
                         </div>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">ADMIN</a></li>
+                    <li> <Link to={"/"}>Home</Link></li>
+                    <li><Link to={"/about_us"}>About Us</Link></li>
+                    <li><Link to={"/services"}>Services</Link></li>
+                    <li><Link to={"/contact"}>Contact Us</Link></li>
+                    <li><Link to={"/admin"}>ADMIN</Link></li>
                     <button>LOGOUT</button>
                 </ul>
             </div>
