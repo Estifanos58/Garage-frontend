@@ -6,6 +6,7 @@ import Exprience from '../../components/exprience/exprience';
 import Service from '../../components/Our_service/Service';
 import Quality from '../../components/Quality/Quality';
 import Information from '../../components/Information/Information';
+import Schedule from '../../components/Schedule/Schedule';
 
 function Home() { 
     const header_1 = "Tuneup Your Car to Next Level";
@@ -19,6 +20,7 @@ function Home() {
         <Quality />
         <Information />
         <Banner banner={banner_2} header={header_2}/>
+        <Schedule />
     </div>
   )
 }
