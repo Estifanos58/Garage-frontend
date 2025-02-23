@@ -1,16 +1,19 @@
 .Information {
-    /* background-color: black; */
-    /* width: 100vw; */
-    display: flex;
     margin: 50px auto;
-    justify-content: center;
-    font-family: Arial, Helvetica, sans-serif;
-    gap: 20px;
 }
+.center {
+    width: 70vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 50px auto;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .header {
     display: flex;
     gap: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
 }
 .header h2 {
     color: rgb(8,25,74);
@@ -21,9 +24,7 @@
     background-color: rgb(238,13,21);
     align-self: self-end;
 }
-.left , .right {
-    width: 34%;
-}
+
 .left>p {
     color: rgb(142, 149, 161);
     font-size: 12px;
@@ -63,4 +64,82 @@
 }
 .mark {
     color: rgb(238,13,21);
+}
+
+@media (max-width: 1200px) {
+    .center{
+        /* background-color: yellow; */
+        width: 80vw;
+    }
+    .left>p {
+        font-size: 10px;
+    }
+    .text p {
+        font-size: 12px;
+    }
+    .header {
+        margin-bottom: 20px;
+    }
+    .container img {
+        width: 160px;
+        height: 280px;
+    }
+    .left ul li p {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .center {
+        width: 80vw;
+        /* background-color: aliceblue; */
+    }
+    .left>p {
+        font-size: 10px;
+    }
+    .text p {
+        font-size: 10px;
+    }
+    .header {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 880px){
+    .center{
+        /* background-color: thistle; */
+        width: 85vw;
+    }
+}
+
+@media (max-width: 780px){
+    .center {
+        /* background-color: beige; */
+        gap: 4px;
+    }
+    .container img {
+        width: 140px;
+        height: 280px;
+    }
+    .left>p {
+        font-size: 9px;
+    }
+}
+
+@media (max-width: 700px) {
+    .center{
+        /* background-color: aquamarine; */
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .left>p {
+        font-size: 11px;
+    }
+    .text p {
+        font-size: 12px;
+    }
+    .container img {
+        width: 170px;
+        height: 280px;
+    }
 }
