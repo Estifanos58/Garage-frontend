@@ -1,0 +1,66 @@
+.Information {
+    /* background-color: black; */
+    /* width: 100vw; */
+    display: flex;
+    margin: 50px auto;
+    justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+    gap: 20px;
+}
+.header {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+.header h2 {
+    color: rgb(8,25,74);
+}
+.line {
+    width: 20px;
+    height: 2px;
+    background-color: rgb(238,13,21);
+    align-self: self-end;
+}
+.left , .right {
+    width: 34%;
+}
+.left>p {
+    color: rgb(142, 149, 161);
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+
+.left ul li {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.13);
+}
+.left ul li:last-child {
+    border-bottom: none;
+}
+.left ul li img {
+    width: 30px;
+}
+.container {
+    display: flex;
+    gap: 20px;
+}
+.container img {
+    width: 180px;
+    height: 280px;
+}
+.text {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 9px;
+}
+.text p {
+    font-size: 12px;
+}
+.mark {
+    color: rgb(238,13,21);
+}
