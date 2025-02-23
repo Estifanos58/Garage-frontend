@@ -1,9 +1,9 @@
 .container {
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 100vw 280px;
+    background-size: 100vw 330px;
     width: 98.8vw;
-    height: 50vh;
+    height: 60vh;
 }
 .overlay {
     width: 100%;

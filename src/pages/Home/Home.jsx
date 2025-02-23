@@ -1,6 +1,7 @@
 import React from 'react'
 import Banner from '../../components/Banner/Banner'
 import banner_1 from"../../assets/banner_1.png"
+import banner_2 from "../../assets/banner_4.jpeg"
 import Exprience from '../../components/exprience/exprience';
 import Service from '../../components/Our_service/Service';
 import Quality from '../../components/Quality/Quality';
@@ -17,6 +18,7 @@ function Home() {
         <Service />
         <Quality />
         <Information />
+        <Banner banner={banner_2} header={header_2}/>
     </div>
   )
 }
