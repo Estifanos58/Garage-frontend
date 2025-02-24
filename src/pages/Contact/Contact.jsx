@@ -1,9 +1,9 @@
 import React from 'react'
 import classes from "./Contact.module.css"
-import Schedule from '../../components/Schedule/Schedule'
-import Nav from '../../components/Nav/Nav'
+import Schedule from '../../components/General/Schedule/Schedule'
+import Nav from '../../components/General/Nav/Nav'
 import banner from "../../assets/Contact.jpeg"
-import Map from '../../components/Map/Map'
+import Map from '../../components/General/Map/Map'
 
 function Contact() {
   return (

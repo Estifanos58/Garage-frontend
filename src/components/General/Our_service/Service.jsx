@@ -1,11 +1,11 @@
 import React from 'react'
 import classes from "./Service.module.css"
-import engine from "../../assets/car-engine.png"
-import turbo from "../../assets/power.png"
-import break1 from "../../assets/break.png"
-import wheel from "../../assets/tire-pressure.png"
-import service from "../../assets/mechanic.png"
-import paint from "../../assets/spray-gun.png"
+import engine from "../../../assets/car-engine.png"
+import turbo from "../../../assets/power.png"
+import break1 from "../../../assets/break.png"
+import wheel from "../../../assets/tire-pressure.png"
+import service from "../../../assets/mechanic.png"
+import paint from "../../../assets/spray-gun.png"
 import Ticket from '../Ticket/Ticket'
 
 function Service() {

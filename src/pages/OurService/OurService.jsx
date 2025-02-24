@@ -1,12 +1,12 @@
 import React from 'react'
-import Service from '../../components/Our_service/Service'
-import Information from '../../components/Information/Information'
-import Banner from '../../components/Banner/Banner'
+import Service from '../../components/General/Our_service/Service'
+import Information from '../../components/General/Information/Information'
+import Banner from '../../components/General/Banner/Banner'
 import banner_2 from "../../assets/banner_4.jpeg"
-import Schedule from '../../components/Schedule/Schedule'
-import Nav from '../../components/Nav/Nav'
+import Schedule from '../../components/General/Schedule/Schedule'
+import Nav from '../../components/General/Nav/Nav'
 import banner from '../../assets/Service.jpeg'
-import Skill from '../../components/Skill/Skill'
+import Skill from '../../components/General/Skill/Skill'
 
 
 function OurService() {

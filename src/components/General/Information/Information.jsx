@@ -1,11 +1,11 @@
 import React from 'react'
 import classes from "./Information.module.css"
-import mechanic from "../../assets/red_mechanic.png"
-import tools from "../../assets/tools.png"
-import tag from "../../assets/price-tag.png"
-import award from "../../assets/champion.png"
+import mechanic from "../../../assets/red_mechanic.png"
+import tools from "../../../assets/tools.png"
+import tag from "../../../assets/price-tag.png"
+import award from "../../../assets/champion.png"
 import { GiCheckMark } from "react-icons/gi";
-import cars from "../../assets/polished_car.jpg"
+import cars from "../../../assets/polished_car.jpg"
 
 function Information() {
   return (

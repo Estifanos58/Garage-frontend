@@ -1,6 +1,6 @@
 import React from 'react'
 import classes from "./Quality.module.css"
-import car from "../../assets/car.jpg"
+import car from "../../../assets/car.jpg"
 function Quality() {
   return (
     <div className={classes.Quality}>

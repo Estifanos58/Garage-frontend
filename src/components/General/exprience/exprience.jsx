@@ -1,8 +1,8 @@
 import React from 'react'
 import classes from "./exprience.module.css"
 import { FaArrowRight } from "react-icons/fa";
-import banner2 from "../../assets/banner_2.jpeg"
-import banenr3 from "../../assets/banner_3.jpeg"
+import banner2 from "../../../assets/banner_2.jpeg"
+import banenr3 from "../../../assets/banner_3.jpeg"
 
 function Exprience() {
   return (

@@ -1,12 +1,12 @@
 import React from 'react'
-import Banner from '../../components/Banner/Banner'
+import Banner from '../../components/General/Banner/Banner'
 import banner_1 from"../../assets/banner_1.png"
 import banner_2 from "../../assets/banner_4.jpeg"
-import Exprience from '../../components/exprience/exprience';
-import Service from '../../components/Our_service/Service';
-import Quality from '../../components/Quality/Quality';
-import Information from '../../components/Information/Information';
-import Schedule from '../../components/Schedule/Schedule';
+import Exprience from '../../components/General/exprience/exprience';
+import Service from '../../components/General/Our_service/Service';
+import Quality from '../../components/General/Quality/Quality';
+import Information from '../../components/General/Information/Information';
+import Schedule from '../../components/General/Schedule/Schedule';
 
 function Home() { 
     const header_1 = "Tuneup Your Car to Next Level";

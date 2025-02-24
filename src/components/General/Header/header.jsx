@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import classes from "./header.module.css"
-import logo from "../../assets/abeGarageLogo.png"
+import logo from "../../../assets/abeGarageLogo.png"
 import { IoReorderThreeOutline } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 import { Link } from 'react-router-dom';

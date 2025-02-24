@@ -1,6 +1,6 @@
 import React from 'react'
 import classes from "./Skill.module.css"
-import man from "../../assets/man.jpg"
+import man from "../../../assets/man.jpg"
 
 function Skill() {
   return (
