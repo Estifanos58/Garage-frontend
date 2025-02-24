@@ -11,9 +11,9 @@ function Admin() {
                 <Link to={"order"}><li>Orders</li></Link>
                 <Link to={"new_order"}><li>New order</li></Link>
                 <Link to={"add_employee"}><li>Add employee</li></Link>
-                <Link to={"employee"}><li>Employees</li></Link>
+                <Link to={"employees"}><li>Employees</li></Link>
                 <Link to={"add_customer"}><li>Add customer</li></Link>
-                <Link to={"customer"}><li>Customer</li></Link>
+                <Link to={"customers"}><li>Customer</li></Link>
                 <Link to={"service"}><li>Service</li></Link>   
                 
             </ul>
