@@ -1,0 +1,50 @@
+.AddCustomer{
+    margin: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(8,25,74);
+    /* height: 100vh; */
+}
+.header {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.line {
+    width: 30px;
+    height: 2px;
+    background-color: rgb(238,13,21);
+    margin-top: -5px;
+}
+.header h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+.form_login {
+    width: 70%;
+}
+.form_login input {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border: 1px solid rgba(136, 137, 141, 0.47);
+    background-color: #fff;
+}
+.form_login input::placeholder {
+    font-size: 12px;
+}
+.form_login select {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border-right: 20px solid rgba(128, 128, 128, 0.47);
+}
+
+
+.btn {
+    padding: 12px;
+    margin: 12px 0;
+    background-color: rgb(238,13,21);
+    color: #fff;
+    font-family: inherit;
+    border: none;
+}
