@@ -1,0 +1,65 @@
+Zustand
+--------
+
+Zustand is a global state management tool for react. It is un-Opinionated and not boilerplated.
+
+- Zustand does not wrap your app in content providers like how we do with react-redux. . It mainly uses hooks as a means of communicating back and forth with the state.
+
+- Zustand embraces the concept of a single source of truth, where the entire application state is stored in a centralized store. This store is composed of state slices, which are individual units of state that represent different parts of the application. Each state slice is defined as a separate store, allowing for modularity and encapsulation of related state properties and their associated actions.
+
+-  Zustand has its built-in support for subscriptions and selective reactivity. Components can subscribe to specific state slices and be automatically re-rendered when those slices change.
+
+Getting Started With Zustand
+===========================
+
+-- Install Zustand
+    npm install zustand 
+
+== This can be an example how to use zustand
+-- create a store folder in your frontend folder 
+    - frontend
+        - node_module
+        - public
+        - src
+        - store
+== Here you can create a store.js file to store all the states in on file or use slice to distribute states to particular purpuses. We will see both
+
+ *** Store for all state in one file                                                        *** Store states using slice
+
+- here we create one store.js file(rename whatever you want)                                   -- here we create one store.js file and two count.js and employee.js slices as example
+-- inside import create from zustand                                                                - frontend
+    import {create} from 'zustand';                                                                     - node_module
+                                                                                                        - public
+- create is a function in zustand and it takes a callback                                               - src
+ and return a custom hook.                                                                              - store 
+- we will define our state in the callback function we passed.                                              - store.js
+- The state and the functions are all in an object returned                                                 - slices
+ by this callback function.                                                                                     - count.js
+                                                                                                                - employee.js
+-- This is an example how to create a global state                                               = Now we will create a useStore in the store.js file to serve as a grobal custom hook.
+                                                                                                            In 'store.js'
+    const useCounter = create((set)=>{                                                                              import {create} from 'zustand';
+        return {                                                                                                    import {countSlice} from './slices/count.js;
+            counter: 0,                                                                                             import {employeeSlice} from './slice/employee.js
+            employees: [],                                                                                              
+            incrCounter: () => set((state)=>({counter: state.counter + 1})),                                        const useStore = create ((..a)=> ({
+            addEmployee: (employee) => set((state)=>({employees: [employee, ...state.employees]})),                           ..countSlice(..a),
+        }                                                                                                                     ..employeeSlice(..a), 
+    })                                                                                                                    }));
+                                                                                                - = Now we create a global custom hook for both slices and we will define each states in each slices.                        
+== To Use these states in other components we will follow the following way                             In 'count.js'
+-- in 'Component.js'                                                                                            export const countSlice = ((set, get)=>({
+                                                                                                                        const counter: 0,
+    import useCounter from "@/store/store.js"                                                                           const incrCounter: () => set((state)=> ({counter: state.counter +1}));
+                                                                                                                                        or
+    export default const Component = ()=> {                                                                             const decCounter = () => {
+        const counter = useCounter((state) => state.counter);                                                                       const counter = get().counter;
+        const employees = useCounter((state) => state.employees);                                                                   set({counter: counter - 1})
+        const addEmployee = useCounter((state)=> state.addEmployee);                                                    }
+        const incrCounter = useCounter((state)=> state.incrCounter);                                            }}))
+                                                                                                - In the second method we didn't use state it is analtenative well of using zustand
+        return {                                                                                = We can use this states in other components like This
+            ...                                                                                         const {counter, incrCounter, decCounter} = useStore();
+        }
+    }
+
