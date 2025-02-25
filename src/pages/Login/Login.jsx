@@ -2,11 +2,32 @@ import React, { useState } from 'react'
 import classes from "./Login.module.css"
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import { LOGIN } from '../../utils/constant';
+import axios from "axios";
+import { useAppStore } from '../../hook/store';
+import { toast } from 'react-toastify';
+
 function Login() {
     const [visible, setVisible] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const {setUserInfo} = useAppStore();
 
     const hanglevisible = ()=> {
         setVisible((prev)=> !prev)
+    }
+    const handleSubmit = async(e) => {
+        e.preventDefault();
+        if(email !== "" || password !== "") {
+            const response  = await axios.post(LOGIN,{email, password});
+            console.log(response);
+            if(response.data.success) {
+                alert("Login Success");
+                setUserInfo(response.data.data);
+                toast("User Logged in SuccessFully")
+            }
+        }
+        // alert(`Email: ${email}  and Password: ${password}`)
     }
 
   return (
@@ -16,12 +37,12 @@ function Login() {
                 <h2>Login to your account <span className={classes.underline}></span></h2>
                 <div className={classes.underline}></div>
             </div>
-        <form>
+        <form onSubmit={handleSubmit}>
             <div className={classes.control}>
-                <input type="email" placeholder='Email' />
+                <input type="email" placeholder='Email' value={email} onChange={(e)=>setEmail(e.target.value)} />
             </div>
             <div className={`${classes.control} ${classes.password}`}>
-                <input type={`${visible ? "password" : "text"}`} placeholder='Password'/>
+                <input type={`${visible ? "password" : "text"}`} placeholder='Password' value={password} onChange={(e)=>setPassword(e.target.value)}/>
                 {visible ? <FaEye className={classes.eye} onClick={hanglevisible}/> : <FaEyeSlash className={classes.eye} onClick={hanglevisible}/>}
             </div>
             <div className={classes.btn}>

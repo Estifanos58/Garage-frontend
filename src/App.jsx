@@ -11,6 +11,13 @@ import AddEmployee from './components/Admin/AddEmployee/AddEmployee'
 import AddCustomer from './components/Admin/AddCustomer/AddCustomer'
 import Employees from './components/Admin/Employees/Employees'
 import Customers from './components/Admin/Customers/Customers'
+import { useEffect } from 'react'
+import axios from 'axios'
+
+useEffect(()=>{
+  const user = axios()
+},[])
+
 
 function App() {
   return (
