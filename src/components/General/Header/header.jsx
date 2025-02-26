@@ -4,12 +4,18 @@ import logo from "../../../assets/abeGarageLogo.png"
 import { IoReorderThreeOutline } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 import { Link } from 'react-router-dom';
+import { useAppStore } from '../../../hook/store';
+import { LOGOUT } from '../../../utils/constant';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function Header() {
     const [width, setWidth] = useState(window.innerWidth);
     const [isTablet, setTable] = useState(false);
     const [isMobile, setMobile] = useState(false); 
     const [open, setOpen] = useState(false);
+    const {userInf, setUserInfo} = useAppStore();
+    console.log("USER INFO: ",userInfo)
 
     useEffect(() => {  
         const handleResize = () => {  
@@ -36,11 +42,20 @@ function Header() {
     const handleToggle = () => {
         setOpen((prev) => !prev);
     };
+    const handleLogout = async() =>{
+        const response = await axios.get(LOGOUT, {withCredentials: true});
+        if(response.data.success) {
+            setUserInfo({});
+            toast("User Logged out SuccessFully")
+        } else {
+            toast.error(response.data.message);
+        }
+    }
     
     
-    console.log(width)
-    console.log("IsTablet: ",isTablet)
-    console.log("IsMobile: ", isMobile)
+    // console.log(width)
+    // console.log("IsTablet: ",isTablet)
+    // console.log("IsMobile: ", isMobile)
   return (
     <div className={classes.container}>
         <div className={classes.upper}>
@@ -49,7 +64,7 @@ function Header() {
             </div>
             <div className={classes.middle}>
                 <p className={classes.schedule}>Monday &middot; Saturday 7:00AM &middot; 6:00PM</p>
-                <p className={classes.name}>Welcome Admin</p>
+                <p className={classes.name}>{userInfo ? `Welcome ${userInfo.first_name}` : "Welcome TO ABE GARAGE"}</p>
             </div>
         </div>
         <div className={classes.lower}>
@@ -65,7 +80,10 @@ function Header() {
                         <li><Link to={"/admin"}>ADMIN</Link></li>
                         <li><p className={classes.line}></p></li>
                     </ul>
-                    <button>LOG OUT</button>
+                    {
+                    // <button>{userInfo ? 'LOGOUT' :'LOGIN'}</button>
+                    userInfo ? <button onClick={()=>handleLogout()}>LOGOUT</button> : <button><Link to={'/login'}>LOGIN</Link></button>
+                    }
             </div>
             <div className={classes.mobile} style={{display: isMobile ? "block" : "none"}}>
                 <IoReorderThreeOutline onClick={handleToggle}/>

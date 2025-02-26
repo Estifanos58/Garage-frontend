@@ -19,12 +19,14 @@ function Login() {
     const handleSubmit = async(e) => {
         e.preventDefault();
         if(email !== "" || password !== "") {
-            const response  = await axios.post(LOGIN,{email, password});
-            console.log(response);
+            const response  = await axios.post(LOGIN,{email, password}, {withCredentials: true});
+            // console.log(response);
             if(response.data.success) {
                 alert("Login Success");
                 setUserInfo(response.data.data);
                 toast("User Logged in SuccessFully")
+            } else {
+                toast.error(response.data.message);
             }
         }
         // alert(`Email: ${email}  and Password: ${password}`)

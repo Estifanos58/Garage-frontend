@@ -11,15 +11,35 @@ import AddEmployee from './components/Admin/AddEmployee/AddEmployee'
 import AddCustomer from './components/Admin/AddCustomer/AddCustomer'
 import Employees from './components/Admin/Employees/Employees'
 import Customers from './components/Admin/Customers/Customers'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
-
-useEffect(()=>{
-  const user = axios()
-},[])
+import { USER_INFO } from './utils/constant'
+import { useAppStore } from './hook/store'
 
 
 function App() {
+
+  // const [user, setUserInfo] = useState({});
+  const {userInfo,setUserInfo} = useAppStore();
+
+const getInfo = async ()=> {
+  const user = await axios.get(USER_INFO,{withCredentials: true});
+  console.log("RESPONE FROM THE BACKEND: ", user);
+  if(user.data.success) setUserInfo(user.data.data);
+
+  if(!user.data.success) {
+    console.log("No user found");
+  }
+
+
+}
+
+useEffect(()=>{
+  getInfo();
+  // if(userInfo) console.log("User Info: ", userInfo);
+},[])
+
+
   return (
     <div>
       <Header />
