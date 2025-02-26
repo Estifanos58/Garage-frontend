@@ -6,12 +6,14 @@ import { LOGIN } from '../../utils/constant';
 import axios from "axios";
 import { useAppStore } from '../../hook/store';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
     const [visible, setVisible] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const {setUserInfo} = useAppStore();
+    const {userInfo, setUserInfo} = useAppStore();
+    const navigate = useNavigate();
 
     const hanglevisible = ()=> {
         setVisible((prev)=> !prev)
@@ -25,6 +27,14 @@ function Login() {
                 alert("Login Success");
                 setUserInfo(response.data.data);
                 toast("User Logged in SuccessFully")
+                console.log("USER INFO: ", response.data.data.role);
+                if(response.data.data.role === "admin") {
+                    console.log("Navigate to admin");
+                    navigate("/admin")
+                }else {
+                     navigate("/");
+                }
+
             } else {
                 toast.error(response.data.message);
             }

@@ -1,59 +1,58 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import classes from "./Employees.module.css"
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { GETALLEMPLOYEES } from '../../../utils/constant';
+import { useAppStore } from '../../../hook/store';
+import { format } from "date-fns";
+import moment from "moment";
+
+import axios from 'axios';
 
 function Employees() {
 
-    const data = [
-        {
-            "id": 1,
-            "status": "Initial",
-            "first_name": "John",
-            "last_name": "Doe",
-            "email": "example@gmail.com",
-            "phone": "555-555-5555",
-            "added_date": "2021-09-01",
-            "role": "employee",
-        },
-        {
-            "id": 2,
-            "status": "Active",
-            "first_name": "Johnnatan",
-            "last_name": "Daniel",
-            "email": "example@gmail.com",
-            "phone": "555-876-5555",
-            "added_date": "2021-09-01",
-            "role": "admin",
-        },
-        {
-            "id": 3,
-            "status": "Inactive",
-            "first_name": "Abel",
-            "last_name": "Kebebede",
-            "email": "example@gmail.com",
-            "phone": "123-555-5555",
-            "added_date": "2021-09-01",
-            "role": "manager",
-        },
-        {
-            "id": 4,
-            "status": "Active",
-            "first_name": "Jane",
-            "last_name": "Kane",
-            "email": "example@gmail.com",
-            "phone": "555-093-5555",
-            "added_date": "2021-09-01",
-            "role": "employee",
+    
+    const {employeeList, setEmployeeList} = useAppStore();
+    const [isLoading, setLoading] = useState(false);
+
+    const getAllEmployees = async() => {
+        try {
+            setLoading(true);
+            const response = await axios.get(GETALLEMPLOYEES, {withCredentials: true});
+            if(response.data.success){
+                setEmployeeList(response.data.data);
+                setLoading(false); 
+
+            } else{
+                setLoading(false)
+                console.log("No data found");
+            }
+           
+            // console.log("GETALLEMPLOYEES: ", response);
+        } catch (error) {
+            setLoading(false)
+            console.log("Error: ", error)
         }
-    ]
+       
+    }
+    useEffect(() => {
+        if (employeeList.length === 0) {
+            getAllEmployees();
+        }
+    }, []);
+
+    const formatDate = (timestamp) => moment(Number(timestamp)).format("MMM DD, YYYY");
 
     const getColor = (status) => {
-        if(status === "Initial") return "rgba(238, 238, 13, 0.52)";
-        if(status === "Active") return "rgba(99, 238, 13, 0.49)"
-        if(status === "Inactive") return "rgba(238, 13, 21, 0.49)";
+        if(status === "initial") return "rgba(238, 238, 13, 0.52)";
+        if(status === "active") return "rgba(99, 238, 13, 0.49)"
+        if(status === "inactive") return "rgba(238, 13, 21, 0.49)";
     }
-
+    if(isLoading) return (
+        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
+          <h1>Loading</h1>
+        </div>
+    )
   return (
     <div className={classes.Employees}>
         <div className={classes.container}>
@@ -77,16 +76,16 @@ function Employees() {
                     </thead>
                     <tbody>
                         {
-                            data.length > 0 
+                            employeeList?.length > 0 
                             ? 
-                            data.map((employee) => (
-                                <tr key={employee.id} style={{backgroundColor: employee.id % 2 !== 0 ? "#f2f2f2" : "white"}}>
+                            employeeList?.map((employee, index) => (
+                                <tr key={index} style={{backgroundColor: index % 2 !== 0 ? "#f2f2f2" : "white"}}>
                                     <td style={{backgroundColor: getColor(employee.status), }}>{employee.status}</td>
                                     <td>{employee.first_name}</td>
                                     <td>{employee.last_name}</td>
                                     <td>{employee.email}</td>
                                     <td>{employee.phone}</td>
-                                    <td>{employee.added_date}</td>
+                                    <td>{formatDate(employee.joined_date)}</td>
                                     <td>{employee.role}</td>
                                     <td>
                                         <button><FaEdit /></button>

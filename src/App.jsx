@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import Header from './components/General/Header/header'
 import Footer from './components/General/Footer/footer'
 import Login from './pages/Login/Login'
@@ -15,30 +15,53 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { USER_INFO } from './utils/constant'
 import { useAppStore } from './hook/store'
+import { toast } from 'react-toastify'
 
 
 function App() {
 
   // const [user, setUserInfo] = useState({});
   const {userInfo,setUserInfo} = useAppStore();
+  const [isLoading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-const getInfo = async ()=> {
-  const user = await axios.get(USER_INFO,{withCredentials: true});
-  console.log("RESPONE FROM THE BACKEND: ", user);
-  if(user.data.success) setUserInfo(user.data.data);
-
-  if(!user.data.success) {
-    console.log("No user found");
-  }
-
-
-}
-
+  const getInfo = async ()=> {
+      try {
+        setLoading(true);
+        const user = await axios.get(USER_INFO,{withCredentials: true});
+        // console.log("RESPONE FROM THE BACKEND: ", user);
+        if(user.data.success) {
+          setUserInfo(user.data.data)
+        }else {
+          console.log("No user found");
+        }
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        console.log("Error: ", error);
+      }
+    }
 useEffect(()=>{
   getInfo();
-  // if(userInfo) console.log("User Info: ", userInfo);
 },[])
 
+if(isLoading) return (
+  <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
+    <h1>Loading</h1>
+  </div>
+)
+
+const ProtectedRoute = ({ children }) => {
+
+  if (!userInfo || (userInfo.role !== "admin" && userInfo.role !== "manager")) {
+      toast.error("You are not allowed!");
+     navigate("/");
+  } else{
+    return children; 
+  }
+
+ // Render protected content if authorized
+};
 
   return (
     <div>
@@ -49,7 +72,7 @@ useEffect(()=>{
         <Route path='/services' element={<Service/>}/>
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />}/>
-        <Route path='/admin' element={<Admin />}>
+        <Route path='/admin' element={<ProtectedRoute><Admin /></ProtectedRoute>}>
             <Route path='add_employee' element={<AddEmployee />}/>
             <Route path='add_customer' element={<AddCustomer />}/>
             <Route path='employees' element={<Employees />}/>

@@ -3,7 +3,7 @@ import classes from "./header.module.css"
 import logo from "../../../assets/abeGarageLogo.png"
 import { IoReorderThreeOutline } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppStore } from '../../../hook/store';
 import { LOGOUT } from '../../../utils/constant';
 import axios from 'axios';
@@ -14,8 +14,9 @@ function Header() {
     const [isTablet, setTable] = useState(false);
     const [isMobile, setMobile] = useState(false); 
     const [open, setOpen] = useState(false);
-    const {userInf, setUserInfo} = useAppStore();
-    console.log("USER INFO: ",userInfo)
+    const {userInfo, setUserInfo} = useAppStore();
+    // console.log("USER INFO: ",userInfo)
+    const navigate = useNavigate();
 
     useEffect(() => {  
         const handleResize = () => {  
@@ -52,6 +53,7 @@ function Header() {
         }
     }
     
+    // console.log("USER DATA: ", userInfo)
     
     // console.log(width)
     // console.log("IsTablet: ",isTablet)
@@ -64,7 +66,7 @@ function Header() {
             </div>
             <div className={classes.middle}>
                 <p className={classes.schedule}>Monday &middot; Saturday 7:00AM &middot; 6:00PM</p>
-                <p className={classes.name}>{userInfo ? `Welcome ${userInfo.first_name}` : "Welcome TO ABE GARAGE"}</p>
+                <p className={classes.name}>{userInfo.first_name ? `Welcome ${userInfo.first_name}` : "Welcome TO ABE GARAGE"}</p>
             </div>
         </div>
         <div className={classes.lower}>
@@ -82,7 +84,7 @@ function Header() {
                     </ul>
                     {
                     // <button>{userInfo ? 'LOGOUT' :'LOGIN'}</button>
-                    userInfo ? <button onClick={()=>handleLogout()}>LOGOUT</button> : <button><Link to={'/login'}>LOGIN</Link></button>
+                    userInfo.first_name ? <button onClick={()=>handleLogout()}>LOGOUT</button> : <button onClick={()=> navigate("/login")}>LOGIN</button>
                     }
             </div>
             <div className={classes.mobile} style={{display: isMobile ? "block" : "none"}}>
