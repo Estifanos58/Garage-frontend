@@ -3,6 +3,7 @@ import classes from "./AddEmployee.module.css"
 import axios from "axios"
 import { ADDEMPLOYEE } from '../../../utils/constant';
 import {useAppStore} from '../../../hook/store';
+import {toast} from 'react-toastify'
 
 function AddEmployee() {
   const [email, setEmail] = useState("");
@@ -26,6 +27,7 @@ function AddEmployee() {
       if(response.data.success){
         addEmployee(response.data.data);
         console.log("ADDED EMPLOYEE", response.data.data);
+        toast.success("Employee Added Successfully");
         setEmail("");
         setFirst_name("");
         setLast_name("");
@@ -33,8 +35,10 @@ function AddEmployee() {
         setRole("");
         setError("");
         setLoading(false);
+      
       }else {
         setError(response.data.message);
+        toast.error(response.data.message);
         setLoading(false);
       }
     } catch (error) {
