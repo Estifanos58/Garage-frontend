@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import classes from "./Customers.module.css"
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { CiSearch } from "react-icons/ci";
-import moment from 'moment'
+import moment from 'moment';
+import axios from 'axios';
+import { useAppStore } from '../../../hook/store';
+import { GETALLCUSTOMERS } from '../../../utils/constant';
 function Customers() {
+    const {customerList,setCustomerList} = useAppStore();
+    const [isLoading, setLoading] = useState(false);
     const data = [
       {
         "_id": "1",
@@ -34,8 +39,37 @@ function Customers() {
         "active": true,
       }
     ]
+    const getAllCustomer = async () => {
+      try {
+          setLoading(true);
+          const response = await axios.get(GETALLCUSTOMERS,{withCredentials:true});
+          if(response.data.success){
+            console.log("CUSTOMER FOUND")
+            setCustomerList(response.data.data);
+            setLoading(false);
+          }
+          console.log("CUSTOMERS: ", response)
+      } catch (error) {
+        setLoading(false);
+        console.log("Error: " ,error)
+      }
+    }
 
-    const formatDate = (timestamp) => moment(Number(timestamp)).format("MMM DD, YYYY");
+    console.log("CUSTOMERS: ", customerList)
+
+    useEffect(()=>{
+      if(customerList.length === 0){
+        getAllCustomer()
+      }
+    },[])
+
+    const formatDate = (timestamp) => moment(timestamp).format("MMM DD, YYYY");
+
+    if(isLoading) return (
+      <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
+        <h1>Loading</h1>
+      </div>
+    )
 
   return (
     <div className={classes.Customers}>
@@ -66,16 +100,16 @@ function Customers() {
                             </thead>
                             <tbody>
                                 {
-                                    data?.length > 0 
+                                    customerList?.length > 0 
                                     ? 
-                                    data?.map((employee, index) => (
+                                    customerList?.map((employee, index) => (
                                         <tr key={index} style={{backgroundColor: index % 2 !== 0 ? "#f2f2f2" : "white"}}>
                                             <td>{index}</td>
                                             <td>{employee.first_name}</td>
                                             <td>{employee.last_name}</td>
                                             <td>{employee.email}</td>
                                             <td>{employee.phone}</td>
-                                            <td>{formatDate(employee.joined_date)}</td>
+                                            <td>{formatDate(employee.added_date)}</td>
                                             <td>{employee.active?"Yes":"No"}</td>
                                             <td>
                                                 <button><FaEdit /></button>
