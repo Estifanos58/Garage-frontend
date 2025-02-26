@@ -41,6 +41,8 @@ function Employees() {
         }
     }, []);
 
+    console.log("EMPLOYEES: ",employeeList);
+
     const formatDate = (timestamp) => moment(Number(timestamp)).format("MMM DD, YYYY");
 
     const getColor = (status) => {

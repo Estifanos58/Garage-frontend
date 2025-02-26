@@ -8,3 +8,5 @@ export const LOGOUT = `${API}user/log-out`
 
 //Admin
 export const GETALLEMPLOYEES = `${API}admin/get-all-employees`;
+export const ADDEMPLOYEE = `${API}admin/add-employee`;
+export const DELETEEMPLOYEE = `${API}admin/delete-employee`;
