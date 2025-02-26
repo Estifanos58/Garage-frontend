@@ -1,6 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
 import classes from "./AddCustomer.module.css"
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import { ADDCUSTOMER } from '../../../utils/constant';
+
 function AddCustomer() {
+  const [email, setEmail] = useState("");
+  const [first_name, setFirst_name] = useState("");
+  const [last_name, setLast_name] = useState("");
+  const [phone, setPhone] = useState("");
+  const [iseLoading, setLoading] = useState(false);
+
+  const handleSubmit = async ()=> {
+    try {
+      // setLoading(true);
+      if(!email || !first_name || !last_name || !phone){
+        return toast.error("All Feilds are required")
+      } 
+      const response = await axios.post(ADDCUSTOMER,{email, first_name, last_name, phone},{withCredentials: true});
+      console.log("CUSTOMER: ", response);
+    } catch (error) {
+      
+    }
+     
+  }
+
   return (
     <div className={classes.AddCustomer}>
         <div className={classes.container}>
@@ -10,17 +34,17 @@ function AddCustomer() {
             </div>
             <div className={classes.form}>
                <div className={classes.form_login}>
-                <input type="text"  placeholder='Customer email'/>
+                <input type="text"  placeholder='Customer email' value={email} onChange={(e)=>setEmail(e.target.value)}/>
                </div>
                <div className={classes.form_login}>
-                <input type="text" placeholder='Customer first name '/>
+                <input type="text" placeholder='Customer first name' value={first_name} onChange={(e)=>setFirst_name(e.target.value)}/>
                </div><div className={classes.form_login}>
-                <input type="text" placeholder='Customer last name'/>
+                <input type="text" placeholder='Customer last name' value={last_name} onChange={(e)=>setLast_name(e.target.value)}/>
                </div><div className={classes.form_login}>
-                <input type="text" placeholder='Customer phone (555-555-5555'/>
+                <input type="text" placeholder='Customer phone (555-555-5555' value={phone} onChange={(e)=>setPhone(e.target.value)}/>
                </div>
               
-               <button className={classes.btn}>ADD CUSTOMER</button>
+               <button className={classes.btn} onClick={()=>handleSubmit()}>{iseLoading?"Loading .." : "ADD CUSTOMER"}</button>
             </div>
          </div>
     </div>
