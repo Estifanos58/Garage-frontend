@@ -15,3 +15,4 @@ export const DELETEEMPLOYEE = `${API}admin/delete-employee`;
 
 export const GETALLCUSTOMERS = `${API}admin/get-all-customers`
 export const ADDCUSTOMER = `${API}admin/add-customer`
+export const UPDATECUSTOMER = `${API}admin/edit-customer`

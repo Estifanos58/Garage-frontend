@@ -90,7 +90,7 @@ function Customers() {
                                             <td>{customer.email}</td>
                                             <td>{customer.phone}</td>
                                             <td>{formatDate(customer.added_date)}</td>
-                                            <td>{customer.active?"Yes":"No"}</td>
+                                            <td>{customer.status ? "Yes":"No"}</td>
                                             <td>
                                                 <button onClick={()=>handleEdit(customer)}><FaEdit /></button>
                                                 <button><MdDelete/></button>
