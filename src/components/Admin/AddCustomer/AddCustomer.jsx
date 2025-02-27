@@ -3,6 +3,7 @@ import classes from "./AddCustomer.module.css"
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { ADDCUSTOMER } from '../../../utils/constant';
+import { useAppStore } from '../../../hook/store';
 
 function AddCustomer() {
   const [email, setEmail] = useState("");
@@ -10,6 +11,7 @@ function AddCustomer() {
   const [last_name, setLast_name] = useState("");
   const [phone, setPhone] = useState("");
   const [iseLoading, setLoading] = useState(false);
+  const {addCustomer} = useAppStore();
 
   const handleSubmit = async ()=> {
     try {
@@ -18,9 +20,15 @@ function AddCustomer() {
         return toast.error("All Feilds are required")
       } 
       const response = await axios.post(ADDCUSTOMER,{email, first_name, last_name, phone},{withCredentials: true});
+      if(response.data.success){
+        addCustomer(response.data.data);
+        toast("Customer Added successfully")
+      }else {
+        toast(`Error occured: ${response.data.message}`);
+      }
       console.log("CUSTOMER: ", response);
     } catch (error) {
-      
+      console.log("Error", error);
     }
      
   }

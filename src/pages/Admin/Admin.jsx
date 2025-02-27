@@ -7,7 +7,7 @@ function Admin() {
         <div className={classes.left}>
             <h2>ADMIN MENU</h2>
             <ul>
-                <Link ><li>Dashboard</li></Link>
+                <Link to={"index"}><li>Dashboard</li></Link>
                 <Link to={"order"}><li>Orders</li></Link>
                 <Link to={"new_order"}><li>New order</li></Link>
                 <Link to={"add_employee"}><li>Add employee</li></Link>

@@ -1,7 +1,7 @@
 export const createAdminSlice = (set) => ({
     employeeList: [],
     customerList: [],
-    addCustomer: (data) => set((state)=> ({customerList: [...customElements, data]})),
+    addCustomer: (data) => set((state)=> ({customerList: [...state.customerList, data]})),
     addEmployee: (data) => set((state) => ({employeeList: [...state.employeeList, data]})),
     setEmployeeList: (data) => set({employeeList: data}),
     setCustomerList: (data) => set({customerList: data}),

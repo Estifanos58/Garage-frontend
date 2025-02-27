@@ -16,6 +16,7 @@ import axios from 'axios'
 import { USER_INFO } from './utils/constant'
 import { useAppStore } from './hook/store'
 import { toast } from 'react-toastify'
+import Dashboard from './components/Admin/Dashboard/Dashboard'
 
 
 function App() {
@@ -73,6 +74,7 @@ const ProtectedRoute = ({ children }) => {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />}/>
         <Route path='/admin' element={<ProtectedRoute><Admin /></ProtectedRoute>}>
+            <Route path='index' element={<Dashboard/>} />
             <Route path='add_employee' element={<AddEmployee />}/>
             <Route path='add_customer' element={<AddCustomer />}/>
             <Route path='employees' element={<Employees />}/>
