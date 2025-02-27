@@ -19,6 +19,7 @@ import { toast } from 'react-toastify'
 import Dashboard from './components/Admin/Dashboard/Dashboard'
 import EditEmployee from './components/Admin/EditEmployee/EditEmployee'
 import EditCustomer from './components/Admin/EditCustomer/EditCustomer'
+import CustomerDetails from './pages/Customer/CustomerDetails'
 
 
 function App() {
@@ -83,6 +84,9 @@ const ProtectedRoute = ({ children }) => {
             <Route path='customers' element={<Customers/>} />
             <Route path='edit_employee' element={<EditEmployee/>} />
             <Route path='/admin/edit-customer' element={<EditCustomer />} />
+            <Route path="/admin/customer-details" element={<CustomerDetails/>}>
+
+            </Route>
             <Route path='*' element={<h1>Under constraction</h1>} />
         </Route>
       </Routes>

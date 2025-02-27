@@ -1,0 +1,56 @@
+.CustomerDetails {
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
+  margin: 70px;
+}
+.container {
+    border-left: 1.5px solid #e0e0e0;
+}
+.customerInfo , .vehicleInfo, .serviceInfo {
+    position: relative;
+    /* margin-left: 100px; */
+    padding-left: 100px;
+    padding-bottom: 50px;
+}
+.text {
+    position: absolute;
+    left: -30px;
+    height: 60px;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: rgb(238,13,21);
+    color: #fff;
+    top: 0;
+}
+
+.container h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    color: rgb(8,25,74);
+    margin-bottom: 15px;
+}
+.container p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 13px;
+}
+.container p span {
+    color: rgb(134, 137, 141);
+    font-size: 12px;
+}
+.container p .edit {
+    color: rgb(238,13,21);
+    font-size: 15px;
+    cursor: pointer;
+}
+.addVehicle button {
+    padding: 10px 15px ;
+    background-color: rgb(238,13,21);
+    color: #fff;
+    border: none;
+    font-size: 12px;
+}

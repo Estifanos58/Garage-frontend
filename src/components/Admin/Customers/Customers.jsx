@@ -3,6 +3,7 @@ import classes from "./Customers.module.css"
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { CiSearch } from "react-icons/ci";
+import { MdOutlineReadMore } from "react-icons/md";
 import moment from 'moment';
 import axios from 'axios';
 import { useAppStore } from '../../../hook/store';
@@ -51,6 +52,11 @@ function Customers() {
       navigate("/admin/edit-customer")
     }
 
+    const handleMore = (customer) => {
+      setSelectedCustomer(customer)
+      navigate("/admin/customer-details")
+    }
+
   return (
     <div className={classes.Customers}>
          <div className={classes.container}>
@@ -93,7 +99,7 @@ function Customers() {
                                             <td>{customer.status ? "Yes":"No"}</td>
                                             <td>
                                                 <button onClick={()=>handleEdit(customer)}><FaEdit /></button>
-                                                <button><MdDelete/></button>
+                                                <button style={{fontSize:"30px"}} onClick={()=>handleMore(customer)}><MdOutlineReadMore/></button>
                                             </td>
                                         </tr>
                                     ))
