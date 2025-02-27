@@ -17,6 +17,7 @@ import { USER_INFO } from './utils/constant'
 import { useAppStore } from './hook/store'
 import { toast } from 'react-toastify'
 import Dashboard from './components/Admin/Dashboard/Dashboard'
+import EditEmployee from './components/Admin/EditEmployee/EditEmployee'
 
 
 function App() {
@@ -79,6 +80,7 @@ const ProtectedRoute = ({ children }) => {
             <Route path='add_customer' element={<AddCustomer />}/>
             <Route path='employees' element={<Employees />}/>
             <Route path='customers' element={<Customers/>} />
+            <Route path='edit_employee' element={<EditEmployee/>} />
             <Route path='*' element={<h1>Under constraction</h1>} />
         </Route>
       </Routes>

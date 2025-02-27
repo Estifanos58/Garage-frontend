@@ -104,7 +104,7 @@ function Customers() {
                                     ? 
                                     customerList?.map((employee, index) => (
                                         <tr key={index} style={{backgroundColor: index % 2 !== 0 ? "#f2f2f2" : "white"}}>
-                                            <td>{index}</td>
+                                            <td>{index + 1}</td>
                                             <td>{employee.first_name}</td>
                                             <td>{employee.last_name}</td>
                                             <td>{employee.email}</td>

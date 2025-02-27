@@ -5,6 +5,7 @@ import { MdDelete } from "react-icons/md";
 import { GETALLEMPLOYEES } from '../../../utils/constant';
 import { useAppStore } from '../../../hook/store';
 import { format } from "date-fns";
+import { useNavigate } from 'react-router-dom';
 import moment from "moment";
 
 import axios from 'axios';
@@ -12,8 +13,9 @@ import axios from 'axios';
 function Employees() {
 
     
-    const {employeeList, setEmployeeList} = useAppStore();
+    const {employeeList, setEmployeeList, setSelectedEmployee} = useAppStore();
     const [isLoading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const getAllEmployees = async() => {
         try {
@@ -55,6 +57,11 @@ function Employees() {
           <h1>Loading</h1>
         </div>
     )
+
+    const handleSelectUser = (employee)=> {
+        setSelectedEmployee(employee);
+        navigate("/admin/edit_employee")
+    }
   return (
     <div className={classes.Employees}>
         <div className={classes.container}>
@@ -90,7 +97,7 @@ function Employees() {
                                     <td>{formatDate(employee.joined_date)}</td>
                                     <td>{employee.role}</td>
                                     <td>
-                                        <button><FaEdit /></button>
+                                        <button onClick={()=>handleSelectUser(employee)}><FaEdit /></button>
                                         <button><MdDelete/></button>
                                     </td>
                                 </tr>
