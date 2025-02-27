@@ -7,38 +7,13 @@ import moment from 'moment';
 import axios from 'axios';
 import { useAppStore } from '../../../hook/store';
 import { GETALLCUSTOMERS } from '../../../utils/constant';
+import { useNavigate } from 'react-router-dom';
+
 function Customers() {
-    const {customerList,setCustomerList} = useAppStore();
+    const {customerList,setCustomerList, setSelectedCustomer} = useAppStore();
     const [isLoading, setLoading] = useState(false);
-    const data = [
-      {
-        "_id": "1",
-        "first_name": "Tewdaj",
-        "last_name": "Shola",
-        "email": "example@gmail.com",
-        "phone": "123456789",
-        "added_date": "Feb 3, 2001",
-        "active": true,
-      },
-      {
-        "_id": "2",
-        "first_name": "Amara",
-        "last_name": "Tola",
-        "email": "example@gmail.com",
-        "phone": "123456789",
-        "added_date": "Feb 3, 2001",
-        "active": false,
-      },
-      {
-        "_id": "3",
-        "first_name": "Ayele",
-        "last_name": "Mamo",
-        "email": "example@gmail.com",
-        "phone": "123456789",
-        "added_date": "Feb 3, 2001",
-        "active": true,
-      }
-    ]
+    const navigate = useNavigate();
+
     const getAllCustomer = async () => {
       try {
           setLoading(true);
@@ -71,6 +46,11 @@ function Customers() {
       </div>
     )
 
+    const handleEdit = (customer) => {
+      setSelectedCustomer(customer)
+      navigate("/admin/edit-customer")
+    }
+
   return (
     <div className={classes.Customers}>
          <div className={classes.container}>
@@ -102,17 +82,17 @@ function Customers() {
                                 {
                                     customerList?.length > 0 
                                     ? 
-                                    customerList?.map((employee, index) => (
+                                    customerList?.map((customer, index) => (
                                         <tr key={index} style={{backgroundColor: index % 2 !== 0 ? "#f2f2f2" : "white"}}>
                                             <td>{index + 1}</td>
-                                            <td>{employee.first_name}</td>
-                                            <td>{employee.last_name}</td>
-                                            <td>{employee.email}</td>
-                                            <td>{employee.phone}</td>
-                                            <td>{formatDate(employee.added_date)}</td>
-                                            <td>{employee.active?"Yes":"No"}</td>
+                                            <td>{customer.first_name}</td>
+                                            <td>{customer.last_name}</td>
+                                            <td>{customer.email}</td>
+                                            <td>{customer.phone}</td>
+                                            <td>{formatDate(customer.added_date)}</td>
+                                            <td>{customer.active?"Yes":"No"}</td>
                                             <td>
-                                                <button><FaEdit /></button>
+                                                <button onClick={()=>handleEdit(customer)}><FaEdit /></button>
                                                 <button><MdDelete/></button>
                                             </td>
                                         </tr>

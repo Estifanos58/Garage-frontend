@@ -15,19 +15,25 @@ function AddCustomer() {
 
   const handleSubmit = async ()=> {
     try {
-      // setLoading(true);
+      setLoading(true);
       if(!email || !first_name || !last_name || !phone){
+        setLoading(false);
         return toast.error("All Feilds are required")
+
       } 
       const response = await axios.post(ADDCUSTOMER,{email, first_name, last_name, phone},{withCredentials: true});
       if(response.data.success){
+        setLoading(false);
         addCustomer(response.data.data);
         toast("Customer Added successfully")
       }else {
+        setLoading(false);
         toast(`Error occured: ${response.data.message}`);
       }
       console.log("CUSTOMER: ", response);
     } catch (error) {
+      setLoading(false);
+      toast.error("Error occured", error);
       console.log("Error", error);
     }
      
