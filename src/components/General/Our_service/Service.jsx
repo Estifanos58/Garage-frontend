@@ -14,31 +14,43 @@ function Service() {
         {
             "id": 1,
             "name": "Performance Upgrade",
+            "header": "SERVICE AND REPAIRS",
+            "link": "READ MORE +",
             "icon": turbo
         },
         {
             "id": 2,
             "name": "Transmission Services",
+            "header": "SERVICE AND REPAIRS",
+            "link": "READ MORE +",
             "icon": service
         },
         {
             "id": 3,
             "name": "Break Repair & Services",
+            "header": "SERVICE AND REPAIRS",
+            "link": "READ MORE +",
             "icon": break1,
         },
         {
             "id": 4,
             "name": "Engine Service & Repair",
+            "header": "SERVICE AND REPAIRS",
+            "link": "READ MORE +",
             "icon": engine
         },
         {
             "id": 5,
             "name": "Tyre & Wheels",
+            "header": "SERVICE AND REPAIRS",
+            "link": "READ MORE +",
             "icon": wheel
         },
         {
             "id": 6,
             "name": "Denting & Painting",
+            "header": "SERVICE AND REPAIRS",
+            "link": "READ MORE +",
             "icon": paint
         }
     ]

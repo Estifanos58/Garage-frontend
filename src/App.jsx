@@ -74,7 +74,7 @@ const ProtectedRoute = ({ children }) => {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />}/>
         <Route path='/admin' element={<ProtectedRoute><Admin /></ProtectedRoute>}>
-            <Route path='index' element={<Dashboard/>} />
+            <Route index element={<Dashboard/>} />
             <Route path='add_employee' element={<AddEmployee />}/>
             <Route path='add_customer' element={<AddCustomer />}/>
             <Route path='employees' element={<Employees />}/>
