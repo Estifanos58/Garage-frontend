@@ -7,56 +7,81 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { ADDVEHICLE, GETALLVEHICLE } from '../../utils/constant';
 import AddVehicle from '../../components/Admin/AddVehicle/AddVehicle';
+import { useMemo } from 'react';
 
 function CustomerDetails() {
-  const {displayOpt,setDisplayOpt,selectedCustomer, addCustomerVehicle, customerVehicles,setCustomerVehicles} = useAppStore();
+  const {displayOpt,setDisplayOpt,selectedCustomer, selectedVehicle,setSelectedVehicle, customerVehicles,setCustomerVehicles} = useAppStore();
   // const [displayOpt, setDisplayOpt] = useState(false);
   const [isLoading, setLoading] = useState(false);
+  const [select, setSelect] = useState({});
   console.log(displayOpt);
 
-  const getAllVehicle = async ()=>{
+  const getAllVehicle = async () => {
     try {
       setLoading(true);
-      const response = await axios.post(GETALLVEHICLE,{customer_id: selectedCustomer._id},{withCredentials: true})
-      console.log(response);
-      if(response.data.success){
-        setLoading(false)
-        setCustomerVehicles(response.data.data);
-        alert("Vehicle found")
-      }else {
+      const response = await axios.post(GETALLVEHICLE, { customer_id: selectedCustomer._id }, { withCredentials: true });
+  
+      if (response.data.success) {
+        setLoading(false);
+  
+        // Prevent unnecessary re-rendering if the new data is the same
+        if (JSON.stringify(response.data.data) !== JSON.stringify(customerVehicles)) {
+          setCustomerVehicles(response.data.data);
+          // alert("hi")
+          
+        }
+      } else {
         setLoading(false);
         console.log("Error is", response.data.message);
       }
     } catch (error) {
-      console.log("Error: ", error)
+      console.log("Error: ", error);
     }
-  }
+  };
+  
 
-  useEffect(()=>{
-    if(customerVehicles.length === 0){
-      getAllVehicle()
+  useEffect(() => {
+    if (selectedCustomer?._id) {
+      getAllVehicle();
     }
-  },[])
+  }, [selectedCustomer]);
+  
 
 
   console.log("CustomerType: ",typeof(customerVehicles), " Customer: ", customerVehicles)
 
+  const handleSelect = (item)=>{
+    if(select && item._id == select._id){
+      setSelect(null);
+    } else {
+      setSelect(item)
+    }
+  }
+
   const customerCar = () =>{
     if(customerVehicles?.length === 0) {
-      return <p>No vehicle found</p>
+      return <tr>
+            <td style={{colspan:"8"}}>No vehicle found</td>
+          </tr>
     } else {
         return customerVehicles?.map((item,index)=>(
-          // console.log("ITMES: ", item.make)
-          <div key={index}>
-              <p>{item.make}</p>
-          </div>
+                  <tr key={index} style={{backgroundColor: select ? select._id === item._id  && "#1E90FF" :index % 2 !== 0 ? "#f2f2f2" : "white" , cursor:"pointer"}} onClick={()=>handleSelect(item)}>
+                    <td>{item.make}</td>
+                    <td>{item.model}</td>
+                    <td>{item.type}</td>
+                    <td>{item.year}</td>
+                    <td>{item.mileage}</td>
+                    <td>{item.tag}</td>
+                    <td>{item.serial_number}</td>
+                    <td>{item.color}</td>
+                  </tr>
           
         ))
     }
     
     
   }
-  
+
   return (
     <div className={classes.CustomerDetails}>
         <div className={classes.container}>
@@ -73,7 +98,25 @@ function CustomerDetails() {
             <div className={classes.vehicleInfo}>
               <h1>{`Vehicles of ${selectedCustomer.first_name}`}</h1>
               <div className={classes.vehicleList}>
-                {isLoading ? <p> Loading... </p> : customerCar()}
+                {isLoading ? <p> Loading... </p> : 
+                 <table>
+                 <thead>
+                   <tr>
+                     <th>Make</th>
+                     <th>Model</th>
+                     <th>Type</th>
+                     <th>Year</th>
+                     <th>Mileage</th>
+                     <th>tag</th>
+                     <th>Serial Number</th>
+                     <th>Color</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                  {customerCar()}
+                 </tbody>   
+                 </table> 
+                 }
               </div>
               <div className={classes.addVehicle}>
                 {
