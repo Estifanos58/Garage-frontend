@@ -1,0 +1,52 @@
+.header {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.line {
+    width: 30px;
+    height: 2px;
+    background-color: rgb(238,13,21);
+    margin-top: -5px;
+}
+.header h3 {
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(8,25,74);
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+.AddCustomer {
+    position: relative;
+    padding-top: 20px;
+}
+.addContainer {
+    background-color: #fff;
+    padding: 35px;
+}
+.AddCustomer>button {
+    all: unset;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background-color: rgb(238,13,21);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.form_login {
+    width: 70%;
+}
+.form_login input {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border: 1px solid rgba(136, 137, 141, 0.47);
+    background-color: #fff;
+}
+.form_login input::placeholder {
+    font-size: 12px;
+}
+
