@@ -39,15 +39,21 @@ function CustomerDetails() {
   },[])
 
 
-  // console.log(typeof(customerVehicles))
+  console.log("CustomerType: ",typeof(customerVehicles), " Customer: ", customerVehicles)
 
   const customerCar = () =>{
     if(customerVehicles?.length === 0) {
       return <p>No vehicle found</p>
-    } else if(typeof(customerVehicles) === "object"){
-      // console.log("True")
-      return <p>{customerVehicles.make}</p>
+    } else {
+        return customerVehicles?.map((item,index)=>(
+          // console.log("ITMES: ", item.make)
+          <div key={index}>
+              <p>{item.make}</p>
+          </div>
+          
+        ))
     }
+    
     
   }
   

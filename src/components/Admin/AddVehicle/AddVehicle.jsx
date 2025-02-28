@@ -14,7 +14,8 @@ function AddVehicle() {
           const [tag, setTag] = useState("");
           const [serial, setSerial] = useState("");
           const [color, setColor] = useState("");
-          const {setDisplayOpt ,addCustomerVehicle} = useAppStore();
+          const [isLoading, setLoading] = useState("");
+          const {setDisplayOpt ,addCustomerVehicle, selectedCustomer} = useAppStore();
 
           const handleSubmit = async ()=>{
             try {
@@ -22,9 +23,12 @@ function AddVehicle() {
                   return toast.error("All fields are required")
                 }
                 // console.log("Hi there")
+                setLoading(true);
                 const response = await axios.post(ADDVEHICLE, {customer_id: selectedCustomer._id, year,make,model,type,mileage,tag,serial_number: serial,color }, {withCredentials: true})
                 if(response.data.success){
+                    console.log(response.data.data)
                   addCustomerVehicle(response.data.data)
+                  setLoading(false);
                   setYear("");
                   setMake("");
                   setModel("");
@@ -37,6 +41,7 @@ function AddVehicle() {
                 }
                 console.log("RESPONSE FOR ADDING VEHICLE: ", response);
             } catch (error) {
+                setLoading(false)
               console.log("Error: ", error)
             }
           }
@@ -74,7 +79,7 @@ function AddVehicle() {
                             <input type="text" placeholder='Vehicle color' value={color} onChange={(e)=> setColor(e.target.value)}/>
                             </div>
                             
-                            <button className={classes.btn} onClick={()=>setDisplayOpt}>{"ADD VEHICLE"}</button>
+                            <button className={classes.btn} onClick={handleSubmit}>{isLoading?"Loading...":"ADD VEHICLE"}</button>
                         </div>
         </div>
         <button onClick={setDisplayOpt}>< IoMdClose/></button>

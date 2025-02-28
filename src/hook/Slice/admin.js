@@ -6,8 +6,10 @@ export const createAdminSlice = (set) => ({
     selectedCustomer: {},
     customerVehicles: [],
     setDisplayOpt: () => set((state)=>({displayOpt: !state.displayOpt})),
-    setCustomerVehicles: (data) => set({customerVehicles: data}),
-    addCustomerVehicle: (data) => set((state) => ({customerVehicles: state.customerVehicles.length > 0 ? [...state.customerVehicles, data] : [data]})),
+    setCustomerVehicles: (data) => set({ customerVehicles: Array.isArray(data) ? data : [data] }),
+    addCustomerVehicle: (data) => set((state) => ({
+        customerVehicles: state.customerVehicles.length > 0 ? [...state.customerVehicles, data]:[data]
+    })),    
     editCustomerVehicle: (data) => set((state) => ({customerVehicles: state.customerVehicles.map((item) => item._id === data._id ? data : item)})),
     removeCustomerVehicle: (id) => set((state) => ({customerVehicles: state.customerVehicles.filter((item) => item._id !== id)})),
     setSelectedEmployee: (data) => set({selectedEmployee: data}),
