@@ -20,3 +20,6 @@ export const UPDATECUSTOMER = `${API}admin/edit-customer`
 
 export const ADDVEHICLE = `${API}admin/add-vehicle`
 export const GETALLVEHICLE = `${API}admin/get-all-vehicle`
+
+export const ADDSERVICE = `${API}admin/add-service`
+export const GETALLSERVICE = `${API}admin/get-all-service`

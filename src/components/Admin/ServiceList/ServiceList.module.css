@@ -22,8 +22,9 @@
 .text {
     color: rgb(142, 149, 161);
     font-size: 12px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
+
 .itemContainer {
     display: flex;
     justify-content: space-between;
