@@ -132,6 +132,9 @@ function CustomerDetails() {
             <div className={classes.serviceInfo}>
               <h1>{`Orders of ${selectedCustomer.first_name}`}</h1>
               <p>Orders will be displayed here</p>
+              <div className={classes.Order}>
+                
+              </div>
               <div className={classes.text}>Orders</div>
             </div>
         </div>

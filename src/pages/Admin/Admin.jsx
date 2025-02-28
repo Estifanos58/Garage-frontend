@@ -14,7 +14,7 @@ function Admin() {
                 <Link to={"employees"}><li>Employees</li></Link>
                 <Link to={"add_customer"}><li>Add customer</li></Link>
                 <Link to={"customers"}><li>Customer</li></Link>
-                <Link to={"service"}><li>Service</li></Link>   
+                <Link to={"services"}><li>Service</li></Link>   
                 
             </ul>
             {/* <Link to={"add_employee"}><p>Add Employee</p></Link>
