@@ -4,17 +4,23 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { ADDSERVICE, GETALLSERVICE } from '../../../utils/constant';
+import { ADDSERVICE, EDITSERVICE, GETALLSERVICE } from '../../../utils/constant';
 import { useAppStore } from '../../../hook/store';
+import { IoClose } from "react-icons/io5";
 
 function ServiceList() {
 
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
-    const {addServiceList,serviceList, setServiceList} = useAppStore();
+    const {addServiceList,serviceList, setServiceList, editServiceList} = useAppStore();
     const [isLoading, setLoading] = useState(false);
     const [isFound, setFound] = useState(false);
+    const [updateLoading, setUpdateLoading] = useState(false);
+    const [editName, setEditName] = useState("");
+    const [edtiPrice, setEditPrice] = useState("");
+    const [editDescription, setEditDescription] = useState("")
+    const [selectedService, setSelectedService] = useState({});
 
     const getAllService = async()=> {
         try {
@@ -64,82 +70,115 @@ function ServiceList() {
         
     }
 
-    // const data = [
-    //     {
-    //         "_id": "1",
-    //         "name": "Oil Change",
-    //         "description": "going forward,a new normal that has evolved from generation heading",
-    //         "price": "120 birr"
-    //     },
-    //     {
-    //         "_id": "2",
-    //         "name": "Motor Change",
-    //         "description": "going forward,a new normal that has evolved from generation heading",
-    //         "price": "120 birr"
-    //     },
-    //     {
-    //         "_id": "3",
-    //         "name": "Tier Change",
-    //         "description": "going forward,a new normal that has evolved from generation heading",
-    //         "price": "120 birr"
-    //     },
-    //     {
-    //         "_id": "4",
-    //         "name": "Spare Change",
-    //         "description": "going forward,a new normal that has evolved from generation heading",
-    //         "price": "120 birr"
-    //     }
-    // ]
+    const handleEdit = (item) => {
+        setSelectedService(item)
+        setEditName(item.name);
+        setEditPrice(item.price);
+        setEditDescription(item.description);
+        console.log("EDITED", item.description)
+    }
+    const handleUnEdit = () => {
+        setSelectedService({})
+    }
 
+
+
+
+    const handleUpdate = async() => {
+        if(!editName || !editDescription || !edtiPrice){
+            return toast.error("All Fields are required");
+        }
+        setUpdateLoading(true);
+        const response = await axios.patch(EDITSERVICE, {service_id: selectedService._id, name: editName, description: editDescription, price: edtiPrice},{withCredentials: true});
+        console.log("RESPONSE: ", response)
+        if(response.data.success){
+            setUpdateLoading(false);
+            editServiceList(response.data.data);
+            toast.success("Service Updated");
+        }
+        // console.log("EDITNAME: ", editName);
+    // console.log("EDIT Description: ", editDescription);
+    // console.log("EDIT PRICE: ", edtiPrice);
+
+    }
+
+    console.log("SELECTED SERVICE: ", selectedService)
 
   return (
-    <div className={classes.ServiceList}>
-        <div className={classes.header}> 
-            <h3>Services we provide</h3>
-            <div className={classes.line}></div>
-        </div>
-        <p className={classes.text}>Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward,a new normal that has evolved from generation heading towards.</p>
 
-        <div className={classes.listContainer}>
-                {
-                    isFound ? <p>Loading ...</p> :
-                    serviceList === null ? <p>No Service Found</p> :
-                    serviceList?.map((item,index)=>{
-                        return (
-                            <div className={classes.itemContainer} key={index}>
-                                <div className={classes.left}>
-                                    <h1>{item.name}</h1>
-                                    <p>{item.description}</p>
-                                </div>
-                                <div className={classes.right}>
-                                    <button className={classes.red}><FaEdit/></button>
-                                    <button><MdDelete/></button>
-                                </div>
-                            </div>
-                        )
-                    })
-                }
-        </div>
-
-        <div className={classes.AddService}>
-            <div className={classes.header}> 
-                <h3>Add a new service</h3>
-                <div className={classes.line}></div>
-            </div> 
-             <div className={classes.form}>
-                <div className={classes.name}>
-                    <input type="text" placeholder='Service name' value={name} onChange={(e)=>setName(e.target.value)}/>
+        selectedService?._id ? 
+        <div className={classes.EditService}>
+            <div className={classes.editContainer}>
+                <div className={classes.header}> 
+                    <h3>Edit Services</h3>
+                    <div className={classes.line}></div>
                 </div>
-                <div className={classes.name}>
-                    <input type="text" placeholder='Service price in Birr' value={price} onChange={(e)=>setPrice(e.target.value)}/>
+                <div className={classes.close} onClick={handleUnEdit}>
+                    <IoClose/>
                 </div>
-                <div className={classes.description}>
-                    <textarea placeholder='Service description' rows={6} style={{resize:"none"}} value={description} onChange={(e)=>setDescription(e.target.value)}></textarea>
+                <div className={classes.form}>
+                    <div className={classes.name}>
+                        <input type="text" placeholder='Service name' value={editName} onChange={(e)=>setEditName(e.target.value)}/>
+                    </div>
+                    <div className={classes.description}>
+                        <textarea placeholder='Service description' rows={6} style={{resize:"none"}} value={editDescription} onChange={(e)=>setEditDescription(e.target.value)}></textarea>
+                    </div>
+                    <div className={classes.price}>
+                        <input type="text" placeholder='Service price in Birr' value={edtiPrice} onChange={(e)=>setEditPrice(e.target.value)}/>
+                    </div>
+                    <button className={classes.btn} onClick={handleUpdate}>{updateLoading ? "Loading..":"UPDATE SERVICE"}</button>
                 </div>
-                <button className={classes.btn} onClick={handleSubmit}>{isLoading? "Loading..":"ADD SERVICE"}</button>
             </div>
         </div>
-    </div>
+       :
+        <div className={classes.ServiceList}>
+            <div className={classes.header}> 
+                <h3>Services we provide</h3>
+                <div className={classes.line}></div>
+            </div>
+            <p className={classes.text}>Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward,a new normal that has evolved from generation heading towards.</p>
+
+            <div className={classes.listContainer}>
+                    {
+                        isFound ? <p>Loading ...</p> :
+                        serviceList === null ? <p>No Service Found</p> :
+                        serviceList?.map((item,index)=>{
+                            return (
+                                <div className={classes.itemContainer} key={index}>
+                                    <div className={classes.left}>
+                                        <h1>{item.name}</h1>
+                                        <p>{item.description}</p>
+                                    </div>
+                                    <div className={classes.right}>
+                                        <button className={classes.red} onClick={()=> handleEdit(item)}><FaEdit/></button>
+                                        <button><MdDelete/></button>
+                                    </div>
+                                </div>
+                            )
+                        })
+                    }
+            </div>
+
+            <div className={classes.AddService}>
+                <div className={classes.header}> 
+                    <h3>Add a new service</h3>
+                    <div className={classes.line}></div>
+                </div> 
+                <div className={classes.form}>
+                    <div className={classes.name}>
+                        <input type="text" placeholder='Service name' value={name} onChange={(e)=>setName(e.target.value)}/>
+                    </div>
+                    <div className={classes.description}>
+                        <textarea placeholder='Service description' rows={6} style={{resize:"none"}} value={description} onChange={(e)=>setDescription(e.target.value)}></textarea>
+                    </div>
+                    <div className={classes.price}>
+                        <input type="text" placeholder='Service price in Birr' value={price} onChange={(e)=>setPrice(e.target.value)}/>
+                    </div>
+                    <button className={classes.btn} onClick={handleSubmit}>{isLoading? "Loading..":"ADD SERVICE"}</button>
+                </div>
+            </div>
+        </div>
+
   )
 }
 

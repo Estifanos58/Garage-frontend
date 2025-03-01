@@ -6,7 +6,7 @@ export const createAdminSlice = (set) => ({
     serviceList: [],
     addServiceList: (data) => set((state)=> ({serviceList: state.serviceList.length > 0 ? [...state.serviceList, data]: [data]})),
     setServiceList: (data) => set({serviceList: Array.isArray(data) ? data: [data]}),
-    editServiceList: (data) => set((state)=>({serviceList: state.serviceList.map((item) =>item._id === data._id ? data : item)})),
+    editServiceList: (data) => set((state)=>({serviceList: state.serviceList.map((item) => item._id === data._id ? data : item)})),
     removeServiceList: (data)=> set((state)=> ({serviceList: state.serviceList.filter((item) => item._id !== data._id)})),
     
     // Selected Vehicle
@@ -45,5 +45,8 @@ export const createAdminSlice = (set) => ({
     setEmployeeList: (data) => set({employeeList: data}),
     removeEmployee: (id) => set((state) => ({employeeList: state.employeeList.filter((item) => item._id !== id)})),
     editEmployeeList: (data) => set((state) => ({employeeList: state.employeeList.map((item) => item._id === data._id ? data : item)})),
-    
+
+    //Selected Service
+    selectedService: {},
+    setSelectedService: (data) => set({selectedService: data}),
 })
