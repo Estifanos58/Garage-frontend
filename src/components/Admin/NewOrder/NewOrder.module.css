@@ -130,3 +130,34 @@ table tbody tr td {
     font-size: 20px;
     margin-bottom: 10px;
 }
+.OrderList {
+    background-color: #fff;
+    margin-top: 20px;
+    padding: 30px;
+}
+.OrderList h1 {
+    font-size: 19px;
+    margin-bottom: 20px;
+    
+}
+.individualOrder {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 10px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    margin: 5px 0;
+}
+.individualOrder h2 {
+    font-size: 17px;
+    margin-bottom: 5px;
+}
+.individualOrder p {
+    font-size: 14px;
+    color: rgba(108, 108, 109, 0.902);
+}
+.individualOrder .right input {
+    width: 25px;
+    height: 25px;
+    border: 1px solid rgba(136, 137, 141, 0.47);
+}

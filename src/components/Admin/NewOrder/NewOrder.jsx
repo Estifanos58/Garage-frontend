@@ -4,7 +4,7 @@ import { FaHandPointUp, FaEdit } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import classes from "./NewOrder.module.css"
 import axios from 'axios';
-import { GETALLVEHICLE, SEARCHCUSTOMER } from '../../../utils/constant';
+import { GETALLSERVICE, GETALLVEHICLE, SEARCHCUSTOMER } from '../../../utils/constant';
 import spinner from '../../../assets/Spinner-2.gif'
 
 function NewOrder() {
@@ -14,6 +14,7 @@ function NewOrder() {
     const [selecteCustomer, setSelectCutomer] = useState({});
     const [customerVehicle, setCustomerVehicle] = useState({});
     const [selectVehicle, setSelectVehicle] = useState({});
+    const [orderList, setOrderList] = useState({});
     const [isVehicleSearching, setVehicleSearching] = useState(false)
     
 
@@ -57,9 +58,21 @@ function NewOrder() {
         
     }
 
+    const getOrderList = async () => {
+        try {
+            const response  = await axios.get(GETALLSERVICE,{withCredentials: true});
+            if(response.data.success){
+                setOrderList(response.data.data);
+            }
+        } catch (error) {
+            console.log("ERROR: ", error)
+        }
+    }
+
     useEffect(()=>{
        getSearchResult()
        getCustomerVehicle()
+       getOrderList()
 
     },[search, selecteCustomer])
 
@@ -190,6 +203,25 @@ function NewOrder() {
                             <p className={classes.edit}><FaEdit/></p>
                         </div>
                         <div className={classes.close} onClick={handleSelectVehicle}><IoClose/></div>
+                    </div>
+                }
+                {
+                    selectVehicle._id && selecteCustomer._id && 
+                    <div className={classes.OrderList}>
+                        <h1>Choose service</h1>
+                            {
+                                orderList.length > 0 && orderList.map((order, index)=>(
+                                    <div className={classes.individualOrder} key={index}>
+                                        <div className={classes.left}>
+                                            <h2>{order.name}</h2>
+                                            <p>{order.description}</p>
+                                        </div>
+                                        <div className={classes.right}>
+                                            <input type="checkbox"/>
+                                        </div>
+                                    </div>
+                                ))
+                            }
                     </div>
                 }
             
