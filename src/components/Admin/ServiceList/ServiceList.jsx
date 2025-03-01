@@ -90,19 +90,16 @@ function ServiceList() {
         }
         setUpdateLoading(true);
         const response = await axios.patch(EDITSERVICE, {service_id: selectedService._id, name: editName, description: editDescription, price: edtiPrice},{withCredentials: true});
-        console.log("RESPONSE: ", response)
         if(response.data.success){
             setUpdateLoading(false);
             editServiceList(response.data.data);
             toast.success("Service Updated");
+        }else {
+            console.log("ERROR: ", response.data.message);
         }
-        // console.log("EDITNAME: ", editName);
-    // console.log("EDIT Description: ", editDescription);
-    // console.log("EDIT PRICE: ", edtiPrice);
 
     }
 
-    console.log("SELECTED SERVICE: ", selectedService)
 
   return (
 

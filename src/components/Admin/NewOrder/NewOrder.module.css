@@ -1,0 +1,70 @@
+.NewOrder {
+    margin: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(8,25,74);
+    /* height: 100vh; */
+}
+.header {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.line {
+    width: 30px;
+    height: 2px;
+    background-color: rgb(238,13,21);
+    margin-top: -5px;
+}
+.header h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.searchContainer {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    background-color: #fff;
+    border: 1px solid rgba(136, 137, 141, 0.47);
+}
+.searchContainer input {
+    width: 90%;
+    font-size: 14px;
+    outline: none;
+    border: none;
+}
+.searchContainer p img {
+    width: 18px;
+}
+/* .customerList {
+    border-collapse: collapse;
+    border: 1px solid rgba(136, 137, 141, 0.47);
+    width: 80%;
+}
+.customerList th {
+    color: #fff;
+    padding: 10px;
+    text-align: left;
+} */
+.customerList {
+    width: 80%;
+    border: 1px solid rgba(136, 137, 141, 0.47);
+    margin-top: 10px;
+    padding: 0;
+    border-collapse: collapse;
+}
+.customerList thead tr th {
+    padding: 10px;
+    border: 1px solid rgba(136, 137, 141, 0.47);
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+.customerList tbody tr td {
+    padding: 10px;
+    border: 1px solid rgba(136, 137, 141, 0.47);
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+}
