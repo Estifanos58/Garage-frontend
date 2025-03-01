@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { CiSearch } from "react-icons/ci";
 import { FaHandPointUp, FaEdit } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
 import classes from "./NewOrder.module.css"
 import axios from 'axios';
-import { SEARCHCUSTOMER } from '../../../utils/constant';
+import { GETALLVEHICLE, SEARCHCUSTOMER } from '../../../utils/constant';
 import spinner from '../../../assets/Spinner-2.gif'
 
 function NewOrder() {
@@ -11,6 +12,8 @@ function NewOrder() {
     const [isLoading, setLoading] = useState(false);
     const [searchResult, setSearchResult] = useState([]);
     const [selecteCustomer, setSelectCutomer] = useState({});
+    const [customerVehicle, setCustomerVehicle] = useState({});
+    const [isVehicleSearching, setVehicleSearching] = useState(false)
     
 
     const getSearchResult = async () =>{
@@ -32,10 +35,32 @@ function NewOrder() {
         }
     }
 
+    const getCustomerVehicle = async () => {
+        if(selecteCustomer._id){
+            try {
+                setVehicleSearching(true)
+                const response = await axios.post(GETALLVEHICLE, {customer_id: selecteCustomer._id},{withCredentials: true});
+                if(response.data.success){
+                    setCustomerVehicle(response.data.data);
+                    setVehicleSearching(false)
+                }else {
+                    toast.error(response.data.message);
+                    setVehicleSearching(false)
+                }
+                console.log("RESPONSE: ", response);
+            } catch (error) {
+                console.log("ERROR: ", error)
+                setVehicleSearching(false)
+            }
+        }
+        
+    }
+
     useEffect(()=>{
        getSearchResult()
+       getCustomerVehicle()
 
-    },[search])
+    },[search, selecteCustomer])
 
     const handleSelect = (item)=>{
         if(selecteCustomer && item._id == selecteCustomer._id){
@@ -44,6 +69,8 @@ function NewOrder() {
           setSelectCutomer(item)
         }
     }
+
+    console.log("CUSTOMER VEHICLE: ", customerVehicle)
 
 
   return (
@@ -93,11 +120,51 @@ function NewOrder() {
                         <p>Phone: <span>{` ${selecteCustomer.phone}`}</span></p>
                         <p>Active Customer: <span>{` ${selecteCustomer.status}`}</span></p>
                         <p>Added Date: <span>{` ${selecteCustomer.added_date}`}</span></p>
-                        <p>Edit customer info <span className={classes.edit}><FaEdit/></span></p>
-                        <div className={classes.text}>Info</div>
+                        <div className={classes.editConteiner}>
+                            <p>Edit customer info</p>
+                            <p className={classes.edit}><FaEdit/></p>
+                        </div>
+                        <div className={classes.close} onClick={handleSelect}><IoClose/></div>
                     </div>
                 }
             </div>
+            {
+                (!isVehicleSearching && customerVehicle.length > 0 && selecteCustomer._id)&&
+                    (<div className={classes.customerVehicle}>
+                        <h1>Customer Vehicle</h1>
+                        <table className={classes.vehicleList}>
+                            <thead>
+                                <tr>
+                                    <th>Vehicle Type</th>
+                                    <th>Vehicle Model</th>
+                                    <th>Vehicle Year</th>
+                                    <th>License Serial Number</th>
+                                    <th>Vehicle Model</th>
+                                    <th>Vehicle Color</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    customerVehicle.length > 0 && customerVehicle.map((vehicle, index)=>(
+                                        <tr key={index}>
+                                            <td>{vehicle.type}</td>
+                                            <td>{vehicle.model}</td>
+                                            <td>{vehicle.year}</td>
+                                            <td>{vehicle.serial_number}</td>
+                                            <td>{vehicle.model}</td>
+                                            <td>{vehicle.color}</td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                    </div>)
+                } 
+                {(!isVehicleSearching && customerVehicle.length === 0) &&
+                    <p>No vehicle found</p>
+                }
+            
+           
             
         </div>
     </div>
@@ -105,3 +172,4 @@ function NewOrder() {
 }
 
 export default NewOrder
+

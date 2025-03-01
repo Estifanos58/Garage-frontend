@@ -68,3 +68,46 @@
     font-size: 14px;
     font-family: Arial, Helvetica, sans-serif;
 }
+
+.customerDetails {
+    background-color: #fff;
+    padding: 20px;
+    position: relative;
+}
+
+.customerDetails h1{
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+.customerDetails p {
+    font-size: 14px;
+    color: rgb(8,25,74);
+    margin: 5px 0;
+}
+.customerDetails p span {
+    color: rgba(108, 108, 109, 0.902);
+}
+.close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 25px;
+    height: 25px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: rgb(238,13,21);
+    color: #fff;
+}
+.edit {
+    margin-left: 10px;
+    color: rgb(238,13,21);
+}
+
+.editConteiner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
