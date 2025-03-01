@@ -13,6 +13,7 @@ function NewOrder() {
     const [searchResult, setSearchResult] = useState([]);
     const [selecteCustomer, setSelectCutomer] = useState({});
     const [customerVehicle, setCustomerVehicle] = useState({});
+    const [selectVehicle, setSelectVehicle] = useState({});
     const [isVehicleSearching, setVehicleSearching] = useState(false)
     
 
@@ -69,7 +70,13 @@ function NewOrder() {
           setSelectCutomer(item)
         }
     }
-
+    const handleSelectVehicle = (item)=>{
+        if(selectVehicle && item._id == selectVehicle._id){
+          setSelectVehicle(null);
+        } else {
+          setSelectVehicle(item)
+        }
+      }
     console.log("CUSTOMER VEHICLE: ", customerVehicle)
 
 
@@ -128,41 +135,65 @@ function NewOrder() {
                     </div>
                 }
             </div>
-            {
-                (!isVehicleSearching && customerVehicle.length > 0 && selecteCustomer._id)&&
-                    (<div className={classes.customerVehicle}>
-                        <h1>Customer Vehicle</h1>
-                        <table className={classes.vehicleList}>
-                            <thead>
-                                <tr>
-                                    <th>Vehicle Type</th>
-                                    <th>Vehicle Model</th>
-                                    <th>Vehicle Year</th>
-                                    <th>License Serial Number</th>
-                                    <th>Vehicle Model</th>
-                                    <th>Vehicle Color</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    customerVehicle.length > 0 && customerVehicle.map((vehicle, index)=>(
-                                        <tr key={index}>
-                                            <td>{vehicle.type}</td>
-                                            <td>{vehicle.model}</td>
-                                            <td>{vehicle.year}</td>
-                                            <td>{vehicle.serial_number}</td>
-                                            <td>{vehicle.model}</td>
-                                            <td>{vehicle.color}</td>
+            
+                {
+                    (!isVehicleSearching && !selectVehicle._id && customerVehicle.length > 0 && selecteCustomer._id)&&
+                        (
+                            <div className={classes.customerVehicle}>
+                                <h1>Choose a vehicle</h1>
+                                <table className={classes.vehicleList}>
+                                    <thead>
+                                        <tr>
+                                            <th>Vehicle Type</th>
+                                            <th>Vehicle Model</th>
+                                            <th>Vehicle Year</th>
+                                            <th>License Serial Number</th>
+                                            <th>Vehicle Model</th>
+                                            <th>Vehicle Color</th>
                                         </tr>
-                                    ))
-                                }
-                            </tbody>
-                        </table>
-                    </div>)
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            customerVehicle.length > 0 && customerVehicle.map((vehicle, index)=>(
+                                                <tr key={index} style={{backgroundColor: selectVehicle ? selectVehicle._id === vehicle._id  && "#1E90FF" : index % 2 !== 0 ? "#f2f2f2" : "white" , cursor:"pointer"}} onClick={()=>handleSelectVehicle(vehicle)}>
+                                                    <td>{vehicle.type}</td>
+                                                    <td>{vehicle.model}</td>
+                                                    <td>{vehicle.year}</td>
+                                                    <td>{vehicle.serial_number}</td>
+                                                    <td>{vehicle.model}</td>
+                                                    <td>{vehicle.color}</td>
+                                                </tr>
+                                            ))
+                                        }
+                                    </tbody>
+                                </table>
+                                </div>
+                        )
                 } 
                 {(!isVehicleSearching && customerVehicle.length === 0) &&
-                    <p>No vehicle found</p>
+                        <p>No vehicle found</p>
                 }
+                {
+                    isVehicleSearching && <img className={classes.spinner} src={spinner} alt="" />
+                }
+                {
+                    selectVehicle._id && selecteCustomer._id && 
+                    <div className={classes.customerDetails} style={{marginTop: "20px"}}>
+                        <h1>{`${selectVehicle.make} ${selectVehicle.model}`}</h1>
+                        <p>Vehicle color: <span>{`${selectVehicle.color}`}</span></p>
+                        <p>Vehicle tag: <span>{` ${selectVehicle.tag}`}</span></p>
+                        <p>Vehicle year: <span>{` ${selectVehicle.year}`}</span></p>
+                        <p>Vehicle mileage: <span>{` ${selectVehicle.mileage}`}</span></p>
+                        <p>Vehicle serial: <span>{` ${selectVehicle.serial}`}</span></p>
+                        <div className={classes.editConteiner}>
+                            <p>Edit vehicle info</p>
+                            <p className={classes.edit}><FaEdit/></p>
+                        </div>
+                        <div className={classes.close} onClick={handleSelectVehicle}><IoClose/></div>
+                    </div>
+                }
+            
+           
             
            
             

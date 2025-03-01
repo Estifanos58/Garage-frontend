@@ -48,24 +48,28 @@
     padding: 10px;
     text-align: left;
 } */
-.customerList {
+ .customerList {
     width: 80%;
+ }
+table {
+    width: 100%;
     border: 1px solid rgba(136, 137, 141, 0.47);
     margin-top: 10px;
     padding: 0;
     border-collapse: collapse;
 }
-.customerList thead tr th {
+table thead tr th {
     padding: 10px;
     border: 1px solid rgba(136, 137, 141, 0.47);
     font-size: 14px;
     font-family: Arial, Helvetica, sans-serif;
 
 }
-.customerList tbody tr td {
+table tbody tr td {
     padding: 10px;
     border: 1px solid rgba(136, 137, 141, 0.47);
     font-size: 14px;
+    text-align: center;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -110,4 +114,19 @@
     display: flex;
     align-items: center;
     gap: 10px;
+}
+.spinner {
+    width: 50px;
+    height: 50px;
+    margin: 10px auto;
+}
+.customerVehicle {
+    background-color: #fff;
+    padding: 20px;
+    padding-top: 40px;
+    margin-top: 20px;
+}
+.customerVehicle h1 {
+    font-size: 20px;
+    margin-bottom: 10px;
 }
