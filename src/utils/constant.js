@@ -11,6 +11,7 @@ export const GETALLEMPLOYEES = `${API}admin/get-all-employees`;
 export const ADDEMPLOYEE = `${API}admin/add-employee`;
 export const EDITEMPLOYEE = `${API}admin/edit-employee`;
 export const DELETEEMPLOYEE = `${API}admin/delete-employee`;
+export const EMPLOYEEFORWORK = `${API}admin/workEmpolyee`;
 
 
 export const GETALLCUSTOMERS = `${API}admin/get-all-customers`

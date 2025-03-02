@@ -6,7 +6,7 @@ import { MdDelete } from "react-icons/md";
 import { useAppStore } from '../../../hook/store';
 import { CiIndent } from "react-icons/ci";
 import moment from "moment";
-import { GETALLORDER } from '../../../utils/constant';
+import { EMPLOYEEFORWORK, GETALLORDER } from '../../../utils/constant';
 import axios from 'axios';
 import {toast} from "react-toastify";
 
@@ -82,6 +82,8 @@ function Orders() {
     const {orderList, setOrderList} = useAppStore();
     const [editOrder, setEditOrder] = useState({});
     const [isLoading, setLoading] = useState(false);
+    const [employeeList, setEmployeeList] = useState([]);
+    const [employee, setEmployee] = useState("");
     const fetched = useRef(false);
 
 
@@ -89,7 +91,7 @@ function Orders() {
         try {
             setLoading(true);
             const response = await axios.get(GETALLORDER,{withCredentials: true});
-            console.log("RESPONSE: ", response)
+            // console.log("RESPONSE: ", response)
             if(response.data.success){
                 setLoading(false);
                 console.log(response.data.data);
@@ -113,15 +115,26 @@ function Orders() {
 
     useEffect(() => {
         let  fetch = false;
-        console.log("ORDER LIST", orderList.length)
-        console.log("FETCHED: ", fetched)
+        // console.log("ORDER LIST", orderList.length)
+        // console.log("FETCHED: ", fetched)
         if (!fetched.current && !fetch && orderList.length === 0) {
             fetch = true;
-            console.log("HI");
+            // console.log("HI");
             fetched.current = true; // Set this immediately to prevent multiple calls
             getAllOrders();
+            
         }
     }, []);
+
+    const fetchAllEmployees = async() => {
+        const response = await axios.get(EMPLOYEEFORWORK, {withCredentials: true});
+        if(response.data.data){
+            setEmployeeList(response.data.data);
+        }else {
+            console.log(response.data.message);
+        }
+        // console.log("RESPONSE: ", response)
+    }
 
     if(isLoading){ 
         return <p>Loading...</p>
@@ -158,10 +171,26 @@ function Orders() {
     }
     const formatDate = (timestamp) => moment(timestamp).format("MMM DD, YYYY");
 
+    const handleUpdate = async () => {
+        try {
+            if(!employee){
+                return toast.error("You have to assign an Employee")
+            }
+            const response = await axios
+        } catch (error) {
+            console.log("Error happened")
+        }
+    }
+
+    if(editOrder._id && employeeList.length === 0){
+        fetchAllEmployees()
+    }
+
   return (        
      <div className={classes.Orders}>
         {
-            !editOrder._id && <div className={classes.container}>
+            !editOrder._id && 
+            <div className={classes.container}>
                 <div className={classes.header}> 
                     <h3>Orders</h3>
                     <div className={classes.line}></div>
@@ -218,14 +247,14 @@ function Orders() {
         }
 
         {
-            editOrder._id && <div className={classes.EditOrders}>
-            <div className={classes.container}>
-                <div className={classes.header}> 
-                    <h3>Edit Order</h3>
-                    <div className={classes.line}></div>
-                </div>
+            editOrder._id && 
+            <div className={classes.EditOrders}>
+            <div className={classes.container}>               
                 <div className={classes.form}>
-                   
+                    <div className={classes.header}> 
+                        <h3>Edit Order</h3>
+                        <div className={classes.line}></div>
+                    </div>
                         <div>
                             <h3>Customer :</h3>
                             <p>{`${editOrder.customer_id.first_name} ${editOrder.customer_id.last_name}`}</p>
@@ -253,9 +282,11 @@ function Orders() {
                         <label>Employee</label>
                         <select className={classes.select}>
                             <option value="">Select Employee</option>
-                            <option value="1">John Doe</option>
-                            <option value="2">Jane Doe</option>
-                            <option value="3">John Tomas</option>
+                            {
+                                employeeList.map((item,index)=> (
+                                    <option value={`${item._id}`} onChange={(e)=>setEmployee(e.target.value)} key={index}>{`${item.first_name} ${item.last_name}`}</option>
+                                ))
+                            }
                         </select>
                     </div>
                     <div className={classes.formGroup}  style={{display: `${editOrder.employee_id? "block": "none"}`}} >
@@ -268,7 +299,28 @@ function Orders() {
                         </select>
                     </div>
                     <div className={classes.formGroup}>
-                        <button>Update</button>
+                        <button onClick={handleUpdate}>Update</button>
+                    </div>
+                </div>
+                <div className={classes.serviceOrder}>
+                    <div className={classes.service}>
+                        <div className={classes.header}> 
+                            <h3>Service Order</h3>
+                            <div className={classes.line}></div>
+                        </div>
+                        {
+                            editOrder.services.map((item, index) => (
+                                <div className={classes.serviceItem} key={index}>
+                                    <div className={classes.serviceName}>
+                                        <h3>{item.service_id.name}</h3>
+                                        <p>{`${item.service_id.price} BIRR`}</p>
+                                    </div>
+                                    <p>{item.service_id.description}</p>
+                                    
+                                </div>
+                            ))
+                        }
+                        <h2>{`Total Price: ${editOrder.total} BIRR`}</h2>
                     </div>
                 </div>
             </div>
