@@ -82,8 +82,10 @@ function NewOrder() {
     const handleSelect = (item)=>{
         if(selecteCustomer && item._id == selecteCustomer._id){
           setSelectCutomer(null);
+          setSelectVehicle({});
         } else {
           setSelectCutomer(item)
+          setSelectVehicle({})
         }
     }
     const handleSelectVehicle = (item)=>{
