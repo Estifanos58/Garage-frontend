@@ -22,6 +22,7 @@ import EditCustomer from './components/Admin/EditCustomer/EditCustomer'
 import CustomerDetails from './pages/Customer/CustomerDetails'
 import ServiceList from './components/Admin/ServiceList/ServiceList'
 import NewOrder from './components/Admin/NewOrder/NewOrder'
+import Orders from './components/Admin/Orders/Orders'
 
 
 function App() {
@@ -90,6 +91,7 @@ const ProtectedRoute = ({ children }) => {
             </Route>
             <Route path="services" element={<ServiceList/>}/>
             <Route path="new_order" element={<NewOrder/>}/>
+            <Route path="orders" element={<Orders/>}/>
             <Route path='*' element={<h1>Under constraction</h1>} />
         </Route>
       </Routes>
