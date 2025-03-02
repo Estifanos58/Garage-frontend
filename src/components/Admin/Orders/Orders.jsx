@@ -80,27 +80,36 @@ function Orders() {
         
     // ]
     const {orderList, setOrderList} = useAppStore();
+    const [editOrder, setEditOrder] = useState({});
+    const [isLoading, setLoading] = useState(false);
     const fetched = useRef(false);
 
 
     const getAllOrders = async() => {
         try {
+            setLoading(true);
             const response = await axios.get(GETALLORDER,{withCredentials: true});
             console.log("RESPONSE: ", response)
             if(response.data.success){
+                setLoading(false);
                 console.log(response.data.data);
                 setOrderList(response.data.data);
                 // toast(response.data.message);
             } else {
+                setLoading(false);
                 console.log(response.data.message);
                 // toast.error(response.data.message);
             }
         } catch (error) {
+            setLoading(false);
             toast.error("Something went wrong");
             console.log(error);
         }
     }
     
+    const handleEdit = (item) => {
+        setEditOrder(item);
+    }
 
     useEffect(() => {
         let  fetch = false;
@@ -113,6 +122,10 @@ function Orders() {
             getAllOrders();
         }
     }, []);
+
+    if(isLoading){ 
+        return <p>Loading...</p>
+    }
     
 
     const getBgcolor = (status) => {
@@ -145,9 +158,10 @@ function Orders() {
     }
     const formatDate = (timestamp) => moment(timestamp).format("MMM DD, YYYY");
 
-  return (
-    <div className={classes.Orders}>
-            <div className={classes.container}>
+  return (        
+     <div className={classes.Orders}>
+        {
+            !editOrder._id && <div className={classes.container}>
                 <div className={classes.header}> 
                     <h3>Orders</h3>
                     <div className={classes.line}></div>
@@ -192,7 +206,7 @@ function Orders() {
                                             <p style={{backgroundColor:`${getBgcolor(item.status)}`, color:`${getColor(item.status)}`, textAlign:"center", borderRadius:"30px", padding:"3px 0"}}>{item.status}</p>
                                         </td>
                                         <td style={{display:"flex", alignItems:"center", border: "none", paddingTop: "30px"}}>
-                                            <p style={{fontSize:"20px"}}><CiIndent/></p>  <p style={{fontSize:"20px"}}><FaEdit/></p></td>
+                                            <p style={{fontSize:"20px"}}><CiIndent/></p>  <p style={{fontSize:"20px"}} onClick={()=>handleEdit(item)}><FaEdit/></p></td>
                                     </tr>
                                 ))
                                 : <tr><td colSpan="8">No data</td></tr>
@@ -200,8 +214,68 @@ function Orders() {
                         </tbody>
                     </table>
                 </div>
-             </div>
-        </div>
+            </div>
+        }
+
+        {
+            editOrder._id && <div className={classes.EditOrders}>
+            <div className={classes.container}>
+                <div className={classes.header}> 
+                    <h3>Edit Order</h3>
+                    <div className={classes.line}></div>
+                </div>
+                <div className={classes.form}>
+                   
+                        <div>
+                            <h3>Customer :</h3>
+                            <p>{`${editOrder.customer_id.first_name} ${editOrder.customer_id.last_name}`}</p>
+                        </div>
+                        <div>
+                            <h3>Email :</h3>
+                            <p>{editOrder.customer_id.email}</p>
+                        </div>
+                        <div>
+                            <h3>Phone :</h3>
+                            <p>{editOrder.customer_id.phone}</p>
+                        </div>
+
+                        <div>
+                            <h3>Vehicle :</h3>
+                            <p>{`${editOrder.vehicle_id.make} ${editOrder.vehicle_id.model} ${editOrder.vehicle_id.year}`}</p>
+                        </div>
+                       
+                        <div>
+                            <h3>Order Created At :</h3>
+                            <p>{formatDate(editOrder.createdAt)}</p>
+                        </div>
+                    
+                    <div className={classes.formGroup}>
+                        <label>Employee</label>
+                        <select className={classes.select}>
+                            <option value="">Select Employee</option>
+                            <option value="1">John Doe</option>
+                            <option value="2">Jane Doe</option>
+                            <option value="3">John Tomas</option>
+                        </select>
+                    </div>
+                    <div className={classes.formGroup}  style={{display: `${editOrder.employee_id? "block": "none"}`}} >
+                        <label>Status</label>
+                        <select>
+                            <option value="Received">Received</option>
+                            <option value="In progress">In progress</option>
+                            <option value="pending">Pending</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                    <div className={classes.formGroup}>
+                        <button>Update</button>
+                    </div>
+                </div>
+            </div>
+            </div>
+        }
+    </div>
+    
   )
 }
 

@@ -63,3 +63,52 @@
     font-size: 13px;
     margin: 5px 0;
 }
+
+
+.form {
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(8,25,74);
+}
+.form input {
+    padding: 10px;
+    border: 1px solid rgba(136, 137, 141, 0.47);
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.form button {
+    padding: 10px 20px;
+    border: none;
+    background-color: rgb(238,13,21);
+    color: white;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+}
+.form button:hover {
+    background-color: rgb(255, 0, 0);
+}
+.form div {
+    display: flex;
+    gap: 10px;
+}
+.form div h3 {
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+.form div p {
+    font-size: 13px;
+    color: rgb(67, 67, 67);
+}
+.formGroup {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.select{
+    width: 200px;
+    padding: 12px;
+    margin: 12px 0;
+    border-right: 20px solid rgba(128, 128, 128, 0.47);
+    outline: none;
+}
