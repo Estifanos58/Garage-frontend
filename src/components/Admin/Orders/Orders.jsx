@@ -6,7 +6,7 @@ import { MdDelete } from "react-icons/md";
 import { useAppStore } from '../../../hook/store';
 import { CiIndent } from "react-icons/ci";
 import moment from "moment";
-import { EMPLOYEEFORWORK, GETALLORDER } from '../../../utils/constant';
+import { EDITORDER, EMPLOYEEFORWORK, GETALLORDER } from '../../../utils/constant';
 import axios from 'axios';
 import {toast} from "react-toastify";
 
@@ -79,11 +79,12 @@ function Orders() {
     //     }
         
     // ]
-    const {orderList, setOrderList} = useAppStore();
+    const {orderList, setOrderList, editOrderList} = useAppStore();
     const [editOrder, setEditOrder] = useState({});
     const [isLoading, setLoading] = useState(false);
     const [employeeList, setEmployeeList] = useState([]);
     const [employee, setEmployee] = useState("");
+    const [isUpdating, setUpdating] = useState(false);
     const fetched = useRef(false);
 
 
@@ -173,12 +174,25 @@ function Orders() {
 
     const handleUpdate = async () => {
         try {
+            console.log("EMPLOYEE: ",employee)
             if(!employee){
                 return toast.error("You have to assign an Employee")
             }
-            const response = await axios
+            setUpdating(true)
+            const response = await axios.put(EDITORDER,{employee_id: employee, order_id: editOrder._id},{withCredentials: true})
+            if(response.data.success){
+                setUpdating(false)
+                toast.success("Update Successflyy")
+                editOrderList(response.data.data)
+                
+            }else {
+                setUpdating(false);
+                toast.error(response.data.message)
+            }
+            console.log("EDIT ",response)
         } catch (error) {
-            console.log("Error happened")
+            setUpdating(false)
+            console.log("Error happened: ", error)
         }
     }
 
@@ -229,7 +243,7 @@ function Orders() {
                                             <h2>{`${formatDate(item.createdAt)}`}</h2>
                                         </td>
                                         <td>
-                                            <h2>{item.employee_id ? `${item.employee_id.first_name} ${itme.employee_id.last_name}`: "Not Assigned"}</h2>
+                                            <h2>{item.employee_id ? `${item.employee_id.first_name} ${item.employee_id.last_name}`: "Not Assigned"}</h2>
                                         </td>
                                         <td>
                                             <p style={{backgroundColor:`${getBgcolor(item.status)}`, color:`${getColor(item.status)}`, textAlign:"center", borderRadius:"30px", padding:"3px 0"}}>{item.status}</p>
@@ -280,11 +294,11 @@ function Orders() {
                     
                     <div className={classes.formGroup}>
                         <label>Employee</label>
-                        <select className={classes.select}>
+                        <select className={classes.select} value={employee}  onChange={(e) => setEmployee(e.target.value)} >
                             <option value="">Select Employee</option>
                             {
                                 employeeList.map((item,index)=> (
-                                    <option value={`${item._id}`} onChange={(e)=>setEmployee(e.target.value)} key={index}>{`${item.first_name} ${item.last_name}`}</option>
+                                    <option value={item._id} key={index}>{`${item.first_name} ${item.last_name}`}</option>
                                 ))
                             }
                         </select>
@@ -299,7 +313,7 @@ function Orders() {
                         </select>
                     </div>
                     <div className={classes.formGroup}>
-                        <button onClick={handleUpdate}>Update</button>
+                        <button onClick={handleUpdate}>{isUpdating ? "Loading..." :"Update"}</button>
                     </div>
                 </div>
                 <div className={classes.serviceOrder}>
