@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { CiSearch } from "react-icons/ci";
 import { FaHandPointUp, FaEdit } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
+import {toast} from 'react-toastify'
 import classes from "./NewOrder.module.css"
 import axios from 'axios';
-import { GETALLSERVICE, GETALLVEHICLE, SEARCHCUSTOMER } from '../../../utils/constant';
+import { ADDORDER, GETALLSERVICE, GETALLVEHICLE, SEARCHCUSTOMER } from '../../../utils/constant';
 import spinner from '../../../assets/Spinner-2.gif'
 
 function NewOrder() {
@@ -16,6 +17,8 @@ function NewOrder() {
     const [selectVehicle, setSelectVehicle] = useState({});
     const [orderList, setOrderList] = useState({});
     const [isVehicleSearching, setVehicleSearching] = useState(false)
+    const [selectedOrder, setSelectedOrder] = useState([]);
+    const [isSubmiting, setSubmiting] = useState(false);
     
 
     const getSearchResult = async () =>{
@@ -89,8 +92,52 @@ function NewOrder() {
         } else {
           setSelectVehicle(item)
         }
-      }
-    console.log("CUSTOMER VEHICLE: ", customerVehicle)
+    }
+
+    const handleCheck = (item) => {
+        if(selectedOrder.includes(item)){
+            setSelectedOrder(selectedOrder.filter(order => order !== item))
+        }else {
+            setSelectedOrder([...selectedOrder, item])
+        }
+    }
+
+    const getPrice = ()=> {
+        let price = 0;
+        for(let i=0; i<selectedOrder.length; i++){
+            price = price + Number(selectedOrder[i].price);
+        }
+        return price;
+    }
+
+    const handleSubmit = async () => {
+        try {
+            if(!selecteCustomer._id || !selectVehicle._id || !selectedOrder.length) {
+                return toast("All fields are required");
+            }
+            setSubmiting(true);
+            const order = {
+                customer_id: selecteCustomer._id,
+                vehicle_id: selectVehicle._id,
+                services: selectedOrder.map(order => order._id),
+                total: getPrice()
+            }
+            const response  = await axios.post(ADDORDER,order, {withCredentials: true});
+            if(response.data.success){
+                setSubmiting(false);
+                toast.success(response.data.message);
+                setSelectedOrder([]);
+                setSelectCutomer({});
+            }else {
+                setSubmiting(false)
+                toast.error(response.data.message);
+            }
+        } catch (error) {
+            setSubmiting(false)
+            console.log("ERROR: ", error)
+        }
+    }
+    console.log("CUSTOMER ORDERS: ", selectedOrder)
 
 
   return (
@@ -187,7 +234,7 @@ function NewOrder() {
                         <p>No vehicle found</p>
                 }
                 {
-                    isVehicleSearching && <img className={classes.spinner} src={spinner} alt="" />
+                    isVehicleSearching && <div style={{width: "100%", display: "flex", justifyContent: "center", backgroundColor: "#fff"}}><img className={classes.spinner} src={spinner} alt="" /></div>
                 }
                 {
                     selectVehicle._id && selecteCustomer._id && 
@@ -215,13 +262,15 @@ function NewOrder() {
                                         <div className={classes.left}>
                                             <h2>{order.name}</h2>
                                             <p>{order.description}</p>
+                                            <p className={classes.birr}>{`${order.price} birr`}</p>
                                         </div>
                                         <div className={classes.right}>
-                                            <input type="checkbox"/>
+                                            <input type="checkbox" onClick={()=> handleCheck(order)}/>
                                         </div>
                                     </div>
                                 ))
                             }
+                            <button onClick={handleSubmit}>{isSubmiting ? "Loading" :"Submit"}</button>
                     </div>
                 }
             

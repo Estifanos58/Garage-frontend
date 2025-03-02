@@ -161,3 +161,14 @@ table tbody tr td {
     height: 25px;
     border: 1px solid rgba(136, 137, 141, 0.47);
 }
+.OrderList button {
+    padding: 10px 15px;
+    background-color: rgb(238,13,21);
+    border: none;
+    color: #fff;
+    margin-top: 30px;
+}
+.left .birr {
+    color: rgb(5, 18, 57);
+    margin: 5px 0;
+}
