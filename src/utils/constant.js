@@ -27,3 +27,5 @@ export const GETALLSERVICE = `${API}admin/get-all-service`
 export const EDITSERVICE = `${API}admin/edit-service`
 
 export const ADDORDER = `${API}admin/add-order`
+export const GETALLORDER = `${API}admin/get-all-orders`
+export const GETORDERBYID = `${API}admin/get-order-by-id`

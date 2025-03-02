@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import classes from './Orders.module.css'
 import { BiSolidEdit } from "react-icons/bi";
 import { FaEdit } from "react-icons/fa";
@@ -6,76 +6,114 @@ import { MdDelete } from "react-icons/md";
 import { useAppStore } from '../../../hook/store';
 import { CiIndent } from "react-icons/ci";
 import moment from "moment";
+import { GETALLORDER } from '../../../utils/constant';
+import axios from 'axios';
+import {toast} from "react-toastify";
 
 function Orders() {
 
-    const data = [
-        {
-            _id: "123",
-            customerInfo: {
-                name: "John Doe",
-                email: "example@gmail.com",
-                "phone": "1234567890"
-            }, 
-            vehicleInfo : {
-                make: "Toyota",
-                model: "Corolla",
-                year: "2020"
-            },
-            orderDate: "2021-10-10",
-            receivedBy: "Jane Doe",
-            status: "Received"
-        },
-        {
-            _id: "123",
-            customerInfo: {
-                name: "John Doe",
-                email: "example@gmail.com",
-                "phone": "1234567890"
-            }, 
-            vehicleInfo : {
-                make: "Toyota",
-                model: "Corolla",
-                year: "2020"
-            },
-            orderDate: "2021-10-10",
-            receivedBy: "Jane Doe",
-            status: "pending"
-        },
-        {
-            _id: "123",
-            customerInfo: {
-                name: "John Tomas",
-                email: "example@gmail.com",
-                "phone": "3232942"
-            }, 
-            vehicleInfo : {
-                make: "Tesla",
-                model: "S",
-                year: "2010"
-            },
-            orderDate: "2021-10-04",
-            receivedBy: "Admin",
-            status: "completed"
-        },
-        {
-            _id: "1256",
-            customerInfo: {
-                name: "John Doe",
-                email: "example@gmail.com",
-                "phone": "1234567890"
-            }, 
-            vehicleInfo : {
-                make: "Toyota",
-                model: "Corolla",
-                year: "2020"
-            },
-            orderDate: "2021-10-10",
-            receivedBy: "Jane Doe",
-            status: "In progress"
-        }
+    // const data = [
+    //     {
+    //         _id: "123",
+    //         customerInfo: {
+    //             name: "John Doe",
+    //             email: "example@gmail.com",
+    //             "phone": "1234567890"
+    //         }, 
+    //         vehicleInfo : {
+    //             make: "Toyota",
+    //             model: "Corolla",
+    //             year: "2020"
+    //         },
+    //         orderDate: "2021-10-10",
+    //         receivedBy: "Jane Doe",
+    //         status: "Received"
+    //     },
+    //     {
+    //         _id: "123",
+    //         customerInfo: {
+    //             name: "John Doe",
+    //             email: "example@gmail.com",
+    //             "phone": "1234567890"
+    //         }, 
+    //         vehicleInfo : {
+    //             make: "Toyota",
+    //             model: "Corolla",
+    //             year: "2020"
+    //         },
+    //         orderDate: "2021-10-10",
+    //         receivedBy: "Jane Doe",
+    //         status: "pending"
+    //     },
+    //     {
+    //         _id: "123",
+    //         customerInfo: {
+    //             name: "John Tomas",
+    //             email: "example@gmail.com",
+    //             "phone": "3232942"
+    //         }, 
+    //         vehicleInfo : {
+    //             make: "Tesla",
+    //             model: "S",
+    //             year: "2010"
+    //         },
+    //         orderDate: "2021-10-04",
+    //         receivedBy: "Admin",
+    //         status: "completed"
+    //     },
+    //     {
+    //         _id: "1256",
+    //         customerInfo: {
+    //             name: "John Doe",
+    //             email: "example@gmail.com",
+    //             "phone": "1234567890"
+    //         }, 
+    //         vehicleInfo : {
+    //             make: "Toyota",
+    //             model: "Corolla",
+    //             year: "2020"
+    //         },
+    //         orderDate: "2021-10-10",
+    //         receivedBy: "Jane Doe",
+    //         status: "In progress"
+    //     }
         
-    ]
+    // ]
+    const {orderList, setOrderList} = useAppStore();
+    const fetched = useRef(false);
+
+
+    const getAllOrders = async() => {
+        try {
+            const response = await axios.get(GETALLORDER,{withCredentials: true});
+            console.log("RESPONSE: ", response)
+            if(response.data.success){
+                console.log(response.data.data);
+                setOrderList(response.data.data);
+                // toast(response.data.message);
+            } else {
+                console.log(response.data.message);
+                // toast.error(response.data.message);
+            }
+        } catch (error) {
+            toast.error("Something went wrong");
+            console.log(error);
+        }
+    }
+    
+
+    useEffect(() => {
+        let  fetch = false;
+        console.log("ORDER LIST", orderList.length)
+        console.log("FETCHED: ", fetched)
+        if (!fetched.current && !fetch && orderList.length === 0) {
+            fetch = true;
+            console.log("HI");
+            fetched.current = true; // Set this immediately to prevent multiple calls
+            getAllOrders();
+        }
+    }, []);
+    
 
     const getBgcolor = (status) => {
         switch(status) {
@@ -105,6 +143,7 @@ function Orders() {
                 return "white";
         }
     }
+    const formatDate = (timestamp) => moment(timestamp).format("MMM DD, YYYY");
 
   return (
     <div className={classes.Orders}>
@@ -128,26 +167,26 @@ function Orders() {
                         </thead>
                         <tbody>
                             {
-                                data?.length > 0 
+                                orderList?.length > 0 
                                 ? 
-                                data?.map((item, index) => (
+                                orderList?.map((item, index) => (
                                     <tr key={index} style={{backgroundColor: index % 2 !== 0 ? "#f2f2f2" : "white"}}>
                                         <td>{index + 1}</td>
                                         <td>
-                                            <h2>{item.customerInfo.name}</h2>
-                                            <p>{item.customerInfo.email}</p>
-                                            <p>{item.customerInfo.phone}</p>
+                                            <h2>{`${item.customer_id.first_name} ${item.customer_id.last_name}`}</h2>
+                                            <p>{item.customer_id.email}</p>
+                                            <p>{item.customer_id.phone}</p>
                                         </td>
                                         <td>
-                                            <h2>{item.vehicleInfo.make}</h2>
-                                            <p>{item.vehicleInfo.model}</p>
-                                            <p>{item.vehicleInfo.year}</p>
+                                            <h2>{item.vehicle_id.make}</h2>
+                                            <p>{item.vehicle_id.model}</p>
+                                            <p>{item.vehicle_id.year}</p>
                                         </td>
                                         <td>
-                                            <h2>{item.orderDate}</h2>
+                                            <h2>{`${formatDate(item.createdAt)}`}</h2>
                                         </td>
                                         <td>
-                                            <h2>{item.receivedBy}</h2>
+                                            <h2>{item.employee_id ? `${item.employee_id.first_name} ${itme.employee_id.last_name}`: "Not Assigned"}</h2>
                                         </td>
                                         <td>
                                             <p style={{backgroundColor:`${getBgcolor(item.status)}`, color:`${getColor(item.status)}`, textAlign:"center", borderRadius:"30px", padding:"3px 0"}}>{item.status}</p>
@@ -166,4 +205,5 @@ function Orders() {
   )
 }
 
-export default Orders
+
+export default Orders;
