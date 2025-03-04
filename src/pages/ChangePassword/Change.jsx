@@ -1,12 +1,19 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import classes from './Change.module.css'
 import { toast } from 'react-toastify';
+import axios from 'axios';
+import { useAppStore } from '../../hook/store';
+import { CHANGEPASSWORD } from '../../utils/constant';
 
 function Change() {
     const [oldpassword, setOldPassword] = useState("");
     const [newPasswrod, setNewPassword] = useState("");
     const [renewPassword, setReNewPassword] = useState("");
     const [visible, setVisible] =  useState(false);
+    const [isLoading, setLoading] = useState(false);
+    const { setUserInfo } = useAppStore();
+    const navigate = useNavigate();
 
     const handlevisible = ()=> {
         setVisible(prev => !prev);
@@ -24,7 +31,24 @@ function Change() {
         if(oldpassword === newPasswrod) {
             return toast.error("Old password and New password cannot be the same");
         }
-        toast.success("All Complete succefully");
+        try {
+            setLoading(true);
+            const response = await axios.put(CHANGEPASSWORD,{old_password: oldpassword, new_password: newPasswrod},{withCredentials: true});
+            console.log("RESPONSE: ",response);
+            if(response.data.success){
+                setLoading(false);
+                setUserInfo(response.data.user);
+                // navigate('')
+                toast.success("All Complete succefully");
+            } else {
+                setLoading(false);
+                toast.error(response.data.message);
+            }
+        } catch (error) {
+            console.log("Error: ", error);
+            setLoading(false);
+        }
+        
     }
     
   return (
@@ -49,7 +73,7 @@ function Change() {
                     <input type="checkbox" value={visible} onChange={handlevisible} />
                 </div>
                 <div className={classes.btn}>
-                    <button>Change</button>
+                    <button>{isLoading ? "Loading" :"Change"}</button>
                 </div>
             </form>
             </div>

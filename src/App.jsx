@@ -67,9 +67,17 @@ const ProtectedRoute = ({ children }) => {
   } else{
     return children; 
   }
-
  // Render protected content if authorized
 };
+
+const LogedRoute = ({children}) => {
+  if(!userInfo.role){
+    toast.error("You are not allowed!");
+    navigate("/");
+  } else {
+    return children;
+  }
+}
 
   return (
     <div>
@@ -80,7 +88,7 @@ const ProtectedRoute = ({ children }) => {
         <Route path='/services' element={<Service/>}/>
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />}/>
-        <Route path='/change_password' element={<Change/>} />
+        <Route path='/change_password' element={<LogedRoute><Change/></LogedRoute>} />
         <Route path='/admin' element={<ProtectedRoute><Admin /></ProtectedRoute>}>
             <Route index element={<Dashboard/>} />
             <Route path='add_employee' element={<AddEmployee />}/>

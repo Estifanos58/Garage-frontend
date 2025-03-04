@@ -32,7 +32,7 @@
     background-color: #fff;
     border: none;
     outline: none;
-    width: 60%;
+    width: 80%;
     padding: 10px;
 }
 .password {
@@ -45,11 +45,39 @@
     cursor: pointer;
     margin-right: 10px;
 }
+.forgot {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: rgba(18, 44, 116, 0.696);
+    margin: 10px 0;
+    cursor: pointer;
+}
+.forgot:hover {
+    color: rgba(18, 44, 116, 0.463);
+}
 .btn button {
     padding: 10px 20px;
     border: none;
     color: #fff;
     background-color: rgba(227, 14, 14, 0.902);
+}
+
+.forgotPassword {
+    position: relative;
+    margin: 50px 0;
+}
+.forgotPassword form p {
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.back {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin-right: -70px;
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
 }
 
 @media (max-width: 760px) {
