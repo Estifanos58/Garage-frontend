@@ -183,6 +183,7 @@ function Orders() {
             if(response.data.success){
                 setUpdating(false)
                 toast.success("Update Successflyy")
+                console.log("UPDATE: ", response.data.data);
                 editOrderList(response.data.data)
                 
             }else {

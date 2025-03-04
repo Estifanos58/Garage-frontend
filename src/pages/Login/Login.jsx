@@ -31,7 +31,15 @@ function Login() {
                 if(response.data.data.role === "admin") {
                     console.log("Navigate to admin");
                     navigate("/admin")
-                }else {
+                } if(response.data.data.role !== "admin") {
+                        if(response.data.status === "initial") {
+                            navigate('')
+                        } else if(response.data.status === "inactive"){
+
+                        } else {
+
+                        }
+                    }else {
                      navigate("/");
                 }
 

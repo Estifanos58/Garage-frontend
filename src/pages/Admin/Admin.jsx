@@ -17,8 +17,6 @@ function Admin() {
                 <Link to={"services"}><li>Service</li></Link>  
                 
             </ul>
-            {/* <Link to={"add_employee"}><p>Add Employee</p></Link>
-            <Link to={"add_customer"}>Add Customer</Link> */}
         </div>
         <div className={classes.right}>
             <Outlet />

@@ -23,6 +23,7 @@ import CustomerDetails from './pages/Customer/CustomerDetails'
 import ServiceList from './components/Admin/ServiceList/ServiceList'
 import NewOrder from './components/Admin/NewOrder/NewOrder'
 import Orders from './components/Admin/Orders/Orders'
+import Change from './pages/ChangePassword/Change'
 
 
 function App() {
@@ -79,6 +80,7 @@ const ProtectedRoute = ({ children }) => {
         <Route path='/services' element={<Service/>}/>
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />}/>
+        <Route path='/change_password' element={<Change/>} />
         <Route path='/admin' element={<ProtectedRoute><Admin /></ProtectedRoute>}>
             <Route index element={<Dashboard/>} />
             <Route path='add_employee' element={<AddEmployee />}/>
