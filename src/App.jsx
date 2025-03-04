@@ -24,6 +24,7 @@ import ServiceList from './components/Admin/ServiceList/ServiceList'
 import NewOrder from './components/Admin/NewOrder/NewOrder'
 import Orders from './components/Admin/Orders/Orders'
 import Change from './pages/ChangePassword/Change'
+import Forgot from './pages/Forgot/Forgot'
 
 
 function App() {
@@ -88,6 +89,7 @@ const LogedRoute = ({children}) => {
         <Route path='/services' element={<Service/>}/>
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />}/>
+        <Route path="/reset-password/:hash" element={<Forgot/>}/>
         <Route path='/change_password' element={<LogedRoute><Change/></LogedRoute>} />
         <Route path='/admin' element={<ProtectedRoute><Admin /></ProtectedRoute>}>
             <Route index element={<Dashboard/>} />

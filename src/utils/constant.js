@@ -5,6 +5,7 @@ export const USER_INFO = `${API}user/get-userInfo`
 export const LOGOUT = `${API}user/log-out`
 export const CHANGEPASSWORD = `${API}user/change_password`
 export const FORGOTPASSWORD = `${API}user/forgot-password`
+export const RESET_PASSWORD = `${API}auth/resetpassword`
 
 
 
