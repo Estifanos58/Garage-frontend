@@ -11,6 +11,7 @@ export const RESET_PASSWORD = `${API}auth/resetpassword`
 
 //Employee
 export const GETEMPLOYEEORDER = `${API}user/get-orders`
+export const GETNEWORDER = `${API}user/get-new-order`
 
 
 

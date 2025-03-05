@@ -28,6 +28,7 @@ import Forgot from './pages/Forgot/Forgot'
 import spinner from './assets/Spinner-2.gif'
 import Dash from './components/Employee/Dashboard/Dashboard'
 import EmOrders from './components/Employee/Orders/EmOrders'
+import EmNewOrder from './components/Employee/NewOrder/EmNewOrder'
 
 function App() {
 
@@ -95,7 +96,9 @@ const LogedRoute = ({children}) => {
           <Route path="/contact" element={<Contact />}/>
           <Route path="/reset-password/:hash" element={<Forgot/>}/>
           <Route path='/dashboard' element={<Dash/>}>
+            <Route index element={<Dashboard/>}/>
             <Route path='orders' element={<EmOrders />}/>
+            <Route path="new_order" element={<EmNewOrder />}/>
           </Route>
           <Route path='/change_password' element={<LogedRoute><Change/></LogedRoute>} />
           <Route path='/admin' element={<ProtectedRoute><Admin /></ProtectedRoute>}>

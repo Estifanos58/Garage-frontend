@@ -9,4 +9,8 @@ export const createUserSlice = (set) => ({
     setOrders: (data)=> set({orders: data}),
     addOrder: (data) => set((state)=> ({orders: [...state.orders, data]})),
     editOrder: (data) => set((state) => ({orders : state.orders.map((item)=> item._id === data._id ? data : item)})),
+
+    newOrder: {},
+    setNewOrder: (data) => set({newOrder: data}),
+
 })
