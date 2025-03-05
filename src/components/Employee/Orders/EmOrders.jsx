@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { useEffect, useState , useRef} from 'react'
 import classes from './EmOrders.module.css'
 import { data } from 'react-router-dom'
 import { CiIndent } from 'react-icons/ci'
 import { FaEdit } from 'react-icons/fa'
 import moment from 'moment'
+import {useAppStore} from '../../../hook/store'
+import { GETEMPLOYEEORDER } from '../../../utils/constant'
+import {toast} from 'react-toastify';
+import axios from 'axios';
 
 function EmOrders() {
-
+    const { orders, setOrders} = useAppStore();
+    const [isLoading, setLoading] = useState(false);
+    const fetched = useRef(false);
     const data = [
         {
             _id: "123",
@@ -75,6 +81,32 @@ function EmOrders() {
         
     ]
 
+    useEffect(()=>{
+        if(orders.length === 0) {
+            // fetched = true;
+            getOrders();
+        }
+    },[])
+
+    const getOrders= async ()=> {
+        try {
+            setLoading(true);
+            const response = await  axios.get(GETEMPLOYEEORDER, {withCredentials: true});
+            console.log("Response: ", response);
+            if(response.data.success){
+                setLoading(false);
+                setOrders(response.data.data);
+            }else {
+                setLoading(false);
+                toast.error(response.data.message);
+            }
+        } catch (error) {
+            setLoading(false);
+            toast.error(response.data.message);
+            console.log("ERROR: ", error);
+        }
+    }
+
     const getBgcolor = (status) => {
         switch(status) {
             case "pending":
@@ -112,7 +144,9 @@ function EmOrders() {
                             <div className={classes.line}></div>
                         </div>
         <div className={classes.table}>
-            <table>
+            {
+                isLoading ? <p>Loading</p> :
+                <table>
                 <thead>
                     <tr>
                         <th>Order No</th>
@@ -120,28 +154,28 @@ function EmOrders() {
                         <th>Vehicle</th>
                         <th>Order Date</th>
                         <th>Order status</th>
-                        <th>View </th>
+                        <th>View</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        data?.length > 0 
+                        orders?.length > 0 
                         ? 
-                        data?.map((item, index) => (
+                        orders?.map((item, index) => (
                             <tr key={index} style={{backgroundColor: index % 2 !== 0 ? "#f2f2f2" : "white"}}>
                                 <td>{index + 1}</td>
                                 <td>
-                                    <h2>{`${item.customerInfo.name}`}</h2>
-                                    <p>{item.customerInfo.email}</p>
-                                    <p>{item.customerInfo.phone}</p>
+                                    <h2>{`${item.customer_id.first_name} ${item.customer_id.last_name}`}</h2>
+                                    <p>{item.customer_id.email}</p>
+                                    <p>{item.customer_id.phone}</p>
                                 </td>
                                 <td>
-                                    <h2>{item.vehicleInfo.make}</h2>
-                                    <p>{item.vehicleInfo.model}</p>
-                                    <p>{item.vehicleInfo.year}</p>
+                                    <h2>{item.vehicle_id.make}</h2>
+                                    <p>{item.vehicle_id.model}</p>
+                                    <p>{item.vehicle_id.year}</p>
                                 </td>
                                 <td>
-                                    <h2>{`${formatDate(item.orderDate)}`}</h2>
+                                    <h2>{`${formatDate(item.createdAt)}`}</h2>
                                 </td>
                                 <td>
                                     <p style={{backgroundColor:`${getBgcolor(item.status)}`, color:`${getColor(item.status)}`, textAlign:"center", borderRadius:"30px", padding:"3px 0"}}>{item.status}</p>
@@ -150,10 +184,12 @@ function EmOrders() {
                                     <p style={{fontSize:"20px"}}><CiIndent/></p></td>
                             </tr>
                         ))
-                        : <tr><td colSpan="8">No data</td></tr>
+                        : <tr><td style={{colSpan:"8"}}>No data</td></tr>
                     }
                 </tbody>
             </table>
+            }
+           
         </div>
     </div>
   )

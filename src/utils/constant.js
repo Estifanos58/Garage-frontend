@@ -1,11 +1,16 @@
 const API = import.meta.env.API_URL || "http://localhost:5000/v2/"
 
+
+//Users
 export const LOGIN = `${API}user/login`;
 export const USER_INFO = `${API}user/get-userInfo`
 export const LOGOUT = `${API}user/log-out`
 export const CHANGEPASSWORD = `${API}user/change_password`
 export const FORGOTPASSWORD = `${API}user/forgot-password`
 export const RESET_PASSWORD = `${API}auth/resetpassword`
+
+//Employee
+export const GETEMPLOYEEORDER = `${API}user/get-orders`
 
 
 
