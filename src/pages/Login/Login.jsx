@@ -23,36 +23,41 @@ function Login() {
     const handleSubmit = async(e) => {
         e.preventDefault();
         if(email !== "" || password !== "") {
-            setLoading(true);
-            const response  = await axios.post(LOGIN,{email, password}, {withCredentials: true});
-            // console.log(response);
-            if(response.data.success) {
+            try {
+                setLoading(true);
+                const response  = await axios.post(LOGIN,{email, password}, {withCredentials: true});
+                // console.log(response);
+                if(response.data.success) {
+                    setLoading(false);
+                    // alert("Login Success");
+                    console.log("RESPONSE: ", response.data.data);
+                    setUserInfo(response.data.data);
+                    // toast("User Logged in SuccessFully")
+                    console.log("USER INFO: ", response.data.data.role);
+                    if(response.data.data.role === "admin") {
+                        console.log("Navigate to admin");
+                        navigate("/admin")
+                    } else {
+                            if(response.data.data.status === "initial") {
+                                navigate('/change_password')
+                                toast.success("Please change your password")
+                            } else if(response.data.data.status === "inactive"){
+                                navigate('/')
+                                toast.error("Your account is inactive, please contact the admin")
+                            } else if(response.data.data.status === "active") {
+                                navigate('/about')
+                                toast.success("Login Success")
+                            }
+                        }  
+                    }  else {
+                        setLoading(false);
+                        toast.error(response.data.message);
+                    }
+            } catch (error) {
                 setLoading(false);
-                // alert("Login Success");
-                console.log("RESPONSE: ", response.data.data);
-                setUserInfo(response.data.data);
-                // toast("User Logged in SuccessFully")
-                console.log("USER INFO: ", response.data.data.role);
-                if(response.data.data.role === "admin") {
-                    console.log("Navigate to admin");
-                    navigate("/admin")
-                } else {
-                        if(response.data.data.status === "initial") {
-                            navigate('/change_password')
-                            toast.success("Please change your password")
-                        } else if(response.data.data.status === "inactive"){
-                            navigate('/')
-                            toast.error("Your account is inactive, please contact the admin")
-                        } else if(response.data.data.status === "active") {
-                            navigate('/about')
-                            toast.success("Login Success")
-                        }
-                    }  
-
-            } else {
-                setLoading(false);
-                toast.error(response.data.message);
+                console.log("ERROR: ", error)
             }
+            
         }
         // alert(`Email: ${email}  and Password: ${password}`)
     }
@@ -60,16 +65,22 @@ function Login() {
     const handleForgot = async(e) => {
         e.preventDefault();
         if(email !== "") {
-            setLoading(true);
-            const response = await axios.post(FORGOTPASSWORD, {email}, {withCredentials: true});
-            console.log("RESPONSE: ", response);
-            if(response.data.success) {
+            try {
+                setLoading(true);
+                const response = await axios.post(FORGOTPASSWORD, {email}, {withCredentials: true});
+                console.log("RESPONSE: ", response);
+                if(response.data.success) {
+                    setLoading(false);
+                    toast.success(response.data.message);
+                } else {
+                    setLoading(false);
+                    toast.error(response.data.message);
+                }
+            } catch (error) {
+                console.log("ERROR: ",error);
                 setLoading(false);
-                toast.success(response.data.message);
-            } else {
-                setLoading(false);
-                toast.error(response.data.message);
             }
+           
         }
     }
 

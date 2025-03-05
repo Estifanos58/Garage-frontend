@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import classes from './Forgot.module.css'
 import axios from 'axios';
@@ -11,6 +11,7 @@ function Forgot() {
     const [renewPassword, setReNewPassword] = useState("");
     const [visible, setVisible] =  useState(false);
     const [isLoading, setLoading] = useState(false);
+    const navigate = useNavigate();
     
 
     const handlevisible = ()=> {
@@ -32,6 +33,7 @@ function Forgot() {
             if(response.data.success){
                 setLoading(false);
                 toast.success(response.data.message);
+                navigate('/login');
             } else {
                 setLoading(false);
                 toast.error(response.data.message);

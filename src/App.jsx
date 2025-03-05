@@ -26,6 +26,8 @@ import Orders from './components/Admin/Orders/Orders'
 import Change from './pages/ChangePassword/Change'
 import Forgot from './pages/Forgot/Forgot'
 import spinner from './assets/Spinner-2.gif'
+import Dash from './components/Employee/Dashboard/Dashboard'
+import EmOrders from './components/Employee/Orders/EmOrders'
 
 function App() {
 
@@ -54,13 +56,6 @@ useEffect(()=>{
   getInfo();
 },[])
 
-if(isLoading) return (
-  <div style={{display: 'flex', flexDirection:"column", gap: "15px", justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
-    <img src={spinner} />
-    <h1 style={{fontFamily:"Arial", fontSize:"16px"}}>Loading</h1>
-  </div>
-)
-
 const ProtectedRoute = ({ children }) => {
 
   if (!userInfo || (userInfo.role !== "admin" && userInfo.role !== "manager")) {
@@ -85,8 +80,9 @@ const LogedRoute = ({children}) => {
     <div>
       {
         isLoading ?
-        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
-          <h1>Loading</h1>
+        <div style={{display: 'flex', flexDirection:"column", gap: "15px", justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
+          <img src={spinner} />
+          <h1 style={{fontFamily:"Arial", fontSize:"16px"}}>Loading</h1>
         </div>
         :
         <>
@@ -98,6 +94,9 @@ const LogedRoute = ({children}) => {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />}/>
           <Route path="/reset-password/:hash" element={<Forgot/>}/>
+          <Route path='/dashboard' element={<Dash/>}>
+            <Route path='orders' element={<EmOrders />}/>
+          </Route>
           <Route path='/change_password' element={<LogedRoute><Change/></LogedRoute>} />
           <Route path='/admin' element={<ProtectedRoute><Admin /></ProtectedRoute>}>
               <Route index element={<Dashboard/>} />
