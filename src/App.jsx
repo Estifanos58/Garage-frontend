@@ -25,13 +25,13 @@ import NewOrder from './components/Admin/NewOrder/NewOrder'
 import Orders from './components/Admin/Orders/Orders'
 import Change from './pages/ChangePassword/Change'
 import Forgot from './pages/Forgot/Forgot'
-
+import spinner from './assets/Spinner-2.gif'
 
 function App() {
 
   // const [user, setUserInfo] = useState({});
   const {userInfo,setUserInfo} = useAppStore();
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   const getInfo = async ()=> {
@@ -55,8 +55,9 @@ useEffect(()=>{
 },[])
 
 if(isLoading) return (
-  <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
-    <h1>Loading</h1>
+  <div style={{display: 'flex', flexDirection:"column", gap: "15px", justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
+    <img src={spinner} />
+    <h1 style={{fontFamily:"Arial", fontSize:"16px"}}>Loading</h1>
   </div>
 )
 
@@ -82,32 +83,42 @@ const LogedRoute = ({children}) => {
 
   return (
     <div>
-      <Header />
-       <Routes> 
-        <Route path='/login' element={<Login/>} />
-        <Route path="/" element={<Home />} />
-        <Route path='/services' element={<Service/>}/>
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />}/>
-        <Route path="/reset-password/:hash" element={<Forgot/>}/>
-        <Route path='/change_password' element={<LogedRoute><Change/></LogedRoute>} />
-        <Route path='/admin' element={<ProtectedRoute><Admin /></ProtectedRoute>}>
-            <Route index element={<Dashboard/>} />
-            <Route path='add_employee' element={<AddEmployee />}/>
-            <Route path='add_customer' element={<AddCustomer />}/>
-            <Route path='employees' element={<Employees />}/>
-            <Route path='customers' element={<Customers/>} />
-            <Route path='edit_employee' element={<EditEmployee/>} />
-            <Route path='/admin/edit-customer' element={<EditCustomer />} />
-            <Route path="/admin/customer-details" element={<CustomerDetails/>}>   
-            </Route>
-            <Route path="services" element={<ServiceList/>}/>
-            <Route path="new_order" element={<NewOrder/>}/>
-            <Route path="orders" element={<Orders/>}/>
-            <Route path='*' element={<h1>Under constraction</h1>} />
-        </Route>
-      </Routes>
-      <Footer />
+      {
+        isLoading ?
+        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
+          <h1>Loading</h1>
+        </div>
+        :
+        <>
+          <Header />
+          <Routes> 
+          <Route path='/login' element={<Login/>} />
+          <Route path="/" element={<Home />} />
+          <Route path='/services' element={<Service/>}/>
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />}/>
+          <Route path="/reset-password/:hash" element={<Forgot/>}/>
+          <Route path='/change_password' element={<LogedRoute><Change/></LogedRoute>} />
+          <Route path='/admin' element={<ProtectedRoute><Admin /></ProtectedRoute>}>
+              <Route index element={<Dashboard/>} />
+              <Route path='add_employee' element={<AddEmployee />}/>
+              <Route path='add_customer' element={<AddCustomer />}/>
+              <Route path='employees' element={<Employees />}/>
+              <Route path='customers' element={<Customers/>} />
+              <Route path='edit_employee' element={<EditEmployee/>} />
+              <Route path='/admin/edit-customer' element={<EditCustomer />} />
+              <Route path="/admin/customer-details" element={<CustomerDetails/>}>   
+              </Route>
+              <Route path="services" element={<ServiceList/>}/>
+              <Route path="new_order" element={<NewOrder/>}/>
+              <Route path="orders" element={<Orders/>}/>
+              <Route path='*' element={<h1>Under constraction</h1>} />
+          </Route>
+          </Routes>
+          <Footer />
+      </>
+      }
+      
     </div>
   )
 }

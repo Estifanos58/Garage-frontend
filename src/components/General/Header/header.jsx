@@ -79,7 +79,8 @@ function Header() {
                         <li><Link to={"/about"}>About Us</Link></li>
                         <li><Link to={"/services"}>Services</Link></li>
                         <li><Link to={"/contact"}>Contact Us</Link></li>
-                        <li><Link to={"/admin"}>ADMIN</Link></li>
+                        {(userInfo.role === "employee") && <li>DashBoard</li>}
+                        {(userInfo.role === "admin" || userInfo ==="manager") && <li><Link to={"/admin"}>ADMIN</Link></li>}
                         <li><p className={classes.line}></p></li>
                     </ul>
                     {

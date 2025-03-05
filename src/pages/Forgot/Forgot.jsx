@@ -37,6 +37,7 @@ function Forgot() {
                 toast.error(response.data.message);
             }
         } catch (error) {
+            setLoading(false);
             console.log("Error: ", error);
         }
         
