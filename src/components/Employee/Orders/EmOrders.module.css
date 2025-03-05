@@ -9,15 +9,16 @@
     gap: 10px;
     align-items: center;
 }
+.EmOrders .header h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
 .line {
     width: 30px;
     height: 2px;
     background-color: rgb(238,13,21);
-    margin-top: 10px;
-}
-.EditOrders .header h3 {
-    font-size: 20px;
-    margin-bottom: 20px;
+    margin-top: -10px;
 }
 
 .table table {
@@ -63,3 +64,54 @@
     font-size: 13px;
     margin: 5px 0;
 }
+.container {
+    display: flex;
+    gap: 100px;
+}
+.serviceItem {
+    width: 150%;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 10px 15px;
+    margin-top: 20px;
+
+}
+.serviceName {
+    display: flex;
+    justify-content: space-between;
+}
+.serviceItem p {
+    font-size: 14px;
+}
+.service h2{
+    font-size: 19px;
+    margin: 20px 0;
+    color: rgb(255, 0, 0);
+}
+
+
+.form div {
+    display: flex;
+    gap: 10px;
+}
+.form div h3 {
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+.form div p {
+    font-size: 13px;
+    color: rgb(67, 67, 67);
+}
+.formGroup {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+/* .select{
+    width: 250px;
+    padding: 12px;
+    margin: 12px 0;
+    border-right: 20px solid rgba(128, 128, 128, 0.47);
+    outline: none;
+} */
