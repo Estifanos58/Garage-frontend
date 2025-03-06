@@ -12,6 +12,8 @@ import { FaEdit } from 'react-icons/fa';
 function EmNewOrder() {
   const {newOrder, setNewOrder} = useAppStore();
   const [isLoading, setLoading] = useState(false);
+  const [selected, setSelected] = useState(false);
+  const [isUploading, setUploading] = useState(false);
 
   useEffect(()=>{
     if(!newOrder._id){
@@ -69,13 +71,24 @@ const getColor = (status) =>{
 
   const formatDate = (timestamp) => moment(timestamp).format("MMM DD, YYYY");
 
+  const handleUpdate = async () =>{
+    try {
+        
+    } catch (error) {
+        
+    }
+  }
+
   return (
     <div className={classes.EmNewOrder}>
-        <div className={classes.header}> 
-            <h3>New Orders</h3>
-            <div className={classes.line}></div>
-        </div>
-        <div className={classes.table}>
+        {
+            !selected ? 
+            <>
+            <div className={classes.header}> 
+                <h3>New Orders</h3>
+                <div className={classes.line}></div>
+            </div>
+            <div className={classes.table}>
             {
                 isLoading ? <p>Loading</p> :
                 <table>
@@ -91,33 +104,102 @@ const getColor = (status) =>{
                   <tbody>
                       {
                           newOrder?._id   ?
-                              <tr>
-                                  <td>
-                                      <h2>{`${newOrder.customer_id.first_name} ${newOrder.customer_id.last_name}`}</h2>
-                                      <p>{newOrder.customer_id.email}</p>
-                                      <p>{newOrder.customer_id.phone}</p>
-                                  </td>
-                                  <td>
-                                      <h2>{newOrder.vehicle_id.make}</h2>
-                                      <p>{newOrder.vehicle_id.model}</p>
-                                      <p>{newOrder.vehicle_id.year}</p>
-                                  </td>
-                                  <td>
-                                      <h2>{`${formatDate(newOrder.createdAt)}`}</h2>
-                                  </td>
-                                  <td>
-                                      <p style={{backgroundColor:`${getBgcolor(newOrder.status)}`, color:`${getColor(newOrder.status)}`, textAlign:"center", borderRadius:"30px", padding:"3px 0"}}>{newOrder.status}</p>
-                                  </td>
-                                  <td style={{display:"flex", alignItems:"center", border: "none", paddingTop: "30px"}}>
-                                    <p style={{fontSize:"20px"}} ><FaEdit/></p></td>
-                              </tr>
-              
-                          : <tr><td colSpan="8">No data</td></tr>
-                      }
-                  </tbody>
-              </table>
-            }
+                        <tr>
+                            <td>
+                                <h2>{`${newOrder.customer_id.first_name} ${newOrder.customer_id.last_name}`}</h2>
+                                <p>{newOrder.customer_id.email}</p>
+                                <p>{newOrder.customer_id.phone}</p>
+                            </td>
+                            <td>
+                                <h2>{newOrder.vehicle_id.make}</h2>
+                                <p>{newOrder.vehicle_id.model}</p>
+                                <p>{newOrder.vehicle_id.year}</p>
+                            </td>
+                            <td>
+                                <h2>{`${formatDate(newOrder.createdAt)}`}</h2>
+                            </td>
+                            <td>
+                                <p style={{backgroundColor:`${getBgcolor(newOrder.status)}`, color:`${getColor(newOrder.status)}`, textAlign:"center", borderRadius:"30px", padding:"3px 0"}}>{newOrder.status}</p>
+                            </td>
+                            <td style={{display:"flex", alignItems:"center", border: "none", paddingTop: "30px"}}>
+                            <p style={{fontSize:"20px"}} onClick={()=> setSelected(prev => !prev)}><FaEdit/></p></td>
+                        </tr>
+        
+                    : <tr><td colSpan="8">No data</td></tr>
+                }
+            </tbody>
+        </table>
+        }
         </div>
+    </>
+    : 
+    <div className={classes.EditOrders}>
+                <div className={classes.container}>               
+                    <div className={classes.form}>
+                        <div className={classes.header}> 
+                            <h3>Edit Order</h3>
+                            <div className={classes.line}></div>
+                        </div>
+                            <div>
+                                <h3>Customer :</h3>
+                                <p>{`${newOrder.customer_id.first_name} ${newOrder.customer_id.last_name}`}</p>
+                            </div>
+                            <div>
+                                <h3>Email :</h3>
+                                <p>{newOrder.customer_id.email}</p>
+                            </div>
+                            <div>
+                                <h3>Phone :</h3>
+                                <p>{newOrder.customer_id.phone}</p>
+                            </div>
+    
+                            <div>
+                                <h3>Vehicle :</h3>
+                                <p>{`${newOrder.vehicle_id.make} ${newOrder.vehicle_id.model} ${newOrder.vehicle_id.year}`}</p>
+                            </div>
+                            
+                            <div>
+                                <h3>Order Created At :</h3>
+                                <p>{formatDate(newOrder.createdAt)}</p>
+                            </div>
+                        
+                        <div className={classes.formGroup}>
+                            <label>Status</label>
+                            <select>
+                                <option value="">Select Your Progress</option>
+                                <option value="In progress">In progress</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </div>
+                        <div className={classes.formGroup}>
+                            <button onClick={handleUpdate}>{isUploading ? "Loading..." :"Update"}</button>
+                        </div>
+                    </div>
+                    <div className={classes.serviceOrder}>
+                        <div className={classes.service}>
+                            <div className={classes.header}> 
+                                <h3>Service Order</h3>
+                                <div className={classes.line}></div>
+                            </div>
+                            {
+                                    newOrder.services.map((item, index) => (
+                                        <div className={classes.serviceItem} key={index}>
+                                            <div className={classes.serviceName}>
+                                                <h3>{item.service_id.name}</h3>
+                                                <p>{`${item.service_id.price} BIRR`}</p>
+                                            </div>
+                                            <p>{item.service_id.description}</p>
+                                            
+                                        </div>
+                                    ))
+                            }
+                            <h2>{`Total Price: ${newOrder.total} BIRR`}</h2>
+                        </div>
+                    </div>
+                </div>
+                </div>
+        }
+       
     </div>
   )
 }
