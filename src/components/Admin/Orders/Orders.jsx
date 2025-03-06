@@ -310,7 +310,7 @@ function Orders() {
                             <option value="Received">Received</option>
                             <option value="In progress">In progress</option>
                             <option value="pending">Pending</option>
-                            <option value="completed">Completed</option>
+                            <option value="Completed">Completed</option>
                         </select>
                     </div>
                     <div className={classes.formGroup}>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useNavigate } from 'react'
+import React, { useEffect, useState } from 'react'
 import classes from './NewOrder.module.css'
 import { useAppStore } from '../../../hook/store'
 import axios from 'axios';
@@ -8,6 +8,7 @@ import { set } from 'mongoose';
 import moment from 'moment';
 import { CiIndent } from 'react-icons/ci';
 import { FaEdit } from 'react-icons/fa';
+import {useNavigate} from 'react-router-dom'
 
 function EmNewOrder() {
   const {newOrder, setNewOrder} = useAppStore();
@@ -74,8 +75,10 @@ const getColor = (status) =>{
   const formatDate = (timestamp) => moment(timestamp).format("MMM DD, YYYY");
 
   const handleUpdate = async () =>{
+    console.log("STATUS: ", status);
     try {
-        if(status === "Complete") {
+        if(status === "Completed") {
+            
             setUploading(true)
             const response  = await axios.put(COMPLETEORDER, {orderId: newOrder._id,status}, {withCredentials: true});
             if(response.data.success) {
@@ -107,7 +110,7 @@ const getColor = (status) =>{
             <div className={classes.table}>
             {
                 isLoading ? <p>Loading</p> :
-                <table>
+               newOrder._id ? <table>
                   <thead>
                       <tr>
                           <th>Customer</th>
@@ -144,7 +147,7 @@ const getColor = (status) =>{
                     : <tr><td colSpan="8">No data</td></tr>
                 }
             </tbody>
-        </table>
+                </table> : <p>No new orders</p>
         }
         </div>
     </>
@@ -184,7 +187,7 @@ const getColor = (status) =>{
                             <select value={status} onChange={(e)=> setStatus(e.target.value)}>
                                 <option value="">Select Your Progress</option>
                                 <option value="In progress">In progress</option>
-                                <option value="completed">Completed</option>
+                                <option value="Completed">Completed</option>
                             </select>
                         </div>
                         <div className={classes.formGroup}>
