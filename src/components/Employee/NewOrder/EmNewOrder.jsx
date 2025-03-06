@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useNavigate } from 'react'
 import classes from './NewOrder.module.css'
 import { useAppStore } from '../../../hook/store'
 import axios from 'axios';
-import { GETNEWORDER } from '../../../utils/constant';
+import { COMPLETEORDER, GETNEWORDER } from '../../../utils/constant';
 import { toast } from 'react-toastify';
 import { set } from 'mongoose';
 import moment from 'moment';
@@ -14,6 +14,8 @@ function EmNewOrder() {
   const [isLoading, setLoading] = useState(false);
   const [selected, setSelected] = useState(false);
   const [isUploading, setUploading] = useState(false);
+  const [status, setStatus] = useState("");
+  const navigate = useNavigate()
 
   useEffect(()=>{
     if(!newOrder._id){
@@ -73,9 +75,23 @@ const getColor = (status) =>{
 
   const handleUpdate = async () =>{
     try {
-        
+        if(status === "Complete") {
+            setUploading(true)
+            const response  = await axios.put(COMPLETEORDER, {orderId: newOrder._id,status}, {withCredentials: true});
+            if(response.data.success) {
+                setUploading(false)
+                toast.success("Thanks for completing");
+                setNewOrder({});
+                addOrder(response.data.data);
+                navigate('orders')
+            } else {
+                setUploading(false)
+                toast.error(response.data.message)
+            }
+        }
     } catch (error) {
-        
+        setUploading(false)
+        console.log("ERROR : ", error);
     }
   }
 
@@ -165,7 +181,7 @@ const getColor = (status) =>{
                         
                         <div className={classes.formGroup}>
                             <label>Status</label>
-                            <select>
+                            <select value={status} onChange={(e)=> setStatus(e.target.value)}>
                                 <option value="">Select Your Progress</option>
                                 <option value="In progress">In progress</option>
                                 <option value="completed">Completed</option>
