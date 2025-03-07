@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import classes from "./Employees.module.css"
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import { GETALLEMPLOYEES } from '../../../utils/constant';
+import { DELETEEMPLOYEE, GETALLEMPLOYEES } from '../../../utils/constant';
 import { useAppStore } from '../../../hook/store';
 import { format } from "date-fns";
 import { useNavigate } from 'react-router-dom';
+import {toast} from 'react-toastify'
 import moment from "moment";
 
 import axios from 'axios';
@@ -13,8 +14,11 @@ import axios from 'axios';
 function Employees() {
 
     
-    const {employeeList, setEmployeeList, setSelectedEmployee} = useAppStore();
+    const {employeeList, removeEmployee,setEmployeeList, setSelectedEmployee} = useAppStore();
     const [isLoading, setLoading] = useState(false);
+    const [isdelete, setDelete] = useState({});
+    const [employeeName, setEmployeeName] = useState("");
+    const [isdeleting, setDeleting] = useState(false);
     const navigate = useNavigate();
 
     const getAllEmployees = async() => {
@@ -62,54 +66,98 @@ function Employees() {
         setSelectedEmployee(employee);
         navigate("/admin/edit_employee")
     }
-  return (
-    <div className={classes.Employees}>
-        <div className={classes.container}>
-            <div className={classes.header}> 
-                <h3>Employees</h3>
-                <div className={classes.line}></div>
+
+    const handleDeleteUser = async() => {
+        if(employeeName !== isdelete.first_name) {
+            toast.error("Enter the right Name");
+        }
+        try {
+            setDeleting(true);
+            const response = await axios.delete(DELETEEMPLOYEE, {
+                data: { id: isdelete._id },
+                withCredentials: true
+            });
+            
+            console.log("RESPONSE: ", response)
+            if(response.data.success){
+                setDelete(false);
+                removeEmployee(isdelete._id);
+                toast.success("Employee Deleted successfully");
+                setDelete({});
+                setEmployeeName("");
+            } else{
+                setDelete(false);
+                toast.error(response.data.message);
+            }
+        } catch (error) {
+            setDelete(false)
+            console.log("ERROR: ", error);
+        }
+      
+        
+    }
+    return (
+        <div className={classes.Employees}>
+            {/* Background Blur Effect */}
+            {isdelete._id && <div className={`${classes.overlay} ${classes.show}`}></div>}
+    
+            <div className={classes.container}>
+                <div className={classes.header}>
+                    <h3>Employees</h3>
+                    <div className={classes.line}></div>
+                </div>
+                <div className={classes.table}>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Active</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Added Date</th>
+                                <th>Role</th>
+                                <th>Edit / Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {employeeList?.length > 0 ? (
+                                employeeList.map((employee, index) => (
+                                    <tr key={index} style={{ backgroundColor: index % 2 !== 0 ? "#f2f2f2" : "white" }}>
+                                        <td style={{ backgroundColor: getColor(employee.status) }}>{employee.status}</td>
+                                        <td>{employee.first_name}</td>
+                                        <td>{employee.last_name}</td>
+                                        <td>{employee.email}</td>
+                                        <td>{employee.phone}</td>
+                                        <td>{formatDate(employee.joined_date)}</td>
+                                        <td>{employee.role}</td>
+                                        <td>
+                                            <button onClick={() => handleSelectUser(employee)}><FaEdit /></button>
+                                            <button onClick={() => setDelete(employee)}><MdDelete /></button>
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr><td colSpan="8">No data</td></tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div className={classes.table}>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Active</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Added Date</th>
-                            <th>Role</th>
-                            <th>Edit / Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            employeeList?.length > 0 
-                            ? 
-                            employeeList?.map((employee, index) => (
-                                <tr key={index} style={{backgroundColor: index % 2 !== 0 ? "#f2f2f2" : "white"}}>
-                                    <td style={{backgroundColor: getColor(employee.status), }}>{employee.status}</td>
-                                    <td>{employee.first_name}</td>
-                                    <td>{employee.last_name}</td>
-                                    <td>{employee.email}</td>
-                                    <td>{employee.phone}</td>
-                                    <td>{formatDate(employee.joined_date)}</td>
-                                    <td>{employee.role}</td>
-                                    <td>
-                                        <button onClick={()=>handleSelectUser(employee)}><FaEdit /></button>
-                                        <button><MdDelete/></button>
-                                    </td>
-                                </tr>
-                            ))
-                            : <tr><td colSpan="8">No data</td></tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-         </div>
-    </div>
-  )
+    
+            {/* Delete Confirmation */}
+            {isdelete._id && (
+                <div className={classes.Delete}>
+                    <p>Are you sure you want to delete this employee? If yes, enter this in the box below: <span>{isdelete.first_name}</span></p>
+                    <input type="text" placeholder='Enter the Name' value={employeeName} onChange={(e) => setEmployeeName(e.target.value)} />
+                    <button onClick={handleDeleteUser}>{isdeleting ? "Loading" :"Delete"}</button>
+                    <div className={classes.close} onClick={()=> setDelete({})}>x</div>
+                </div>
+            )}
+        </div>
+    );
+    
+    
 }
 
 export default Employees
