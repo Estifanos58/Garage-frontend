@@ -42,3 +42,4 @@ export const ADDORDER = `${API}admin/add-order`
 export const GETALLORDER = `${API}admin/get-all-orders`
 export const GETORDERBYID = `${API}admin/get-order-by-id`
 export const EDITORDER = `${API}admin/edit-order`
+export const DELETEORDER = `${API}admin/delete-order`

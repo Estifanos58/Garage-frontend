@@ -80,7 +80,7 @@ function Header() {
                         <li><Link to={"/services"}>Services</Link></li>
                         <li><Link to={"/contact"}>Contact Us</Link></li>
                         {(userInfo.role === "employee") && <li><Link to={"/dashboard"}>DashBoard</Link></li>}
-                        {(userInfo.role === "admin" || userInfo ==="manager") && <li><Link to={"/admin"}>ADMIN</Link></li>}
+                        {(userInfo.role === "admin" || userInfo.role ==="manager") && <li><Link to={"/admin"}>ADMIN</Link></li>}
                         <li><p className={classes.line}></p></li>
                     </ul>
                     {

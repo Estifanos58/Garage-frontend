@@ -5,8 +5,9 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { useAppStore } from '../../../hook/store';
 import { CiIndent } from "react-icons/ci";
+
 import moment from "moment";
-import { EDITORDER, EMPLOYEEFORWORK, GETALLORDER } from '../../../utils/constant';
+import { DELETEORDER, EDITORDER, EMPLOYEEFORWORK, GETALLORDER } from '../../../utils/constant';
 import axios from 'axios';
 import {toast} from "react-toastify";
 
@@ -79,12 +80,15 @@ function Orders() {
     //     }
         
     // ]
-    const {orderList, setOrderList, editOrderList} = useAppStore();
+    const {orderList, removeOrder ,setOrderList, editOrderList} = useAppStore();
     const [editOrder, setEditOrder] = useState({});
     const [isLoading, setLoading] = useState(false);
     const [employeeList, setEmployeeList] = useState([]);
     const [employee, setEmployee] = useState("");
     const [isUpdating, setUpdating] = useState(false);
+    const [isdelete, setDelete] = useState({});
+    const [isdeleting, setDeleting] = useState(false);
+    const [orderName, setOrderName] = useState("");
     const fetched = useRef(false);
 
 
@@ -112,6 +116,28 @@ function Orders() {
     
     const handleEdit = (item) => {
         setEditOrder(item);
+    }
+
+    const handleDeletOrder = async() => {
+        if(orderName !== isdelete.customer_id.first_name){
+            return toast.error("Enter the correct Word");
+        }
+        try{
+            setDeleting(true);
+            const response = await axios.delete(DELETEORDER, {data: { order_id: isdelete._id },withCredentials: true})
+            if(response.data.success){
+                       setDeleting({});
+                       removeOrder(isdelete._id);
+                       toast.success("Order Deleted successfully");
+                       setDelete({});
+                   } else{
+                       setDeleting(false);
+                       toast.error(response.data.message);
+                   }
+        } catch (error) {
+            setDeleting(false);
+            console.log("ERROR: ", error);
+        }
     }
 
     useEffect(() => {
@@ -203,6 +229,8 @@ function Orders() {
 
   return (        
      <div className={classes.Orders}>
+        {isdelete._id && <div className={`${classes.overlay} ${classes.show}`}></div>}
+        
         {
             !editOrder._id && 
             <div className={classes.container}>
@@ -220,7 +248,7 @@ function Orders() {
                                 <th>Order Date</th>
                                 <th>Received by</th>
                                 <th>Order status</th>
-                                <th>View / Edit</th>
+                                <th>Edit / Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -250,7 +278,7 @@ function Orders() {
                                             <p style={{backgroundColor:`${getBgcolor(item.status)}`, color:`${getColor(item.status)}`, textAlign:"center", borderRadius:"30px", padding:"3px 0"}}>{item.status}</p>
                                         </td>
                                         <td style={{display:"flex", alignItems:"center", border: "none", paddingTop: "30px"}}>
-                                            <p style={{fontSize:"20px"}}><CiIndent/></p>  <p style={{fontSize:"20px"}} onClick={()=>handleEdit(item)}><FaEdit/></p></td>
+                                            <p style={{fontSize:"20px"}} onClick={()=>handleEdit(item)}><FaEdit/></p>  <p style={{fontSize:"20px"}} onClick={()=> setDelete(item)}><MdDelete/></p></td>
                                     </tr>
                                 ))
                                 : <tr><td colSpan="8">No data</td></tr>
@@ -341,6 +369,15 @@ function Orders() {
             </div>
             </div>
         }
+
+         {isdelete._id && (
+            <div className={classes.Delete}>
+                <p>Are you sure you want to delete this Order? If yes, enter this in the box below: <span>{isdelete.customer_id.first_name}</span></p>
+                <input type="text" placeholder='Enter the Name' value={orderName} onChange={(e) => setOrderName(e.target.value)} />
+                <button onClick={handleDeletOrder}>{isdeleting ? "Loading" :"Delete"}</button>
+                <div className={classes.close} onClick={()=> setDelete({})}>x</div>
+            </div>
+        )}
     </div>
     
   )

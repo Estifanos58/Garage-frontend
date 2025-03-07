@@ -55,6 +55,7 @@ export const createAdminSlice = (set) => ({
     setOrderList: (data) => set({orderList: data}),
     addOrderList: (data) => set((state) => ({orderList : [...state.orderList, data]})),   
     editOrderList: (data) => set((state)=> ({orderList: state.orderList.map((item) => item._id === data._id ? data : item)})),
+    removeOrder: (id) => set((state)=> ({orderList: state.orderList.filter((item)=> item._id !== id)}),) 
 })
 
 
