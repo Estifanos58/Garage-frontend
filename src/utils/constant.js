@@ -37,6 +37,7 @@ export const GETALLVEHICLE = `${API}admin/get-all-vehicle`
 export const ADDSERVICE = `${API}admin/add-service`
 export const GETALLSERVICE = `${API}admin/get-all-service`
 export const EDITSERVICE = `${API}admin/edit-service`
+export const DELETESERVICE = `${API}admin/delete-service`
 
 export const ADDORDER = `${API}admin/add-order`
 export const GETALLORDER = `${API}admin/get-all-orders`

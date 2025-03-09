@@ -4,7 +4,7 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { ADDSERVICE, EDITSERVICE, GETALLSERVICE } from '../../../utils/constant';
+import { ADDSERVICE, DELETESERVICE, EDITSERVICE, GETALLSERVICE } from '../../../utils/constant';
 import { useAppStore } from '../../../hook/store';
 import { IoClose } from "react-icons/io5";
 
@@ -13,7 +13,7 @@ function ServiceList() {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
-    const {addServiceList,serviceList, setServiceList, editServiceList} = useAppStore();
+    const {addServiceList,serviceList, setServiceList, editServiceList, removeServiceList} = useAppStore();
     const [isLoading, setLoading] = useState(false);
     const [isFound, setFound] = useState(false);
     const [updateLoading, setUpdateLoading] = useState(false);
@@ -84,8 +84,32 @@ function ServiceList() {
         setSelectedService({})
     }
 
-    const handleDeleteService = () => {
-        console.log("Hi There");
+    const handleDeleteService = async() => {
+        try {
+            if(serviceName !== isdelete.name){
+                return toast.error("Write the write word");
+            }
+            setDeleting(true);
+            const response = await axios.delete(DELETESERVICE,{
+                data: { serviceId: isdelete._id },
+                withCredentials: true
+            });
+
+            console.log("REPONSE FOR DELETE: ", response);
+            if(response.data.success){
+                setDeleting(false);
+                removeServiceList(isdelete);
+                setDelete({});
+                toast.success("Service is Deleted");
+            }else {
+                setDeleting(false);
+                toast.error(response.data.message);
+            }
+        } catch (error) {
+            setDeleting(false);
+            console.log("ERROR: ", error);
+        }
+      
     }
 
 
