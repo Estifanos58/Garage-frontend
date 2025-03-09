@@ -108,10 +108,26 @@
     gap: 10px;
     margin-bottom: 10px;
 }
-/* .select{
-    width: 250px;
-    padding: 12px;
-    margin: 12px 0;
-    border-right: 20px solid rgba(128, 128, 128, 0.47);
-    outline: none;
-} */
+
+
+.selecOrder {
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 0;
+    right: 120px;
+    height: 25px;
+    width: 25px;
+    border: 1px solid rgba(0, 0, 0, 0.338);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    cursor: pointer;
+}
+.close p {
+    color: rgb(238,13,21);
+}

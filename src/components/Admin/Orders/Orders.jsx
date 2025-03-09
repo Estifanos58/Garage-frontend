@@ -292,81 +292,84 @@ function Orders() {
         {
             editOrder._id && 
             <div className={classes.EditOrders}>
-            <div className={classes.container}>               
-                <div className={classes.form}>
-                    <div className={classes.header}> 
-                        <h3>Edit Order</h3>
-                        <div className={classes.line}></div>
-                    </div>
-                        <div>
-                            <h3>Customer :</h3>
-                            <p>{`${editOrder.customer_id.first_name} ${editOrder.customer_id.last_name}`}</p>
-                        </div>
-                        <div>
-                            <h3>Email :</h3>
-                            <p>{editOrder.customer_id.email}</p>
-                        </div>
-                        <div>
-                            <h3>Phone :</h3>
-                            <p>{editOrder.customer_id.phone}</p>
-                        </div>
-
-                        <div>
-                            <h3>Vehicle :</h3>
-                            <p>{`${editOrder.vehicle_id.make} ${editOrder.vehicle_id.model} ${editOrder.vehicle_id.year}`}</p>
-                        </div>
-                       
-                        <div>
-                            <h3>Order Created At :</h3>
-                            <p>{formatDate(editOrder.createdAt)}</p>
-                        </div>
-                    
-                    <div className={classes.formGroup} style={{display: `${ editOrder.status !== "Completed"? "block": "none"}`}}>
-                        <label>Employee</label>
-                        <select className={classes.select} value={employee}  onChange={(e) => setEmployee(e.target.value)} >
-                            <option value="">Select Employee</option>
-                            {
-                                employeeList.map((item,index)=> (
-                                    <option value={item._id} key={index}>{`${item.first_name} ${item.last_name}`}</option>
-                                ))
-                            }
-                        </select>
-                    </div>
-                    <div className={classes.formGroup}  style={{display: `${editOrder.employee_id && editOrder.status !== "Completed"? "block": "none"}`}} >
-                        <label>Status</label>
-                        <select>
-                            <option value="Received">Received</option>
-                            <option value="In progress">In progress</option>
-                            <option value="pending">Pending</option>
-                            <option value="Completed">Completed</option>
-                        </select>
-                    </div>
-                    <div className={classes.formGroup} style={{display: `${ editOrder.status !== "Completed"? "block": "none"}`}}>
-                        <button onClick={handleUpdate}>{isUpdating ? "Loading..." :"Update"}</button>
-                    </div>
-                </div>
-                <div className={classes.serviceOrder}>
-                    <div className={classes.service}>
+                <div className={classes.container}>               
+                    <div className={classes.form}>
                         <div className={classes.header}> 
-                            <h3>Service Order</h3>
+                            <h3>Edit Order</h3>
                             <div className={classes.line}></div>
                         </div>
-                        {
-                            editOrder.services.map((item, index) => (
-                                <div className={classes.serviceItem} key={index}>
-                                    <div className={classes.serviceName}>
-                                        <h3>{item.service_id.name}</h3>
-                                        <p>{`${item.service_id.price} BIRR`}</p>
+                            <div>
+                                <h3>Customer :</h3>
+                                <p>{`${editOrder.customer_id.first_name} ${editOrder.customer_id.last_name}`}</p>
+                            </div>
+                            <div>
+                                <h3>Email :</h3>
+                                <p>{editOrder.customer_id.email}</p>
+                            </div>
+                            <div>
+                                <h3>Phone :</h3>
+                                <p>{editOrder.customer_id.phone}</p>
+                            </div>
+
+                            <div>
+                                <h3>Vehicle :</h3>
+                                <p>{`${editOrder.vehicle_id.make} ${editOrder.vehicle_id.model} ${editOrder.vehicle_id.year}`}</p>
+                            </div>
+                        
+                            <div>
+                                <h3>Order Created At :</h3>
+                                <p>{formatDate(editOrder.createdAt)}</p>
+                            </div>
+                        
+                        <div className={classes.formGroup} style={{display: `${ editOrder.status !== "Completed"? "block": "none"}`}}>
+                            <label>Employee</label>
+                            <select className={classes.select} value={employee}  onChange={(e) => setEmployee(e.target.value)} >
+                                <option value="">Select Employee</option>
+                                {
+                                    employeeList.map((item,index)=> (
+                                        <option value={item._id} key={index}>{`${item.first_name} ${item.last_name}`}</option>
+                                    ))
+                                }
+                            </select>
+                        </div>
+                        <div className={classes.formGroup}  style={{display: `${editOrder.employee_id && editOrder.status !== "Completed"? "block": "none"}`}} >
+                            <label>Status</label>
+                            <select>
+                                <option value="Received">Received</option>
+                                <option value="In progress">In progress</option>
+                                <option value="pending">Pending</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                        </div>
+                        <div className={classes.formGroup} style={{display: `${ editOrder.status !== "Completed"? "block": "none"}`}}>
+                            <button onClick={handleUpdate}>{isUpdating ? "Loading..." :"Update"}</button>
+                        </div>
+                    </div>
+                    <div className={classes.serviceOrder}>
+                        <div className={classes.service}>
+                            <div className={classes.header}> 
+                                <h3>Service Order</h3>
+                                <div className={classes.line}></div>
+                            </div>
+                            {
+                                editOrder.services.map((item, index) => (
+                                    <div className={classes.serviceItem} key={index}>
+                                        <div className={classes.serviceName}>
+                                            <h3>{item.service_id.name}</h3>
+                                            <p>{`${item.service_id.price} BIRR`}</p>
+                                        </div>
+                                        <p>{item.service_id.description}</p>
+                                        
                                     </div>
-                                    <p>{item.service_id.description}</p>
-                                    
-                                </div>
-                            ))
-                        }
-                        <h2>{`Total Price: ${editOrder.total} BIRR`}</h2>
+                                ))
+                            }
+                            <h2>{`Total Price: ${editOrder.total} BIRR`}</h2>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div className={classes.close} onClick={()=> setEditOrder({})}>
+                    <p>X</p>
+                </div>
             </div>
         }
 
@@ -375,7 +378,7 @@ function Orders() {
                 <p>Are you sure you want to delete this Order? If yes, enter this in the box below: <span>{isdelete.customer_id.first_name}</span></p>
                 <input type="text" placeholder='Enter the Name' value={orderName} onChange={(e) => setOrderName(e.target.value)} />
                 <button onClick={handleDeletOrder}>{isdeleting ? "Loading" :"Delete"}</button>
-                <div className={classes.close} onClick={()=> setDelete({})}>x</div>
+                <div className={classes.close} onClick={()=> setDelete({})}><p>x</p></div>
             </div>
         )}
     </div>

@@ -129,7 +129,7 @@ function EmOrders() {
                 </div>
             </>
             :
-            <div classes={classes.selecOrder}>
+            <div className={classes.selecOrder}>
                 <div className={classes.container}>               
                     <div className={classes.form}>
                         <div className={classes.header}> 
@@ -159,12 +159,11 @@ function EmOrders() {
                                 <p>{formatDate(selectedOrder.createdAt)}</p>
                             </div>
                         
-                        <div className={classes.formGroup}  style={{display: `${selectedOrder.employee_id? "block": "none"}`}} >
+                        <div className={classes.formGroup}  style={{display: `${ selectedOrder.status !== "Completed"? "block": "none"}`}}>
                             <label>Status</label>
                             <select>
                                 <option value="Received">Received</option>
                                 <option value="In progress">In progress</option>
-                                <option value="pending">Pending</option>
                                 <option value="completed">Completed</option>
                             </select>
                         </div>
@@ -190,6 +189,9 @@ function EmOrders() {
                             <h2>{`Total Price: ${selectedOrder.total} BIRR`}</h2>
                         </div>
                     </div>
+                </div>
+                <div className={classes.close} onClick={()=> setSelectedOrder({})}>
+                    <p>X</p>
                 </div>
             </div> 
         }

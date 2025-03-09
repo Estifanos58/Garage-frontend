@@ -21,6 +21,9 @@ function ServiceList() {
     const [edtiPrice, setEditPrice] = useState("");
     const [editDescription, setEditDescription] = useState("")
     const [selectedService, setSelectedService] = useState({});
+    const [isdelete, setDelete] = useState({});
+    const [isdeleting, setDeleting] = useState(false);
+    const [serviceName, setServiceName] = useState("");
 
     const getAllService = async()=> {
         try {
@@ -81,6 +84,10 @@ function ServiceList() {
         setSelectedService({})
     }
 
+    const handleDeleteService = () => {
+        console.log("Hi There");
+    }
+
 
 
 
@@ -129,6 +136,8 @@ function ServiceList() {
         </div>
        :
         <div className={classes.ServiceList}>
+            {isdelete._id && <div className={`${classes.overlay} ${classes.show}`}></div>}
+            
             <div className={classes.header}> 
                 <h3>Services we provide</h3>
                 <div className={classes.line}></div>
@@ -148,7 +157,7 @@ function ServiceList() {
                                     </div>
                                     <div className={classes.right}>
                                         <button className={classes.red} onClick={()=> handleEdit(item)}><FaEdit/></button>
-                                        <button><MdDelete/></button>
+                                        <button onClick={()=> setDelete(item)}><MdDelete/></button>
                                     </div>
                                 </div>
                             )
@@ -174,6 +183,15 @@ function ServiceList() {
                     <button className={classes.btn} onClick={handleSubmit}>{isLoading? "Loading..":"ADD SERVICE"}</button>
                 </div>
             </div>
+
+            {isdelete._id && (
+                <div className={classes.Delete}>
+                    <p>Are you sure you want to delete this Order? If yes, enter this in the box below: <span>{isdelete.name}</span></p>
+                    <input type="text" placeholder='Enter the Name' value={serviceName} onChange={(e) => setServiceName(e.target.value)} />
+                    <button onClick={handleDeleteService}>{isdeleting ? "Loading" :"Delete"}</button>
+                    <div className={classes.close} onClick={()=> setDelete({})}>x</div>
+                </div>
+            )}
         </div>
 
   )
