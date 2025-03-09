@@ -321,7 +321,7 @@ function Orders() {
                             <p>{formatDate(editOrder.createdAt)}</p>
                         </div>
                     
-                    <div className={classes.formGroup}>
+                    <div className={classes.formGroup} style={{display: `${ editOrder.status !== "Completed"? "block": "none"}`}}>
                         <label>Employee</label>
                         <select className={classes.select} value={employee}  onChange={(e) => setEmployee(e.target.value)} >
                             <option value="">Select Employee</option>
@@ -332,7 +332,7 @@ function Orders() {
                             }
                         </select>
                     </div>
-                    <div className={classes.formGroup}  style={{display: `${editOrder.employee_id? "block": "none"}`}} >
+                    <div className={classes.formGroup}  style={{display: `${editOrder.employee_id && editOrder.status !== "Completed"? "block": "none"}`}} >
                         <label>Status</label>
                         <select>
                             <option value="Received">Received</option>
@@ -341,7 +341,7 @@ function Orders() {
                             <option value="Completed">Completed</option>
                         </select>
                     </div>
-                    <div className={classes.formGroup}>
+                    <div className={classes.formGroup} style={{display: `${ editOrder.status !== "Completed"? "block": "none"}`}}>
                         <button onClick={handleUpdate}>{isUpdating ? "Loading..." :"Update"}</button>
                     </div>
                 </div>

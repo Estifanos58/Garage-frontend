@@ -38,7 +38,7 @@ function Change() {
             if(response.data.success){
                 setLoading(false);
                 setUserInfo(response.data.user);
-                // navigate('')
+                navigate('/')
                 toast.success("All Complete succefully");
             } else {
                 setLoading(false);
@@ -60,13 +60,13 @@ function Change() {
                 </div>
             <form onSubmit={handleSubmit}>
                 <div className={`${classes.control} ${classes.password}`}>
-                    <input type={`${visible ? "password" : "text"}`} placeholder='Old Password' value={oldpassword} onChange={(e)=>setOldPassword(e.target.value)} />
+                    <input type={`${!visible ? "password" : "text"}`} placeholder='Old Password' value={oldpassword} onChange={(e)=>setOldPassword(e.target.value)} />
                 </div>
                 <div className={`${classes.control} ${classes.password}`}>
-                    <input type={`${visible ? "password" : "text"}`} placeholder='New Password' value={newPasswrod} onChange={(e)=>setNewPassword(e.target.value)}/>
+                    <input type={`${!visible ? "password" : "text"}`} placeholder='New Password' value={newPasswrod} onChange={(e)=>setNewPassword(e.target.value)}/>
                 </div>
                 <div className={`${classes.control} ${classes.password}`}>
-                    <input type={`${visible ? "password" : "text"}`} placeholder='Confirm Password' value={renewPassword} onChange={(e)=>setReNewPassword(e.target.value)}/>
+                    <input type={`${!visible ? "password" : "text"}`} placeholder='Confirm Password' value={renewPassword} onChange={(e)=>setReNewPassword(e.target.value)}/>
                 </div>
                 <div className={classes.check}>
                     <p>Show Password</p>

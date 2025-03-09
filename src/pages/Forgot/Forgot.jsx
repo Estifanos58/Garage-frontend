@@ -4,10 +4,12 @@ import { toast } from 'react-toastify';
 import classes from './Forgot.module.css'
 import axios from 'axios';
 import { FORGOTPASSWORD, RESET_PASSWORD } from '../../utils/constant';
+import { useAppStore } from '../../hook/store';
 
 function Forgot() {
     const hash = useParams().hash;
     const [newPassword, setNewPassword] = useState("");
+    const {userInfo,setUserInfo} = useAppStore();
     const [renewPassword, setReNewPassword] = useState("");
     const [visible, setVisible] =  useState(false);
     const [isLoading, setLoading] = useState(false);
@@ -32,7 +34,15 @@ function Forgot() {
             console.log("RESPONSE: ",response);
             if(response.data.success){
                 setLoading(false);
+                setUserInfo(response.data.data);
                 toast.success(response.data.message);
+                if(userInfo) {
+                    if(userInfo.role === "admin" || userInfo.role === "manager") {
+                        navigate('/admin');
+                    }else if(userInfo.role === "employee") {
+                        navigate('/dashboard');
+                    } 
+                }
                 navigate('/login');
             } else {
                 setLoading(false);
@@ -54,10 +64,10 @@ function Forgot() {
                     </div>
                 <form onSubmit={handleSubmit}>
                     <div className={`${classes.control} ${classes.password}`}>
-                        <input type={`${visible ? "password" : "text"}`} placeholder='New Password' value={newPassword} onChange={(e)=>setNewPassword(e.target.value)}/>
+                        <input type={`${!visible ? "password" : "text"}`} placeholder='New Password' value={newPassword} onChange={(e)=>setNewPassword(e.target.value)}/>
                     </div>
                     <div className={`${classes.control} ${classes.password}`}>
-                        <input type={`${visible ? "password" : "text"}`} placeholder='Confirm Password' value={renewPassword} onChange={(e)=>setReNewPassword(e.target.value)}/>
+                        <input type={`${!visible ? "password" : "text"}`} placeholder='Confirm Password' value={renewPassword} onChange={(e)=>setReNewPassword(e.target.value)}/>
                     </div>
                     <div className={classes.check}>
                         <p>Show Password</p>

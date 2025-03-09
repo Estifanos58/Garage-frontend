@@ -11,7 +11,7 @@ import { FaEdit } from 'react-icons/fa';
 import {useNavigate} from 'react-router-dom'
 
 function EmNewOrder() {
-  const {newOrder, setNewOrder} = useAppStore();
+  const {newOrder, addOrder, setNewOrder} = useAppStore();
   const [isLoading, setLoading] = useState(false);
   const [selected, setSelected] = useState(false);
   const [isUploading, setUploading] = useState(false);
