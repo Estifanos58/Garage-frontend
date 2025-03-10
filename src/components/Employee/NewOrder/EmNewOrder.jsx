@@ -34,11 +34,12 @@ function EmNewOrder() {
         setNewOrder(response.data.data);
       }else {
         setLoading(false);
-        toast.error(response.data.message);
+        // toast.error(response.data.message);
       }
       
     } catch (error) {
-      toast.error("Error in getting new order");
+        console.log("ERROR: ", error)
+    //   toast.error("Error in getting new order");
       setLoading(false);
     }
   }

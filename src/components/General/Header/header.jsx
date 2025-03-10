@@ -11,7 +11,6 @@ import { toast } from 'react-toastify';
 
 function Header() {
     const [width, setWidth] = useState(window.innerWidth);
-    const [isTablet, setTable] = useState(false);
     const [isMobile, setMobile] = useState(false); 
     const [open, setOpen] = useState(false);
     const {userInfo, setUserInfo} = useAppStore();
@@ -22,16 +21,9 @@ function Header() {
         const handleResize = () => {  
             const currentWidth = window.innerWidth;
             setWidth(currentWidth);
-            if (currentWidth < 992 && currentWidth > 768) {
-                setMobile(false);
-                setTable(true);
-            } else if (currentWidth < 768) {
-                setTable(false);
+            if (currentWidth < 800) {
                 setMobile(true);
-            } else {
-                setMobile(false);
-                setTable(false);
-            }
+            } 
         };  
     
         handleResize(); // Ensure the state is set correctly on mount
@@ -52,12 +44,6 @@ function Header() {
             toast.error(response.data.message);
         }
     }
-    
-    // console.log("USER DATA: ", userInfo)
-    
-    // console.log(width)
-    // console.log("IsTablet: ",isTablet)
-    // console.log("IsMobile: ", isMobile)
   return (
     <div className={classes.container}>
         <div className={classes.upper}>
@@ -92,7 +78,7 @@ function Header() {
                 <IoReorderThreeOutline onClick={handleToggle}/>
             </div>
             <div className={`${classes.mobileOpen} ${open ? classes.open : classes.close}`}>
-                <div className={`${classes.red} ${open ? classes.active : classes.inactive}`}>
+                <div className={`${classes.red} ${open ? classes.active : classes.inactive}`}>   
                 </div>
                 <ul>
                         <div className={classes.logo}>
@@ -108,8 +94,12 @@ function Header() {
                     <li><Link to={"/about"}>About Us</Link></li>
                     <li><Link to={"/services"}>Services</Link></li>
                     <li><Link to={"/contact"}>Contact Us</Link></li>
-                    <li><Link to={"/admin"}>ADMIN</Link></li>
-                    <button>LOGOUT</button>
+                    {(userInfo.role === "employee") && <li><Link to={"/dashboard"}>DashBoard</Link></li>}
+                    {(userInfo.role === "admin" || userInfo.role ==="manager") && <li><Link to={"/admin"}>ADMIN</Link></li>}
+                    {
+                    // <button>{userInfo ? 'LOGOUT' :'LOGIN'}</button>
+                    userInfo.first_name ? <button onClick={()=>handleLogout()}>LOGOUT</button> : <button onClick={()=> navigate("/login")}>LOGIN</button>
+                    }
                 </ul>
             </div>
         </div>

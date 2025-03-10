@@ -106,7 +106,7 @@
     height: 100vh;
 }
 .mobileOpen ul {
-    width: 40%;
+    width: 45%;
     position: absolute;
     right: 0;
     height: 100vh;
@@ -150,6 +150,7 @@
 .mobileOpen ul .logo .exit {
     font-size: 15px;
     margin-top: -40px;
+    margin-right: 10px;
     height: 20px;
     width: 20px;
     color: #fff;
@@ -157,17 +158,17 @@
     border-radius: 50%;
 }
 .red {
-    width: 0px;
+    width: 100%;
     transition: width .6s ease-in-out;
 }
 .active {
-    width: 60vw;
+    width: 100%;
 }
 
 
 @media (max-width: 768px) {
     .upper .left {
-        width: 75%;
+        width: 65%;
         font-size: 10px;
     }
     .schedule {
@@ -186,13 +187,16 @@
         display: block;
     }
     .mobileOpen { 
-        width: 100vw;
+        width: 100%;
     }
     .mobileOpen .inactive{
         width: 0vw;
         transition: width 2s ease-in-out;
     }
     .mobileOpen .active {
-        width: 60vw;
+        width: 56vw;
+    }
+    .mobileOpen ul {
+        /* margin-left: -10px; */
     }
 }

@@ -78,6 +78,7 @@
         width: 80%;
         height: 70vh;
         gap: 40px;
+        margin: 50px auto;
     }
     .left img {
         width: 150px;
@@ -96,15 +97,23 @@
     }
 }
 
+@media (max-width: 900px){
+    .exprience {
+        width: 90%;
+        height: 40vh;
+        gap: 40px;
+    }
+}
+
 @media (max-width:768px) {
     .exprience {
         width: 90%;
-        height: 70vh;
+        height: 40vh;
         gap: 40px;
     }
     .left img {
         width: 120px;
-        /* height: 240px; */
+        height: 240px;
     }
     .line {
         width: 60px;

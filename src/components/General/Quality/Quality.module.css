@@ -25,9 +25,20 @@
     height: 100%;
 }
 
+@media (max-width: 950px) {
+    .Quality {
+        max-height: 30vh;
+    }
+    .left {
+        padding-top: 40px;
+    }
+    .left h2 {
+        margin-top: 10px;
+    }
+}
 @media screen and (max-width: 768px) {
     .Quality {
-        height: 100%;
+        height: 70%;
     }
     .left {
         width: 100%;
@@ -45,7 +56,7 @@
 }
 @media screen and (max-width: 480px) {
     .Quality {
-        height: 100%;
+        height: 70%;
     }
     .left {
         width: 100%;
