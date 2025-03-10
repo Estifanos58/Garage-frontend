@@ -332,15 +332,6 @@ function Orders() {
                                 }
                             </select>
                         </div>
-                        <div className={classes.formGroup}  style={{display: `${editOrder.employee_id && editOrder.status !== "Completed"? "block": "none"}`}} >
-                            <label>Status</label>
-                            <select>
-                                <option value="Received">Received</option>
-                                <option value="In progress">In progress</option>
-                                <option value="pending">Pending</option>
-                                <option value="Completed">Completed</option>
-                            </select>
-                        </div>
                         <div className={classes.formGroup} style={{display: `${ editOrder.status !== "Completed"? "block": "none"}`}}>
                             <button onClick={handleUpdate}>{isUpdating ? "Loading..." :"Update"}</button>
                         </div>
@@ -352,13 +343,15 @@ function Orders() {
                                 <div className={classes.line}></div>
                             </div>
                             {
+                                // console.log("SERVICES: ", editOrder.services)
+                                
                                 editOrder.services.map((item, index) => (
                                     <div className={classes.serviceItem} key={index}>
                                         <div className={classes.serviceName}>
-                                            <h3>{item.service_id.name}</h3>
-                                            <p>{`${item.service_id.price} BIRR`}</p>
+                                            <h3>{item.name}</h3>
+                                            <p>{`${item.price} BIRR`}</p>
                                         </div>
-                                        <p>{item.service_id.description}</p>
+                                        <p>{item.description}</p>
                                         
                                     </div>
                                 ))

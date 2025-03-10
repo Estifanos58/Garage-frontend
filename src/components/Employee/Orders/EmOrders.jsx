@@ -178,10 +178,10 @@ function EmOrders() {
                                 selectedOrder.services.map((item, index) => (
                                     <div className={classes.serviceItem} key={index}>
                                         <div className={classes.serviceName}>
-                                            <h3>{item.service_id.name}</h3>
-                                            <p>{`${item.service_id.price} BIRR`}</p>
+                                            <h3>{item.name}</h3>
+                                            <p>{`${item.price} BIRR`}</p>
                                         </div>
-                                        <p>{item.service_id.description}</p>
+                                        <p>{item.description}</p>
                                         
                                     </div>
                                 ))

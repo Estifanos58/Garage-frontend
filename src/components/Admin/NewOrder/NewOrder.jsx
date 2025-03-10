@@ -7,6 +7,7 @@ import classes from "./NewOrder.module.css"
 import axios from 'axios';
 import { ADDORDER, GETALLSERVICE, GETALLVEHICLE, SEARCHCUSTOMER } from '../../../utils/constant';
 import spinner from '../../../assets/Spinner-2.gif'
+import { useAppStore } from '../../../hook/store';
 
 function NewOrder() {
     const [search, setSearch] = useState("");
@@ -19,6 +20,7 @@ function NewOrder() {
     const [isVehicleSearching, setVehicleSearching] = useState(false)
     const [selectedOrder, setSelectedOrder] = useState([]);
     const [isSubmiting, setSubmiting] = useState(false);
+    const {addOrderList} = useAppStore()
     
 
     const getSearchResult = async () =>{
@@ -125,8 +127,11 @@ function NewOrder() {
                 total: getPrice()
             }
             const response  = await axios.post(ADDORDER,order, {withCredentials: true});
+            console.log("RESPONSE FOR new Data", response);
+            
             if(response.data.success){
                 setSubmiting(false);
+                addOrderList(response.data.data);
                 toast.success(response.data.message);
                 setSelectedOrder([]);
                 setSelectCutomer({});

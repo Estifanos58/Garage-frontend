@@ -86,7 +86,7 @@ const getColor = (status) =>{
                 toast.success("Thanks for completing");
                 setNewOrder({});
                 addOrder(response.data.data);
-                navigate('orders')
+                navigate('/dashboard/orders')
             } else {
                 setUploading(false)
                 toast.error(response.data.message)
@@ -201,13 +201,15 @@ const getColor = (status) =>{
                                 <div className={classes.line}></div>
                             </div>
                             {
+                                // console.log("NEWORDER: ", newOrder)
+                                
                                     newOrder.services.map((item, index) => (
                                         <div className={classes.serviceItem} key={index}>
                                             <div className={classes.serviceName}>
-                                                <h3>{item.service_id.name}</h3>
-                                                <p>{`${item.service_id.price} BIRR`}</p>
+                                                <h3>{item.name}</h3>
+                                                <p>{`${item.price} BIRR`}</p>
                                             </div>
-                                            <p>{item.service_id.description}</p>
+                                            <p>{item.description}</p>
                                             
                                         </div>
                                     ))
