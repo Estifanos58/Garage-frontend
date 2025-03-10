@@ -118,7 +118,7 @@ function EmOrders() {
                                             <p style={{backgroundColor:`${getBgcolor(item.status)}`, color:`${getColor(item.status)}`, textAlign:"center", borderRadius:"30px", padding:"3px 0"}}>{item.status}</p>
                                         </td>
                                         <td style={{display:"flex", alignItems:"center", border: "none", paddingTop: "30px"}}>
-                                            <p style={{fontSize:"20px"}} onClick={()=> setSelectedOrder(item)}><CiIndent/></p></td>
+                                            <p  onClick={()=> setSelectedOrder(item)}><CiIndent/></p></td>
                                     </tr>
                                 ))
                                 : <tr><td style={{colSpan:"8"}}>No data</td></tr>

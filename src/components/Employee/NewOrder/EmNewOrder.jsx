@@ -142,7 +142,7 @@ const getColor = (status) =>{
                                 <p style={{backgroundColor:`${getBgcolor(newOrder.status)}`, color:`${getColor(newOrder.status)}`, textAlign:"center", borderRadius:"30px", padding:"3px 0"}}>{newOrder.status}</p>
                             </td>
                             <td style={{display:"flex", alignItems:"center", border: "none", paddingTop: "30px"}}>
-                            <p style={{fontSize:"20px"}} onClick={()=> setSelected(prev => !prev)}><FaEdit/></p></td>
+                            <p onClick={()=> setSelected(prev => !prev)}><FaEdit/></p></td>
                         </tr>
         
                     : <tr><td colSpan="8">No data</td></tr>

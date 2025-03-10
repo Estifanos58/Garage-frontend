@@ -1,7 +1,7 @@
 .admin {
     display: grid;
     grid-template-columns: 1fr 3fr;
-    /* height: 120vh; */
+    min-height: 70vh;
     background-color: rgba(238, 233, 233, 0.16);
     
 }
@@ -30,4 +30,36 @@
 
 .right {
     background-color: rgba(188, 193, 194, 0.185);
+}
+
+@media (max-width: 900px) {
+    .admin {
+        max-height: 90vh;
+    }
+    .left h2 {
+        font-size: 15px;
+    }
+    .left ul a {
+        font-size: 12px;
+    }
+    .left ul a li {
+        padding: 9px;
+        margin: 13px 0;
+    }
+}
+
+@media (max-width: 760px) {
+    .admin {
+        max-height: 90vh;
+    }
+    .left h2 {
+        font-size: 10px;
+    }
+    .left ul a {
+        font-size: 8px;
+    }
+    .left ul a li {
+        padding: 9px;
+        margin: 13px 0;
+    }
 }

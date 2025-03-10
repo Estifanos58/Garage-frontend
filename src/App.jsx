@@ -3,7 +3,7 @@ import Header from './components/General/Header/header'
 import Footer from './components/General/Footer/footer'
 import Login from './pages/Login/Login'
 import Home from './pages/Home/Home'
-import Service from './pages/OurService/OurService'
+import Service from './components/General/Our_service/Service'
 import About from './pages/About/About'
 import Contact from './pages/Contact/Contact'
 import Admin from './pages/Admin/Admin'
@@ -29,6 +29,7 @@ import spinner from './assets/Spinner-2.gif'
 import Dash from './components/Employee/Dashboard/Dashboard'
 import EmOrders from './components/Employee/Orders/EmOrders'
 import EmNewOrder from './components/Employee/NewOrder/EmNewOrder'
+import OurService from './pages/OurService/OurService'
 
 function App() {
 
@@ -91,12 +92,12 @@ const LogedRoute = ({children}) => {
           <Routes> 
           <Route path='/login' element={<Login/>} />
           <Route path="/" element={<Home />} />
-          <Route path='/services' element={<Service/>}/>
+          <Route path='/services' element={<OurService/>}/>
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />}/>
           <Route path="/reset-password/:hash" element={<Forgot/>}/>
           <Route path='/dashboard' element={<Dash/>}>
-            <Route index element={<Dashboard/>}/>
+            <Route index element={<Service/>}/>
             <Route path='orders' element={<EmOrders />}/>
             <Route path="new_order" element={<EmNewOrder />}/>
           </Route>

@@ -4,11 +4,8 @@
     justify-content: center;
     background-color: rgb(8,25,74);
     color: #fff;
-    /* margin-top: 100px; */
 }
-/* .content {
-    width: 60%;
-} */
+
  .wrapper {
     border-bottom: 1px solid rgba(255, 255, 255, 0.121);
  }
@@ -67,33 +64,64 @@
 
 @media (max-width: 980px) {
     .upper {
-        width: 80%;
+        width: 95%;
+        font-size: 8px;
     }
     .lower {
-        width: 80%;
+        width: 95%;
+    }
+    .lower p {
+        font-size: 8px;
     }
     .first {
-        width: 40%;
+        width: 50%;
+        font-size: 8px;
+    }
+    .second h3 {
+        margin-bottom: 8px;
+        font-size: 8px;
+    }
+    .third h3 {
+        font-size: 8px;
+    }
+    .icon {
+        font-size: 20px;
     }
     .contain {
-        padding-right: 20px;
+        padding-right: 10px;
     }
 }
 
 @media (max-width: 764px){
     .upper {
         width: 95%;
+        font-size: 7px;
     }
     .lower {
         width: 95%;
     }
+    .lower p {
+        font-size: 7px;
+    }
     .first {
         width: 40%;
+        font-size: 7px;
+    }
+    .second h3 {
+        margin-bottom: 7px;
+        font-size: 7px;
+    }
+    .third h3 {
+        font-size: 7px;
+    }
+    .icon {
+        font-size: 16px;
     }
     .contain {
-        padding-right: 15px;
+        padding-right: 20px;
     }
 }
+
 
 @media (max-width: 590px){
     .upper {
@@ -102,6 +130,9 @@
     .lower {
         display: grid;
         grid-template-columns: 1fr 1fr;
+    }
+    .icon {
+        font-size: 15px;
     }
     .first {
         width: 70%;
