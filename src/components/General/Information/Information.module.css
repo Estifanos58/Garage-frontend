@@ -128,7 +128,6 @@
 
 @media (max-width: 700px) {
     .center{
-        /* background-color: aquamarine; */
         grid-template-columns: 1fr;
         gap: 20px;
     }
@@ -140,6 +139,29 @@
     }
     .container img {
         width: 170px;
+        height: 280px;
+    }
+}
+
+@media (max-width: 500px) {
+    .Information {
+        margin-top: 130px;
+    }
+    .center{
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    .header h2{
+       font-size: 15px;
+    }
+    .left>p {
+        font-size: 9px;
+    }
+    .text p {
+        font-size: 10px;
+    }
+    .container img {
+        width: 150px;
         height: 280px;
     }
 }

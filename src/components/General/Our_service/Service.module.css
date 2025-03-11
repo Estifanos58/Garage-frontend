@@ -65,3 +65,24 @@
         gap: 10px;
     }
 }
+
+@media (max-width:508px){
+    .service {
+        padding-top: 30px;
+        height: 75vh;
+    }
+    .serviceContainer {
+        display: grid;
+        grid-template-columns: 1fr 1fr ;
+        gap: 10px;
+    }
+
+    .header h1 {
+        font-size: 14px;
+        font-weight: 500;
+    }
+    .wrapper>p {
+        margin: 10px 0;
+        font-size: 7px;
+    }
+}

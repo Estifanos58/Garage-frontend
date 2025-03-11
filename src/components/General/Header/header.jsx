@@ -78,7 +78,7 @@ function Header() {
                 <IoReorderThreeOutline onClick={handleToggle}/>
             </div>
             <div className={`${classes.mobileOpen} ${open ? classes.open : classes.close}`}>
-                <div className={`${classes.red} ${open ? classes.active : classes.inactive}`}>   
+                <div className={`${classes.red} ${open ? classes.active : classes.inactive}`} onClick={(e) => e.currentTarget.value === e.target.value && handleToggle()}  >   
                 </div>
                 <ul>
                         <div className={classes.logo}>
