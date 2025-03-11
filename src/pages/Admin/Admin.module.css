@@ -32,3 +32,17 @@
     background-color: rgba(188, 193, 194, 0.185);
 }
 
+
+@media (max-width: 900px) {
+    .left h2 {
+        padding: 10px;
+        font-size: 15px;
+    }
+    .left ul a {
+        font-size: 12px;
+    }
+    .left ul a li {
+        padding: 8px;
+        margin: 10px 0;
+    }
+}
