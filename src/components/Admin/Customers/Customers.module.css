@@ -67,3 +67,157 @@
     background-color: transparent;
 
 }
+
+.table tbody tr td button:last-child {
+    font-size: 30px;
+    border: none;
+    background-color: transparent;
+}
+
+@media (max-width: 800px) {
+    .Customers {
+        margin: 40px;
+    }
+
+    .header {
+        gap: 8px;
+    }
+    .line {
+        width: 25px;
+        height: 2px;
+    }
+    .header h3 {
+        font-size: 17px;
+    }
+
+    .searchContent {
+        padding: 10px;
+    }
+
+    .search {
+        width: 90%;
+    }
+
+    .table thead tr th {
+        padding: 8px;
+    
+    }
+    .table tbody tr td {
+        padding: 8px;
+    }
+    .table tbody tr td button {
+        font-size: 20px;
+        border: none;
+        background-color: transparent;
+    
+    }
+
+}
+
+@media (max-width: 500px) {
+   .Customers {
+        margin: 17px;
+    }
+
+    .search {
+        width: 90%;
+    }
+    .searchContent input {
+        font-size: 8px;
+    }
+
+    .table thead tr th {
+        padding: 3px;
+        font-size: 7.5px;
+    
+    }
+    .table tbody tr td {
+        padding: 3px;
+        font-size: 7.5px;
+    }
+    .table tbody tr td button {
+        font-size: 12px;
+    }
+    .table tbody tr td button:last-child {
+        font-size: 18px;
+    }
+
+}
+
+
+@media (max-width: 400px) {
+    .Customers {
+         margin: 10px;
+     }
+ 
+     .header {
+        gap: 6px;
+    }
+    .line {
+        width: 20px;
+    }
+    .header h3 {
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+     .search {
+         width: 90%;
+     }
+
+     .searchContent {
+        padding: 5px;
+    }
+     .searchContent input {
+         font-size: 8px;
+     }
+ 
+     .table thead tr th {
+         padding: 2.5px;
+         font-size: 7px;
+     
+     }
+     .table tbody tr td {
+         padding: 2.5px;
+         font-size: 7px;
+     }
+     .table tbody tr td button {
+         font-size: 12px;
+     }
+     .table tbody tr td button:last-child {
+         font-size: 18px;
+     }
+ }
+
+
+ 
+@media (max-width: 380px) {
+    .Customers {
+         margin: 6px;
+     }
+ 
+     .header {
+        gap: 6px;
+    }
+    .line {
+        width: 17px;
+    }
+    .header h3 {
+        font-size: 13px;
+    }
+ 
+     .table thead tr th {
+         padding: 1.5px;
+         font-size: 6px;
+     
+     }
+     .table tbody tr td {
+         padding: 1.5px;
+         font-size: 6px;
+     }
+     .table tbody tr td button {
+         font-size: 10px;
+     }
+     .table tbody tr td button:last-child {
+         font-size: 15px;
+     }
+ }

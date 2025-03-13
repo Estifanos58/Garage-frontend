@@ -99,7 +99,7 @@ function Customers() {
                                             <td>{customer.status ? "Yes":"No"}</td>
                                             <td>
                                                 <button onClick={()=>handleEdit(customer)}><FaEdit /></button>
-                                                <button style={{fontSize:"30px"}} onClick={()=>handleMore(customer)}><MdOutlineReadMore/></button>
+                                                <button  onClick={()=>handleMore(customer)}><MdOutlineReadMore/></button>
                                             </td>
                                         </tr>
                                     ))
