@@ -11,7 +11,7 @@ import { GETALLCUSTOMERS } from '../../../utils/constant';
 import { useNavigate } from 'react-router-dom';
 
 function Customers() {
-    const {customerList,setCustomerList, setSelectedCustomer} = useAppStore();
+    const {customerList,setCustomerList, setSelectedCustomer, isMobile} = useAppStore();
     const [isLoading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -74,12 +74,12 @@ function Customers() {
                         <table>
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    {!isMobile && <th>ID</th>}
                                     <th>First Name</th>
                                     <th>Last Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
-                                    <th>Added Date</th>
+                                    { !isMobile && <th>Added Date</th>}
                                     <th>Active</th>
                                     <th>Edit / Delete</th>
                                 </tr>
@@ -90,12 +90,12 @@ function Customers() {
                                     ? 
                                     customerList?.map((customer, index) => (
                                         <tr key={index} style={{backgroundColor: index % 2 !== 0 ? "#f2f2f2" : "white"}}>
-                                            <td>{index + 1}</td>
+                                           { !isMobile &&  <td>{index + 1}</td> }
                                             <td>{customer.first_name}</td>
                                             <td>{customer.last_name}</td>
                                             <td>{customer.email}</td>
                                             <td>{customer.phone}</td>
-                                            <td>{formatDate(customer.added_date)}</td>
+                                            {!isMobile && <td>{formatDate(customer.added_date)}</td>}
                                             <td>{customer.status ? "Yes":"No"}</td>
                                             <td>
                                                 <button onClick={()=>handleEdit(customer)}><FaEdit /></button>

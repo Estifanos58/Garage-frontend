@@ -13,4 +13,7 @@ export const createUserSlice = (set) => ({
     newOrder: {},
     setNewOrder: (data) => set({newOrder: data}),
 
+    isMobile: false,
+    setMobile: (data) => set({isMobile: data}),
+
 })

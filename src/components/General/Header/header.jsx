@@ -10,27 +10,27 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 function Header() {
-    const [width, setWidth] = useState(window.innerWidth);
-    const [isMobile, setMobile] = useState(false); 
+    // const [width, setWidth] = useState(window.innerWidth);
+    // const [isMobile, setMobile] = useState(false); 
     const [open, setOpen] = useState(false);
-    const {userInfo, setUserInfo} = useAppStore();
+    const {userInfo, setUserInfo, isMobile} = useAppStore();
     // console.log("USER INFO: ",userInfo)
     const navigate = useNavigate();
 
-    useEffect(() => {  
-        const handleResize = () => {  
-            const currentWidth = window.innerWidth;
-            setWidth(currentWidth);
-            if (currentWidth < 800) {
-                setMobile(true);
-            } 
-        };  
+    // useEffect(() => {  
+    //     const handleResize = () => {  
+    //         const currentWidth = window.innerWidth;
+    //         setWidth(currentWidth);
+    //         if (currentWidth < 800) {
+    //             setMobile(true);
+    //         } 
+    //     };  
     
-        handleResize(); // Ensure the state is set correctly on mount
-        window.addEventListener('resize', handleResize);  
+    //     handleResize(); // Ensure the state is set correctly on mount
+    //     window.addEventListener('resize', handleResize);  
     
-        return () => window.removeEventListener('resize', handleResize);
-    }, []); // Only run once on mount
+    //     return () => window.removeEventListener('resize', handleResize);
+    // }, []); // Only run once on mount
 
     const handleToggle = () => {
         setOpen((prev) => !prev);

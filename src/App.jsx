@@ -34,7 +34,7 @@ import OurService from './pages/OurService/OurService'
 function App() {
 
   // const [user, setUserInfo] = useState({});
-  const {userInfo,setUserInfo} = useAppStore();
+  const {userInfo,setUserInfo, setMobile} = useAppStore();
   const [isLoading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -56,7 +56,20 @@ function App() {
     }
 useEffect(()=>{
   getInfo();
+  handleResize(); // Ensure the state is set correctly on mount
+  window.addEventListener('resize', handleResize);  
+
+  return () => window.removeEventListener('resize', handleResize);
+
 },[])
+
+const handleResize = () => {  
+  const currentWidth = window.innerWidth;
+  // setWidth(currentWidth);
+  if (currentWidth < 800) {
+      setMobile(true);
+  } 
+};  
 
 const ProtectedRoute = ({ children }) => {
 
