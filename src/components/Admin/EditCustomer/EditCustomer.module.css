@@ -54,3 +54,74 @@
     gap: 10px;
     margin: 10px 0;
 }
+
+@media (max-width: 500px) {
+    .form_login {
+        width: 100%;
+    }
+
+    .EditCustomer {
+        margin: 40px;
+    }
+
+    .header {
+        gap: 7px;
+    }
+    .line {
+        width: 25px;
+        height: 2px;
+        background-color: rgb(238,13,21);
+        margin-top: -15px;
+    }
+    .header h3 {
+        font-size: 16px;
+    }
+}
+
+
+@media (max-width: 400px) {
+    .EditCustomer {
+        margin: 30px;
+    }
+    .header h3 {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 330px) {
+    .EditCustomer {
+        margin: 20px;
+    }
+    .header h3 {
+        font-size: 12px;
+    }
+    .line {
+        width: 15px;
+    }
+
+    .email {
+        font-size: 10px;
+        margin: 12px 0;
+    }
+    .form_login {
+        width: 70%;
+    }
+    .form_login input {
+        padding: 8px;
+        margin: 8px 0;
+    }
+    .form_login input::placeholder {
+        font-size: 8px;
+    }
+    .form_login select {
+        padding: 8px;
+        margin: 8px 0;
+    }
+    
+    
+    .btn {
+        padding: 8px;
+        margin: 8px 0;
+        font-size: 10px;
+    }
+}
