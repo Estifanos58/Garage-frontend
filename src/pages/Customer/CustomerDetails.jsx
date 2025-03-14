@@ -10,7 +10,7 @@ import AddVehicle from '../../components/Admin/AddVehicle/AddVehicle';
 import { useMemo } from 'react';
 
 function CustomerDetails() {
-  const {displayOpt,setDisplayOpt,selectedCustomer, selectedVehicle,setSelectedVehicle, customerVehicles,setCustomerVehicles} = useAppStore();
+  const {displayOpt,setDisplayOpt,selectedCustomer, isMobile , customerVehicles,setCustomerVehicles} = useAppStore();
   // const [displayOpt, setDisplayOpt] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [select, setSelect] = useState({});
@@ -70,8 +70,8 @@ function CustomerDetails() {
                     <td>{item.model}</td>
                     <td>{item.type}</td>
                     <td>{item.year}</td>
-                    <td>{item.mileage}</td>
-                    <td>{item.tag}</td>
+                    {!isMobile && <td>{item.mileage}</td>}
+                    { !isMobile &&<td>{item.tag}</td>}
                     <td>{item.serial_number}</td>
                     <td>{item.color}</td>
                   </tr>
@@ -106,8 +106,8 @@ function CustomerDetails() {
                      <th>Model</th>
                      <th>Type</th>
                      <th>Year</th>
-                     <th>Mileage</th>
-                     <th>tag</th>
+                     {!isMobile && <th>Mileage</th>}
+                     {!isMobile && <th>tag</th>}
                      <th>Serial Number</th>
                      <th>Color</th>
                    </tr>
