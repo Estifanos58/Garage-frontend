@@ -58,3 +58,33 @@
         margin: 20px 0 ;
     }
 }
+
+
+@media (max-width: 500px){
+    .Dashboard {
+        margin: 15px;
+    }
+    .header {
+        gap: 9px;
+    }
+    .line {
+        width: 25px;
+
+    }
+    .header h3 {
+        font-size: 13px;
+        margin-bottom: 15px;
+    }
+    .text {
+        font-size: 8.5px;
+        margin: 10px 0;
+    }
+    .container>p{
+        font-size: 8.5px;
+        margin: 10px 0 ;
+    }
+
+    .serviceContainer {
+        grid-template-columns: 1fr 1fr;
+    }
+}

@@ -14,7 +14,7 @@ import axios from 'axios';
 function Employees() {
 
     
-    const {employeeList, removeEmployee,setEmployeeList, setSelectedEmployee} = useAppStore();
+    const {employeeList, removeEmployee,setEmployeeList, setSelectedEmployee , isMobile} = useAppStore();
     const [isLoading, setLoading] = useState(false);
     const [isdelete, setDelete] = useState({});
     const [employeeName, setEmployeeName] = useState("");
@@ -114,8 +114,8 @@ function Employees() {
                                 <th>First Name</th>
                                 <th>Last Name</th>
                                 <th>Email</th>
-                                <th>Phone</th>
-                                <th>Added Date</th>
+                                {!isMobile && <th>Phone</th>}
+                                {!isMobile && <th>Added Date</th>}
                                 <th>Role</th>
                                 <th>Edit / Delete</th>
                             </tr>
@@ -128,8 +128,8 @@ function Employees() {
                                         <td>{employee.first_name}</td>
                                         <td>{employee.last_name}</td>
                                         <td>{employee.email}</td>
-                                        <td>{employee.phone}</td>
-                                        <td>{formatDate(employee.joined_date)}</td>
+                                        {!isMobile && <td>{employee.phone}</td>}
+                                        {!isMobile && <td>{formatDate(employee.joined_date)}</td>}
                                         <td>{employee.role}</td>
                                         <td>
                                             <button onClick={() => handleSelectUser(employee)}><FaEdit /></button>

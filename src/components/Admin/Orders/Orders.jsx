@@ -13,74 +13,7 @@ import {toast} from "react-toastify";
 
 function Orders() {
 
-    // const data = [
-    //     {
-    //         _id: "123",
-    //         customerInfo: {
-    //             name: "John Doe",
-    //             email: "example@gmail.com",
-    //             "phone": "1234567890"
-    //         }, 
-    //         vehicleInfo : {
-    //             make: "Toyota",
-    //             model: "Corolla",
-    //             year: "2020"
-    //         },
-    //         orderDate: "2021-10-10",
-    //         receivedBy: "Jane Doe",
-    //         status: "Received"
-    //     },
-    //     {
-    //         _id: "123",
-    //         customerInfo: {
-    //             name: "John Doe",
-    //             email: "example@gmail.com",
-    //             "phone": "1234567890"
-    //         }, 
-    //         vehicleInfo : {
-    //             make: "Toyota",
-    //             model: "Corolla",
-    //             year: "2020"
-    //         },
-    //         orderDate: "2021-10-10",
-    //         receivedBy: "Jane Doe",
-    //         status: "pending"
-    //     },
-    //     {
-    //         _id: "123",
-    //         customerInfo: {
-    //             name: "John Tomas",
-    //             email: "example@gmail.com",
-    //             "phone": "3232942"
-    //         }, 
-    //         vehicleInfo : {
-    //             make: "Tesla",
-    //             model: "S",
-    //             year: "2010"
-    //         },
-    //         orderDate: "2021-10-04",
-    //         receivedBy: "Admin",
-    //         status: "completed"
-    //     },
-    //     {
-    //         _id: "1256",
-    //         customerInfo: {
-    //             name: "John Doe",
-    //             email: "example@gmail.com",
-    //             "phone": "1234567890"
-    //         }, 
-    //         vehicleInfo : {
-    //             make: "Toyota",
-    //             model: "Corolla",
-    //             year: "2020"
-    //         },
-    //         orderDate: "2021-10-10",
-    //         receivedBy: "Jane Doe",
-    //         status: "In progress"
-    //     }
-        
-    // ]
-    const {orderList, removeOrder ,setOrderList, editOrderList} = useAppStore();
+    const {orderList, removeOrder ,setOrderList, editOrderList, isMobile} = useAppStore();
     const [editOrder, setEditOrder] = useState({});
     const [isLoading, setLoading] = useState(false);
     const [employeeList, setEmployeeList] = useState([]);
@@ -245,8 +178,8 @@ function Orders() {
                                 <th>Order No</th>
                                 <th>Customer</th>
                                 <th>Vehicle</th>
-                                <th>Order Date</th>
-                                <th>Received by</th>
+                                {!isMobile && <th>Order Date</th>}
+                                {!isMobile && <th>Received by</th>}
                                 <th>Order status</th>
                                 <th>Edit / Delete</th>
                             </tr>
@@ -271,12 +204,12 @@ function Orders() {
                                         <td>
                                             <h2>{`${formatDate(item.createdAt)}`}</h2>
                                         </td>
-                                        <td>
+                                        { !isMobile && <td>
                                             <h2>{item.employee_id ? `${item.employee_id.first_name} ${item.employee_id.last_name}`: "Not Assigned"}</h2>
-                                        </td>
-                                        <td>
+                                        </td>}
+                                        { !isMobile && <td>
                                             <p style={{backgroundColor:`${getBgcolor(item.status)}`, color:`${getColor(item.status)}`, textAlign:"center", borderRadius:"30px", padding:"3px 0"}}>{item.status}</p>
-                                        </td>
+                                        </td>}
                                         <td style={{display:"flex", alignItems:"center", border: "none", paddingTop: "30px"}}>
                                             <p style={{fontSize:"20px"}} onClick={()=>handleEdit(item)}><FaEdit/></p>  <p style={{fontSize:"20px"}} onClick={()=> setDelete(item)}><MdDelete/></p></td>
                                     </tr>
