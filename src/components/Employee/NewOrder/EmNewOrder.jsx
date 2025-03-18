@@ -4,9 +4,7 @@ import { useAppStore } from '../../../hook/store'
 import axios from 'axios';
 import { COMPLETEORDER, GETNEWORDER } from '../../../utils/constant';
 import { toast } from 'react-toastify';
-import { set } from 'mongoose';
 import moment from 'moment';
-import { CiIndent } from 'react-icons/ci';
 import { FaEdit } from 'react-icons/fa';
 import {useNavigate} from 'react-router-dom'
 
