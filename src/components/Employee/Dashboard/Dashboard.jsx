@@ -1,5 +1,5 @@
 import React from 'react'
-import classes from './DashBoard.module.css'
+import classes from './Dashboard.module.css'
 import { Link, Outlet } from 'react-router-dom'
 
 function Dash() {
