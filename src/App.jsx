@@ -25,7 +25,7 @@ import NewOrder from './components/Admin/NewOrder/NewOrder'
 import Orders from './components/Admin/Orders/Orders'
 import Change from './pages/ChangePassword/Change'
 import Forgot from './pages/Forgot/Forgot'
-import spinner from './assets/Spinner-2.gif'
+import spinner from './assets/Spinning.gif'
 import Dash from './components/Employee/Dashboard/Dashboard'
 import EmOrders from './components/Employee/Orders/EmOrders'
 import EmNewOrder from './components/Employee/NewOrder/EmNewOrder'
@@ -69,6 +69,9 @@ const handleResize = () => {
   if (currentWidth < 800) {
       setMobile(true);
   } 
+  else {
+    setMobile(false);
+  }
 };  
 
 const ProtectedRoute = ({ children }) => {

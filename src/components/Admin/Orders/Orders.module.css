@@ -228,6 +228,21 @@
     color: rgb(238,13,21);
 }
 
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%; 
+}
+
+.loading img {
+    background-color: transparent;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
 
 
 @media (max-width: 1000px) {

@@ -8,6 +8,8 @@ import { format } from "date-fns";
 import { useNavigate } from 'react-router-dom';
 import {toast} from 'react-toastify'
 import moment from "moment";
+import spinner from '../../../assets/Spinning_wheel.gif';
+
 
 import axios from 'axios';
 
@@ -56,11 +58,11 @@ function Employees() {
         if(status === "active") return "rgba(99, 238, 13, 0.49)"
         if(status === "inactive") return "rgba(238, 13, 21, 0.49)";
     }
-    if(isLoading) return (
-        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
-          <h1>Loading</h1>
+    if(isLoading){ 
+        return <div className={classes.loading}>
+            <img src={spinner} alt="Loading" />
         </div>
-    )
+    }
 
     const handleSelectUser = (employee)=> {
         setSelectedEmployee(employee);

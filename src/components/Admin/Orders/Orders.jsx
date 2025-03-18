@@ -4,7 +4,7 @@ import { BiSolidEdit } from "react-icons/bi";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { useAppStore } from '../../../hook/store';
-import { CiIndent } from "react-icons/ci";
+import spinner from '../../../assets/Spinning_wheel.gif';
 
 import moment from "moment";
 import { DELETEORDER, EDITORDER, EMPLOYEEFORWORK, GETALLORDER } from '../../../utils/constant';
@@ -97,7 +97,9 @@ function Orders() {
     }
 
     if(isLoading){ 
-        return <p>Loading...</p>
+        return <div className={classes.loading}>
+            <img src={spinner} alt="Loading" />
+        </div>
     }
     
 

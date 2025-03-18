@@ -9,6 +9,8 @@ import axios from 'axios';
 import { useAppStore } from '../../../hook/store';
 import { GETALLCUSTOMERS } from '../../../utils/constant';
 import { useNavigate } from 'react-router-dom';
+import spinner from '../../../assets/Spinning_wheel.gif';
+
 
 function Customers() {
     const {customerList,setCustomerList, setSelectedCustomer, isMobile} = useAppStore();
@@ -41,11 +43,11 @@ function Customers() {
 
     const formatDate = (timestamp) => moment(timestamp).format("MMM DD, YYYY");
 
-    if(isLoading) return (
-      <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
-        <h1>Loading</h1>
-      </div>
-    )
+     if(isLoading){ 
+         return <div className={classes.loading}>
+             <img src={spinner} alt="Loading" />
+         </div>
+     }
 
     const handleEdit = (customer) => {
       setSelectedCustomer(customer)
