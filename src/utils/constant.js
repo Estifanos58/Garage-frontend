@@ -1,4 +1,4 @@
-const API  = import.meta.env.VITE_API_URL ; 
+const API  = import.meta.env.VITE_API_URL || "https://garage-project-backend.onrender.com/v2/"; 
 console.log("Api: ", API)
 
 //Users
