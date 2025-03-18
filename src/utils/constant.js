@@ -1,5 +1,5 @@
-const API = import.meta.env.API_URL || "http://localhost:5000/v2/"
-
+const API  = import.meta.env.VITE_API_URL; 
+console.log("Api: ", import.meta.env.VITE_API_URL)
 
 //Users
 export const LOGIN = `${API}user/login`;
