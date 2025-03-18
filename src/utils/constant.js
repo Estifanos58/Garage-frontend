@@ -1,5 +1,5 @@
-const API  = import.meta.env.VITE_API_URL; 
-console.log("Api: ", import.meta.env.VITE_API_URL)
+const API  = import.meta.env.VITE_API_URL ; 
+console.log("Api: ", API)
 
 //Users
 export const LOGIN = `${API}user/login`;
