@@ -110,7 +110,7 @@ function Login() {
             !forgot && 
             <div className={classes.wrapper}>
                 <div className={classes.login}>
-                <h2>Login to your account <span className={classes.underline}></span></h2>
+                <h2>Login to your account<span className={classes.underline}></span></h2>
                 <div className={classes.underline}></div>
                 </div>
             <form onSubmit={handleSubmit}>

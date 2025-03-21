@@ -81,6 +81,9 @@
 }
 
 @media (max-width: 760px) {
+    .container {
+        width: 100%;
+    }
     .control {
         width: 100%;
     }

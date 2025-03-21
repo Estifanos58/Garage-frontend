@@ -33,6 +33,13 @@ import OurService from './pages/OurService/OurService'
 
 function App() {
 
+  document.querySelectorAll('*').forEach(el => {
+    if (el.scrollWidth > document.documentElement.clientWidth) {
+      console.log('Overflowing element:', el);
+    }
+  });
+  
+
   // const [user, setUserInfo] = useState({});
   const {userInfo,setUserInfo, setMobile} = useAppStore();
   const [isLoading, setLoading] = useState(true);
@@ -66,7 +73,7 @@ useEffect(()=>{
 const handleResize = () => {  
   const currentWidth = window.innerWidth;
   // setWidth(currentWidth);
-  if (currentWidth < 800) {
+  if (currentWidth < 700) {
       setMobile(true);
   } 
   else {

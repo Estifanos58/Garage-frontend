@@ -10,28 +10,9 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 function Header() {
-    // const [width, setWidth] = useState(window.innerWidth);
-    // const [isMobile, setMobile] = useState(false); 
     const [open, setOpen] = useState(false);
     const {userInfo, setUserInfo, isMobile} = useAppStore();
-    // console.log("USER INFO: ",userInfo)
     const navigate = useNavigate();
-
-    // useEffect(() => {  
-    //     const handleResize = () => {  
-    //         const currentWidth = window.innerWidth;
-    //         setWidth(currentWidth);
-    //         if (currentWidth < 800) {
-    //             setMobile(true);
-    //         } 
-    //     };  
-    
-    //     handleResize(); // Ensure the state is set correctly on mount
-    //     window.addEventListener('resize', handleResize);  
-    
-    //     return () => window.removeEventListener('resize', handleResize);
-    // }, []); // Only run once on mount
-
     const handleToggle = () => {
         setOpen((prev) => !prev);
     };
@@ -83,12 +64,6 @@ function Header() {
                 <ul>
                         <div className={classes.logo}>
                             <img src={logo} alt="" />
-                            <div className={classes.exit}>
-                                <p>
-                                   <RxCross2 onClick={handleToggle} /> 
-                                </p>
-                                
-                            </div>
                         </div>
                     <li> <Link to={"/"}>Home</Link></li>
                     <li><Link to={"/about"}>About Us</Link></li>
